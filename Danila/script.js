@@ -141,6 +141,7 @@ class Tower1 extends BaseTower {
         // Добавление в массив снарядов новый объект класса снаряда
 
       projectiles.push(new Projectile1(
+
         this.target,
         this.x + 55,          // число чтоб из центра вылетало
         this.y + 55
@@ -367,36 +368,69 @@ window.onkeydown = function move_left(){
 
 // снаряды
 class Projectile1 {
-  constructor(target, x, verticalPosition){
+  constructor(target, x, y){ //
+    this.towerx = x;
+    this.towery = y;
     this.x = x;
-    this.y = verticalPosition;
+    this.y = y;
     this.width = 10;
-    this.height = 10;
-    this.speed = 3; //!!! Надо договориться о скорости
+    this.height = 5;
+    this.speed = 5; //!!! Надо договориться о скорости
     this.movement = this.speed;
     this.health = true;
-    this.damage = 5; //!!! Нада договориться про урон снаряда
+    this.damage = 10; //!!! Нада договориться про урон снаряда
+    this.radius = 10;
     this.target = target;
+    this.angle = 0;
   }
   update() {
-    this.x += this.movement; //!!! Надо договорить о формуле для изменения
+    if (this.x <= this.target.x){
+      this.angle = Math.acos((this.towerx * this.towery + this.target.x * this.target.y) /
+                              (
+                               Math.sqrt(Math.pow(this.towerx, 2) + Math.pow(this.towery, 2)) *
+                               Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.y, 2))
+                              )
+                            );
+    }
+
+    this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
+    if (this.y > this.target.y) {
+      this.y += this.movement * Math.sin(this.angle) * -1;
+    } else {
+      this.y += this.movement * Math.sin(this.angle);
+    }
+
   }
   draw() {
 
-  /*  ctx.fillStyle = 'red';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
-    ctx.fill();*/
-
+     /*
+    ctx.fillStyle = 'red';
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = 'black';
+    ctx.font = '30px Orbitron';
+    */
+    /*
+    let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
+    */
     // Рисую овал для пули
     if (this.health == true) {
       ctx.beginPath();
       ctx.save(); // сохраняем стейт контекста
       ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
+      ctx.rotate(this.angle); // поворот на угол
+      if (this.y > this.target.y) {
+        ctx.rotate(Math.pi + this.angle * -1);
+      } else {
+        ctx.rotate(this.angle);
+      }
       ctx.scale(1, this.height/this.width); // сжимаем по вертикали
       ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
-      ctx.fill();
       ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
       ctx.strokeStyle = 'red';
       ctx.stroke(); // обводим
@@ -408,34 +442,57 @@ class Projectile1 {
 
 
 class Projectile2 {
-  constructor(verticalPosition){
-    this.x = canvas.width;
-    this.y = verticalPosition;
+  constructor(target, x, y){ //
+    this.towerx = x;
+    this.towery = y;
+    this.x = x;
+    this.y = y;
     this.width = cellSize;
     this.height = cellSize;
     this.speed = CONSTANTA; //!!! Надо договориться о скорости
     this.movement = this.speed;
     this.health = true;
-    this.damage = CONSTANTA; //!!! Нада договориться про урон снаряда
+    this.damage = damage; //!!! Нада договориться про урон снаряда
+    this.radius = radius;
+    this.target = target;
   }
   update() {
-    this.x += this.movement; //!!! Надо договорить о формуле для изменения
+    let angle = Math.acos((this.this.towerx * this.towery + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.towerx, 2) + Math.pow(this.towery, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
+
+    this.x += this.movement * Math.cos(angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
+    if (this.y > this.target.y) {
+      this.y += this.movement * Math.sin(angle) * -1;
+    } else {
+      this.y += this.movement * Math.sin(angle);
+    }
+
   }
   draw() {
 
-
-    /*ctx.fillStyle = 'red';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
-    ctx.fill();*/
-
-
+    /*
+    ctx.fillStyle = 'red';
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+    ctx.fillStyle = 'black';
+    ctx.font = '30px Orbitron';
+    */
+    let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
     // Рисую овал для пули
-   if (this.health == true) {
+    if (this.health == true) {
       ctx.beginPath();
       ctx.save(); // сохраняем стейт контекста
       ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
+      ctx.rotate(angle); // поворот на угол
       ctx.scale(1, this.height/this.width); // сжимаем по вертикали
       ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
       ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
@@ -448,19 +505,34 @@ class Projectile2 {
 }
 
 class Projectile3 {
-  constructor(verticalPosition){
-    this.x = canvas.width;
-    this.y = verticalPosition;
-    this.width = cellSize;
-    this.height = cellSize;
-    this.speed = CONSTANTA; //!!! Надо договориться о скорости
+  constructor(target, x, y){ //
+    this.x = x;
+    this.y = y;
+    this.width = 10;
+    this.height = 10;
+    this.speed = 5; //!!! Надо договориться о скорости
     this.movement = this.speed;
     this.health = true;
-    this.damage = CONSTANTA; //!!! Нада договориться про урон снаряда
+    this.damage = 10; //!!! Нада договориться про урон снаряда
+    this.radius = 10;
+    this.target = target;
   }
   update() {
-    this.x += this.movement; //!!! Надо договорить о формуле для изменения
+    let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
+
+    this.x += this.movement * Math.cos(angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
+    if (this.y > this.target.y) {
+      this.y += this.movement * Math.sin(angle) * -1;
+    } else {
+      this.y += this.movement * Math.sin(angle);
+    }
+
   }
   draw() {
 
@@ -469,14 +541,22 @@ class Projectile3 {
     ctx.fillRect(this.x, this.y, this.width, this.height);
     ctx.fillStyle = 'black';
     ctx.font = '30px Orbitron';
-
     */
+
+    let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
+
     // Рисую овал для пули
     if (this.health == true) {
       ctx.beginPath();
       ctx.save(); // сохраняем стейт контекста
       ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
       ctx.scale(1, this.height/this.width); // сжимаем по вертикали
+      ctx.rotate(angle); // поворот на угол
       ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
       ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
       ctx.strokeStyle = 'red';
@@ -486,6 +566,7 @@ class Projectile3 {
 
   }
 }
+
 
 function draw_Projectiles() {
 

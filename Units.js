@@ -5,24 +5,28 @@ class Unit1 {
         this.width = 40; // какое-то число
         this.height = 40; //какое-то число
         this.speed = CONSTANTA; //какое-то число
-        //this.movement = this.speed;
+        this.movement = this.speed;
         this.health = 100;
         this.damage = 10; //какое-то число
         this.radius = 20; //какое-то число
         this.projectiles = []; //пули
-        this.shooting = false; 
-        this.shootNow = false;
-        this.frameX = 0;
+        //this.shooting = false; 
+        //this.shootNow = false;
+        /*this.frameX = 0;
         this.frameY = 0;
         this.minFrame = 0;
-        this.maxFrame = 16;
+        this.maxFrame = 16;*/
         this.target = null; //цель
         this.targetIndex = -1;
-        this.range = 300;
+        //this.range = 20;
     }
     update() {
-        //this.x += this.movement;
-        if (frame % 10 === 0) {
+        if (this.target === null) {
+            this.x += this.movement;
+        } else {
+            projectiles.push(new Projectile(this.x + 70, this.y + 40);
+        }
+        /*if (frame % 10 === 0) {
             if (this.frameX < this.maxFrame) this.frameX++;
             else this.frameX = this.minFrame;
             if (this.frameX === 15) this.shootNow = true;
@@ -35,9 +39,9 @@ class Unit1 {
             this.maxFrame = 23;
         }
         if (this.shooting && this.shootNow) {
-            projectiles.push(new Projectile1(this.x + 70, this.y + 40);
+            projectiles.push(new Projectile(this.x + 70, this.y + 40);
             this.shootNow = false;
-        }
+        }*/
     }
     draw() {
         ctx.fillStyle = 'green';
@@ -67,7 +71,7 @@ function chooseUnit() { //выбор юнитов
     ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
 }
 
-calculateDistance(x1, y1, x2, y2) {
+function calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
 }
 
@@ -75,12 +79,12 @@ function findTarget(enemies) { //поиск цели
     if (this.target !== null) {
         enemy = enemies[this.targetIndex];
         if (enemy &&
-            calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range) {
+            calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.radius) {
             return;
         }
     }
     nearestEnemyId = -1;
-    minDistance = this.range;
+    minDistance = this.radius;
     for (let i = 0; n = enemies.length; i < n; i++) {
         enemy = enemies[i];
         distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);

@@ -14,24 +14,8 @@ class Tower1 extends BaseTower {
         this.shootInterval = 300;
     }
 
-    step() {
-        let target = this.findTarget(enemies);
-
-        if (!target) return;
-
-        let newDirection = Math.atan2(target.y - this.y, target.x - this.x);
-        newDirection = newDirection * (180 / Math.PI);
-        drawRotated(this.ctx, image, newDirection - this.direction);
-        this.direction = newDirection;
-
-        if (new Date - this.lastShotTime >= this.shootInterval) {
-            this.shoot();
-            this.lastShotTime = new Date();
-        }
-    }
-
     shoot() {
-        this.projectiles.push(new Projectile(this.target, this.x, this.y))
+        this.projectiles.push(new Projectile1(this.target, this.x, this.y))
     }
 
     draw() {

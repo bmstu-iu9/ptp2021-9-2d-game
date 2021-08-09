@@ -105,3 +105,4 @@ dist
 
 # Alina
 .vs/
+.vs/slnx.sqlite

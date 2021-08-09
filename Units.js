@@ -1,4 +1,4 @@
-class Unit1 {
+class Unit1 { //ближнего боя
     constructor(x, y) {
         this.x = x;
         this.y = y;
@@ -103,4 +103,70 @@ function findTarget(enemies) { //поиск цели
         this.target = enemies[nearestEnemyId];
     }
     return this.target;
+}
+
+class Unit2 { //дальнего боя
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.width = 40; // какое-то число
+        this.height = 40; //какое-то число
+        this.speed = CONSTANTA; //какое-то число
+        this.movement = this.speed;
+        this.health = 100;
+        this.damage = 10; //какое-то число
+        this.radius = 50; //какое-то число
+        this.projectiles = []; //пули
+        //this.shooting = false; 
+        //this.shootNow = false;
+        /*this.frameX = 0;
+        this.frameY = 0;
+        this.minFrame = 0;
+        this.maxFrame = 16;*/
+        this.target = null; //цель
+        this.targetIndex = -1;
+        this.timer = 1;
+    }
+    update() {
+        if (this.target === null) this.x += this.movement;
+        else {
+            shoot();
+            //this.timer++;
+        }
+        /*if (frame % 10 === 0) {
+            if (this.frameX < this.maxFrame) this.frameX++;
+            else this.frameX = this.minFrame;
+            if (this.frameX === 15) this.shootNow = true;
+        }
+        if (this.shooting) {
+            this.minFrame = 0;
+            this.maxFrame = 15;
+        } else {
+            this.minFrame = 17;
+            this.maxFrame = 23;
+        }
+        if (this.shooting && this.shootNow) {
+            projectiles.push(new Projectile(this.x + 70, this.y + 40);
+            this.shootNow = false;
+        }*/
+    }
+    draw() {
+        ctx.fillStyle = 'blue';
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+        ctx.fillStyle = 'black';
+        ctx.font = '30px Orbitron';
+        ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+    }
+    shoot() {
+        this.timer++;
+        this.projectiles.push(new Projectile({
+            target: this.target,
+            x: this.x,
+            y: this.y
+        }))
+        if (this.timer === 10) {
+            this.radius += 10; //увеличение радиуса атаки
+            this.timer = 1;
+        }
+    }
 }

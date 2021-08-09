@@ -9,6 +9,13 @@ class Unit1 {
         this.health = 100;
         this.damage = damage; //какое-то число
         this.radius = radius;
+        this.projectiles = []; //пули
+        this.shooting = false; 
+        this.shootNow = false;
+        this.frameX = 0;
+        this.frameY = 0;
+        this.minFrame = 0;
+        this.maxFrame = 16;
     }
     update() {
         this.x += this.movement;

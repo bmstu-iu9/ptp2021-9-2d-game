@@ -41,7 +41,7 @@ class Unit1 {
         }*/
     }
     draw() {
-        ctx.fillStyle = 'green';
+        ctx.fillStyle = 'blue';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
         ctx.font = '30px Orbitron';

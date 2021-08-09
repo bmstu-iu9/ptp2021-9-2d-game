@@ -5,7 +5,7 @@ class Unit1 {
         this.width = cellSize;
         this.height = cellSize;
         this.speed = CONSTANTA; //какое-то число
-        this.movement = this.speed;
+        //this.movement = this.speed;
         this.health = 100;
         this.damage = damage; //какое-то число
         this.radius = radius;
@@ -18,7 +18,23 @@ class Unit1 {
         this.maxFrame = 16;
     }
     update() {
-        this.x += this.movement;
+        //this.x += this.movement;
+        if (frame % 10 === 0) {
+            if (this.frameX < this.maxFrame) this.frameX++;
+            else this.frameX = this.minFrame;
+            if (this.frameX === 15) this.shootNow = true;
+        }
+        if (this.shooting) {
+            this.minFrame = 0;
+            this.maxFrame = 15;
+        } else {
+            this.minFrame = 17;
+            this.maxFrame = 23;
+        }
+        if (this.shooting && this.shootNow) {
+            projectiles.push(new Projectile1(this.x + 70, this.y + 40);
+            this.shootNow = false;
+        }
     }
     draw() {
         ctx.fillStyle = 'green';

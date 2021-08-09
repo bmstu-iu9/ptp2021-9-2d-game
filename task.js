@@ -12,8 +12,21 @@ class Projectile1 {
     this.target = target;
   }
   update() {
-    this.x += this.movement; //!!! Надо договорить о формуле для изменения
+    let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
+
+    this.x += this.movement * Math.cos(angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
+    if (this.y > this.target.y) {
+      this.y += this.movement * Math.sin(angle) * -1;
+    } else {
+      this.y += this.movement * Math.sin(angle);
+    }
+
   }
   draw() {
 
@@ -23,6 +36,13 @@ class Projectile1 {
     ctx.fillStyle = 'black';
     ctx.font = '30px Orbitron';
     */
+
+    let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
 
     // Рисую овал для пули
     if (this.health == true) {
@@ -117,8 +137,21 @@ class Projectile3 {
     this.target = target;
   }
   update() {
-    this.x += this.movement; //!!! Надо договорить о формуле для изменения
+    let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
+
+    this.x += this.movement * Math.cos(angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
+    if (this.y > this.target.y) {
+      this.y += this.movement * Math.sin(angle) * -1;
+    } else {
+      this.y += this.movement * Math.sin(angle);
+    }
+
   }
   draw() {
 
@@ -128,6 +161,13 @@ class Projectile3 {
     ctx.fillStyle = 'black';
     ctx.font = '30px Orbitron';
     */
+
+    let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
+                            (
+                             Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2)) *
+                             Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.x, 2))
+                            )
+                          );
 
     // Рисую овал для пули
     if (this.health == true) {

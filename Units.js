@@ -10,4 +10,7 @@ class Unit1 {
         this.damage = damage; //какое-то число
         this.radius = radius;
     }
+    update() {
+        this.x += this.movement;
+    }
 }

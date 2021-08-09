@@ -44,3 +44,22 @@ class Unit1 {
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25)
     }
 }
+
+const card1 = {
+    x: 10,
+    y: 10,
+    width: 70,
+    height: 85
+}
+const card2 = {
+    x: 90,
+    y: 10,
+    width: 70,
+    height: 85
+}
+
+function chooseUnit() {
+    ctx.lineWidth = 1;
+    ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
+    ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
+}

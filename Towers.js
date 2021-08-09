@@ -1,5 +1,3 @@
-import vec2 from 'gl-matrix';
-
 calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
 }
@@ -21,19 +19,19 @@ class BaseTower {
 
     findTarget(enemies) {
         if (this.target !== null) {
-            enemy = enemies[this.targetIndex];
+            let enemy = enemies[this.targetIndex];
             if (enemy &&
                 calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range) {
                 return;
             }
         }
 
-        nearestEnemyId = -1;
-        minDistance = this.range;
+        let nearestEnemyId = -1;
+        let minDistance = this.range;
 
         for (let i = 0; n = enemies.length; i < n; i++) {
-            enemy = enemies[i];
-            distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
+            let enemy = enemies[i];
+            let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 
             if (distance < minDistance) {
                 nearestEnemyId = i;
@@ -73,11 +71,11 @@ class Tower1 extends BaseTower {
     }
 
     step() {
-        target = this.findTarget(enemies);
+        let target = this.findTarget(enemies);
 
         if (!target) return;
 
-        newDirection = Math.atan2(target.y - this.y, target.x - this.x);
+        let newDirection = Math.atan2(target.y - this.y, target.x - this.x);
         newDirection = newDirection * (180 / Math.PI);
         drawRotated(this.ctx, image, newDirection - this.direction);
         this.direction = newDirection;
@@ -89,16 +87,12 @@ class Tower1 extends BaseTower {
     }
 
     shoot() {
-        this.projectiles.push(new Projectile({
-            target: this.target,
-            x: this.x,
-            y: this.y
-        }))
+        this.projectiles.push(new Projectile(this.target, this.x, this.y))
     }
 
     draw() {
         this.step();
-        ctx = this.ctx;
+        let ctx = this.ctx;
         ctx.fillStyle = 'green';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'gold';

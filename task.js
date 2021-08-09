@@ -222,7 +222,7 @@ class Projectile3 {
       ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
       ctx.fill();
       ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
-      ctx.strokeStyle = 'red';
+      ctx.strokeStyle = 'red'; 
       ctx.stroke(); // обводим
       ctx.closePath();
     }

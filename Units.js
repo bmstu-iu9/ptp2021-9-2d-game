@@ -2,13 +2,13 @@ class Unit1 {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = cellSize;
-        this.height = cellSize;
+        this.width = 40; // какое-то число
+        this.height = 40; //какое-то число
         this.speed = CONSTANTA; //какое-то число
         //this.movement = this.speed;
         this.health = 100;
-        this.damage = damage; //какое-то число
-        this.radius = radius;
+        this.damage = 10; //какое-то число
+        this.radius = 20; //какое-то число
         this.projectiles = []; //пули
         this.shooting = false; 
         this.shootNow = false;
@@ -16,6 +16,9 @@ class Unit1 {
         this.frameY = 0;
         this.minFrame = 0;
         this.maxFrame = 16;
+        this.target = null; //цель
+        this.targetIndex = -1;
+        this.range = 300;
     }
     update() {
         //this.x += this.movement;
@@ -58,8 +61,37 @@ const card2 = {
     height: 85
 }
 
-function chooseUnit() {
+function chooseUnit() { //выбор юнитов
     ctx.lineWidth = 1;
     ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
     ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
+}
+
+calculateDistance(x1, y1, x2, y2) {
+    return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
+}
+
+function findTarget(enemies) { //поиск цели
+    if (this.target !== null) {
+        enemy = enemies[this.targetIndex];
+        if (enemy &&
+            calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range) {
+            return;
+        }
+    }
+    nearestEnemyId = -1;
+    minDistance = this.range;
+    for (let i = 0; n = enemies.length; i < n; i++) {
+        enemy = enemies[i];
+        distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
+        if (distance < minDistance) {
+            nearestEnemyId = i;
+            minDistance = distance;
+        }
+    }
+    if (nearestEnemyId !== -1) {
+        this.targetIndex = nearestEnemyId;
+        this.target = enemies[nearestEnemyId];
+    }
+    return this.target;
 }

@@ -12,7 +12,7 @@ const enemies = [];
 const projectiles = [];
 const left = 0;
 let frame = 0;
-let interval = 600 * 100; // GGGGGGGGGGGGGGgg
+let interval = 600 * 1; // GGGGGGGGGGGGGGgg
 let enemydamage = 10;
 let enemyfirerate = 10;
 let resourses = 300;
@@ -62,7 +62,7 @@ class BaseTower {
         if (this.target !== null) {
         //  let enemy = enemies[this.targetIndex];
             if (
-                calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range) {
+                calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range && enemy.x - 100 < this.x) { /// новое условие
                 return;
             }
         }
@@ -74,7 +74,7 @@ class BaseTower {
             let enemy = enemies[i];
             let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 //
-            if (distance < minDistance) {
+            if (distance < minDistance && enemy.x - 100 > this.x ) { //новое условие
                 nearestEnemyId = i;
                 minDistance = distance;
             }
@@ -273,7 +273,7 @@ function handleEnemies(){
   if (frame % interval === 0){
     let verticalPosition = Math.floor(Math.random() * 7 + 1) * cellSize;
     enemies.push(new Enemies(verticalPosition));
-    if (interval > 120) interval-= 50;
+    if (interval > 120) interval-= 50 / 10; // GGGGGGGGGGGGGGGGGGGGGG
   }
   if (frame % 2000 === 0 && frame > 0){
     enemydamage += (frame / 1000);
@@ -578,8 +578,9 @@ function draw_Projectiles() {
     //let projectile = projectiles.shift();
     projectiles[i].update();
     projectiles[i].draw();
-    console.log(projectiles.length);
-    if (projectiles[i].x > canvas.width - 100){
+  //  console.log(projectiles.length);
+    if (projectiles[i].x > canvas.width - 100  || projectiles[i].y > canvas.height || projectiles[i].y < 100  ){
+      console.log(projectiles.length);
       projectiles.splice(i, 1);
       i--;
       //projectile.health = false;

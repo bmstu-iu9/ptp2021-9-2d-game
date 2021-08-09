@@ -12,7 +12,7 @@ const enemies = [];
 const projectiles = [];
 const left = 0;
 let frame = 0;
-let interval = 600;
+let interval = 600 * 100; // GGGGGGGGGGGGGGgg
 let enemydamage = 10;
 let enemyfirerate = 10;
 let resourses = 300;
@@ -384,18 +384,20 @@ class Projectile1 {
     this.angle = 0;
   }
   update() {
-    if (this.x <= this.target.x){
-      this.angle = Math.acos((this.towerx * this.towery + this.target.x * this.target.y) /
+    if (true) {
+      this.angle = Math.acos(((-this.towerx + (this.target.x + 55)) + 0 * (- this.towery + (this.target.y + 55))) /
                               (
-                               Math.sqrt(Math.pow(this.towerx, 2) + Math.pow(this.towery, 2)) *
-                               Math.sqrt(Math.pow(this.target.x, 2) + Math.pow(this.target.y, 2))
+                               Math.sqrt(Math.pow((-this.towerx + (this.target.x + 55)), 2) + Math.pow((- this.towery + (this.target.y + 55)), 2)) *
+                               Math.sqrt(Math.pow(1, 2) + Math.pow(0, 2))
                               )
                             );
+    } else {
+      this.health = false;
     }
 
     this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
-    if (this.y > this.target.y) {
+    if (this.towery > this.target.y + 55) {
       this.y += this.movement * Math.sin(this.angle) * -1;
     } else {
       this.y += this.movement * Math.sin(this.angle);
@@ -423,14 +425,16 @@ class Projectile1 {
       ctx.beginPath();
       ctx.save(); // сохраняем стейт контекста
       ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
-      ctx.rotate(this.angle); // поворот на угол
-      if (this.y > this.target.y) {
-        ctx.rotate(Math.pi + this.angle * -1);
+      //ctx.rotate(this.angle); // поворот на угол
+
+      if (this.towery > this.target.y + 55) {
+        ctx.rotate(-this.angle);
       } else {
         ctx.rotate(this.angle);
       }
       ctx.scale(1, this.height/this.width); // сжимаем по вертикали
       ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
+      ctx.fill();
       ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
       ctx.strokeStyle = 'red';
       ctx.stroke(); // обводим

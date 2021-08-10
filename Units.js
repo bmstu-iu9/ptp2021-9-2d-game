@@ -10,15 +10,8 @@ class Unit1 { //ближнего боя
         this.damage = 10; //какое-то число
         this.radius = 20; //какое-то число
         this.projectiles = []; //пули
-        //this.shooting = false; 
-        //this.shootNow = false;
-        /*this.frameX = 0;
-        this.frameY = 0;
-        this.minFrame = 0;
-        this.maxFrame = 16;*/
         this.target = null; //цель
         this.targetIndex = -1;
-        //this.range = 20;
     }
     update() {
         if (this.target === null) this.x += this.movement;
@@ -71,6 +64,18 @@ const card2 = {
 }
 
 function chooseUnit() { //выбор юнитов
+    /*let card1stroke = 'black';
+    let card2stroke = 'black';
+    if (collision(mouse, card1)) {
+        choosenUnit = 1;
+    } else if (collision(mouse, card2)) {
+        choosenUnit = 2;
+    }
+    if (choosenUnit === 1) {
+        //какое-то действиие
+    } else if (choosenUnit === 2) {
+         //какое-то действиие
+    }*/
     ctx.lineWidth = 1;
     ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
     ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
@@ -117,12 +122,6 @@ class Unit2 { //дальнего боя
         this.damage = 10; //какое-то число
         this.radius = 50; //какое-то число
         this.projectiles = []; //пули
-        //this.shooting = false; 
-        //this.shootNow = false;
-        /*this.frameX = 0;
-        this.frameY = 0;
-        this.minFrame = 0;
-        this.maxFrame = 16;*/
         this.target = null; //цель
         this.targetIndex = -1;
         this.timer = 1;
@@ -133,22 +132,6 @@ class Unit2 { //дальнего боя
             shoot();
             //this.timer++;
         }
-        /*if (frame % 10 === 0) {
-            if (this.frameX < this.maxFrame) this.frameX++;
-            else this.frameX = this.minFrame;
-            if (this.frameX === 15) this.shootNow = true;
-        }
-        if (this.shooting) {
-            this.minFrame = 0;
-            this.maxFrame = 15;
-        } else {
-            this.minFrame = 17;
-            this.maxFrame = 23;
-        }
-        if (this.shooting && this.shootNow) {
-            projectiles.push(new Projectile(this.x + 70, this.y + 40);
-            this.shootNow = false;
-        }*/
     }
     draw() {
         ctx.fillStyle = 'blue';

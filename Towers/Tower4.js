@@ -10,6 +10,8 @@ class Tower4 extends BaseTower {
         this.range = 600;
         this.lastShotTime = new Date();
         this.shootInterval = 1000;
+        this.targetsAmount = 2;
+        this.complete = false;
     }
 
     shoot(target) {
@@ -72,13 +74,15 @@ class Projectile4 {
                                this.targetX + 50 - this.x);
         this.x += this.speed * Math.cos(angle);
         this.y += this.speed * Math.sin(angle);
-
-        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) < 30) {
-            this.hit = true;
-        }
     }
 
-    hit() {
+    hit(enemies) {
+        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > 30 || this.hit) {
+            return;
+        }
+
+        this.hit = true;
+
         if (this.level == 1) {
             this.target.health -= this.damage;
             this.target.movement *= 0.6;
@@ -86,7 +90,7 @@ class Projectile4 {
             epicenterX = this.target.x;
             epicenterY = this.target.y;
             for (let i = 0, n = enemies.length; i < n; i++) {
-                let enemy = enemise[i];
+                let enemy = enemies[i];
                 if (calculateDistance(epicenterX, enemy.x,
                                       epicenterY, enemy.y) < 50) {
                     enemy.health -= this.damage;
@@ -100,7 +104,8 @@ class Projectile4 {
 
     draw() {
         if (this.hit) {
-            // анимаиця взрыва снаряда и вызов метода hit()
+            this.complete = true;
+            // Здесь будет обработка анимации взрыва
         } else {
             ctx.beginPath();
             ctx.save();

@@ -23,6 +23,7 @@ const mouse = {
     y: 10,
     width: 0.1,
     height: 0.1,
+    clicked: false
 }
 let canvasPosition = canvas.getBoundingClientRect();
 canvas.addEventListener('mousemove', function (e) {
@@ -32,6 +33,13 @@ canvas.addEventListener('mousemove', function (e) {
 canvas.addEventListener('mouseleave', function () {
     mouse.x = undefined;
     mouse.y = undefined;
+});
+
+canvas.addEventListener('mousedown', function () {
+    mouse.clicked = true;
+});
+canvas.addEventListener('mouseup', function () {
+    mouse.clicked = false;
 });
 // ���� �����
 //import vec2 from 'gl-matrix';
@@ -683,6 +691,7 @@ class Unit1 { //�������� ���
     }
 }
 
+let chosenUnit = 1; //глобальная переменная
 const card1 = {
     x: 360,
     y: 10,
@@ -696,10 +705,30 @@ const card2 = {
     height: 85
 }
 
-function chooseUnit() { //����� ������
+function chooseUnit() { //выбор юнитов
+    let card1stroke = 'black';
+    let card2stroke = 'black';
+    if (collision(mouse, card1) && mouse.clicked) {
+        chosenUnit = 1;
+    } else if (collision(mouse, card2) && mouse.clicked) {
+        chosenUnit = 2;
+    }
+    if (chosenUnit === 1) {
+        let card1stroke = 'gold';
+        let card2stroke = 'black';
+    } else if (chosenUnit === 2) {
+        let card1stroke = 'black';
+        let card2stroke = 'gold';
+    } else {
+        let card1stroke = 'black';
+        let card2stroke = 'black';
+    }
     ctx.lineWidth = 1;
+    ctx.fillStyle = 'rgba(0,0,0,0.2)';
     ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
+    ctx.strokeStyle = card1stroke;
     ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
+    ctx.strokeStyle = card2stroke;
 }
 
 function calculateDistance(x1, y1, x2, y2) {

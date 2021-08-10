@@ -81,6 +81,8 @@ class Projectile2 {
   constructor(target, x, y){ //
     this.towerx = x;
     this.towery = y;
+    this.targetx = target.x;
+    this.targety = target.y;
     this.x = x;
     this.y = y;
     this.width = 10;
@@ -93,12 +95,19 @@ class Projectile2 {
     this.target = target;
     this.angle = 0;
     this.delta_update_damage = 50; // Надо договориться!
+    this.upgrade = 0;
   }
   update() {
+
+    if (this.target != null){
+      this.targetx = target.x;
+      this.targety = target.y;
+    }
+
     if (true) {
-      this.angle = Math.acos(((-this.towerx + (this.target.x + 55)) + 0 * (- this.towery + (this.target.y + 55))) /
+      this.angle = Math.acos(((-this.towerx + (this.targetx + 55)) + 0 * (- this.towery + (this.targety + 55))) /
                               (
-                               Math.sqrt(Math.pow((-this.towerx + (this.target.x + 55)), 2) + Math.pow((- this.towery + (this.target.y + 55)), 2)) *
+                               Math.sqrt(Math.pow((-this.towerx + (this.targetx + 55)), 2) + Math.pow((- this.towery + (this.targety + 55)), 2)) *
                                Math.sqrt(Math.pow(1, 2) + Math.pow(0, 2))
                               )
                             );
@@ -108,7 +117,7 @@ class Projectile2 {
 
     this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
-    if (this.towery > this.target.y + 55) {
+    if (this.towery > this.targety + 55) {
       this.y += this.movement * Math.sin(this.angle) * -1;
     } else {
       this.y += this.movement * Math.sin(this.angle);
@@ -138,7 +147,7 @@ class Projectile2 {
       ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
       //ctx.rotate(this.angle); // поворот на угол
 
-      if (this.towery > this.target.y + 55) {
+      if (this.towery > this.targety + 55) {
         ctx.rotate(-this.angle);
       } else {
         ctx.rotate(this.angle);
@@ -156,6 +165,13 @@ class Projectile2 {
 
   hit(targets) {
     let list_target = [];
+
+    if ( calculateDistance(this.targetx, this.targety, this.x, this.y) > this.radius){
+      return ;
+    }
+
+    this.health = false;
+
     for (let i = 0; i < targets.length; i++) {
       let target = targets[i];
       if ( calculateDistance(target.x, target.y, this.x, this.y) <= this.radius){
@@ -165,7 +181,7 @@ class Projectile2 {
 
     let damage_delta = this.damage;
 
-    if (this.update > 0){
+    if (this.upgrade > 0){
       damage_delta /= list_target.length;
     }
 
@@ -181,8 +197,8 @@ class Projectile2 {
     }
   }
 
-  update(){
-    this.update++ ;
+  upgrade(){
+    this.upgrade++ ;
     this.damage += this.delta_update_damage;
   }
 }

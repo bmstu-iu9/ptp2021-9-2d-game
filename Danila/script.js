@@ -393,7 +393,7 @@ class Projectile1 {
                               )
                             );
     } else {
-      this.health = false;
+      this.health = true;
     }
 
     this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения

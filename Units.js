@@ -104,7 +104,7 @@ function findTarget(enemies) { //поиск цели
     }
     nearestEnemyId = -1;
     minDistance = this.radius;
-    for (let i = 0; n = enemies.length; i < n; i++) {
+    for (let i = 0; i < enemies.length; i++) {
         enemy = enemies[i];
         distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
         if (distance < minDistance) {

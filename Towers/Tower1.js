@@ -17,12 +17,13 @@ class Tower1 extends BaseTower {
         projectiles.push(new Projectile1(
             target,
             this.x + 50,
-            this.y + 50
+            this.y + 50,
+            this.damage
         ))
     }
 
-    draw() {
-        this.step();
+    draw(enemies) {
+        this.step(enemies);
         let ctx = this.ctx;
         if (this.level == 1) {
             ctx.fillStyle = 'green';

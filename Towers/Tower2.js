@@ -19,11 +19,11 @@ class Tower2 extends BaseTower {
         this.projectiles.push(new Projectile2(target, this.x, this.y, this.level, this.damage))
     }
 
-    draw() {
-        this.step();
+    draw(enemies) {
+        this.step(enemies);
         let ctx = this.ctx;
         if (this.level == 1) {
-            ctx.fillStyle = 'green';
+            ctx.fillStyle = 'red';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = '30px Orbitron';

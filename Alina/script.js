@@ -684,13 +684,13 @@ class Unit1 { //ближнего боя
 }
 
 const card1 = {
-    x: 10,
+    x: 360,
     y: 10,
     width: 70,
     height: 85
 }
 const card2 = {
-    x: 90,
+    x: 440,
     y: 10,
     width: 70,
     height: 85
@@ -716,7 +716,7 @@ function findTarget(enemies) { //поиск цели
     }
     nearestEnemyId = -1;
     minDistance = this.radius;
-    for (let i = 0; n = enemies.length; i < n; i++) {
+    for (let i = 0; i < enemies.length; i++) {
         enemy = enemies[i];
         distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
         if (distance < minDistance) {

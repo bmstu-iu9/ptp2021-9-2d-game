@@ -12,7 +12,7 @@ class Tower2 extends BaseTower {
         this.range = 500;
         this.lastShotTime = new Date();
         this.shootInterval = 300;
-        this.level = 1;
+        this.level = 0;
     }
 
     shoot(target) {

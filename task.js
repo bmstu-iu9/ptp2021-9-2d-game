@@ -104,16 +104,13 @@ class Projectile2 {
       this.targety = target.y;
     }
 
-    if (true) {
-      this.angle = Math.acos(((-this.towerx + (this.targetx + 55)) + 0 * (- this.towery + (this.targety + 55))) /
+
+    this.angle = Math.acos(((-this.towerx + (this.targetx + 55)) + 0 * (- this.towery + (this.targety + 55))) /
                               (
                                Math.sqrt(Math.pow((-this.towerx + (this.targetx + 55)), 2) + Math.pow((- this.towery + (this.targety + 55)), 2)) *
                                Math.sqrt(Math.pow(1, 2) + Math.pow(0, 2))
                               )
                             );
-    } else {
-      this.health = false;
-    }
 
     this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
@@ -197,54 +194,70 @@ class Projectile2 {
     }
   }
 
-  
+
 }
 
 class Projectile3 {
-  constructor(target, x, y){ //
+  constructor(target, x, y, upgarde, damage){ //
     this.towerx = x;
     this.towery = y;
-    this.x = x;
-    this.y = y;
-    this.width = 10;
-    this.height = 5;
+    this.targetx = target.x;
+    this.targety = target.y;
+    this.x = x + 55;
+    this.y = y + 55;
+    this.width = 250;
+    this.height = this.y + 45;
     this.speed = 5; //!!! Надо договориться о скорости
     this.movement = this.speed;
     this.health = true;
-    this.damage = 10; //!!! Нада договориться про урон снаряда
+    this.damage = damage; //!!! Нада договориться про урон снаряда
     this.radius = 10;
     this.target = target;
     this.angle = 0;
+    this.delta_update_damage = 50; // Надо договориться!
+    this.upgrade = upgrade;
   }
   update() {
-    if (true) {
-      this.angle = Math.acos(((-this.towerx + (this.target.x + 55)) + 0 * (- this.towery + (this.target.y + 55))) /
+    /*
+    if (this.target != null && ((this.targety == this.towery - 55 && this.upgrade == 0) || (this.targety <= this.towery - 55 + 100 && this.targety >= this.towery - 55 - 100))){
+      this.targetx = target.x;
+      this.targety = target.y;
+    }
+
+
+    this.angle = Math.acos(((-this.towerx + (this.targetx + 55)) + 0 * (- this.towery + (this.targety + 55))) /
                               (
-                               Math.sqrt(Math.pow((-this.towerx + (this.target.x + 55)), 2) + Math.pow((- this.towery + (this.target.y + 55)), 2)) *
+                               Math.sqrt(Math.pow((-this.towerx + (this.targetx + 55)), 2) + Math.pow((- this.towery + (this.targety + 55)), 2)) *
                                Math.sqrt(Math.pow(1, 2) + Math.pow(0, 2))
                               )
                             );
-    } else {
-      this.health = false;
-    }
 
     this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения
                             // координат пули и куда стрелять !!!!!
-    if (this.towery > this.target.y + 55) {
+    if (this.towery > this.targety + 55) {
       this.y += this.movement * Math.sin(this.angle) * -1;
     } else {
       this.y += this.movement * Math.sin(this.angle);
     }
-
+    */
   }
   draw() {
 
-     /*
-    ctx.fillStyle = 'red';
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = 'black';
-    ctx.font = '30px Orbitron';
-    */
+    if (this.target == null) {
+      return ;
+    }
+    if (this.healf) {
+      ctx.fillStyle = 'red';
+      if (this.uograde == 0) {
+        ctx.fillRect(this.x, this.y, this.width, this.height);
+      } else {
+        ctx.fillRect(this.x, this.y - 100, this.width, this.height + 45);
+      }
+
+      ctx.fillStyle = 'black';
+      ctx.font = '30px Orbitron';
+    }
+
     /*
     let angle = Math.acos((this.x * this.y + this.target.x * this.target.x) /
                             (
@@ -254,13 +267,14 @@ class Projectile3 {
                           );
     */
     // Рисую овал для пули
+    /*
     if (this.health == true) {
       ctx.beginPath();
       ctx.save(); // сохраняем стейт контекста
       ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
       //ctx.rotate(this.angle); // поворот на угол
 
-      if (this.towery > this.target.y + 55) {
+      if (this.towery > this.targety + 55) {
         ctx.rotate(-this.angle);
       } else {
         ctx.rotate(this.angle);
@@ -272,7 +286,36 @@ class Projectile3 {
       ctx.strokeStyle = 'red';
       ctx.stroke(); // обводим
       ctx.closePath();
+    } else {
+      //Рисование взрыва или другой анимации при попадании
+    }*/
+
+  }
+
+  hit(targets) {
+    let list_target = [];
+
+    if (this.target == null){
+      return ;
+    }
+
+    this.health = false;
+
+    for (let i = 0; i < targets.length; i++) {
+      let target = targets[i];
+      if (target.x < this.x + 250 &&
+          ((target.y == this.y - 55 && this.upgrade == 0) || (target.y <= this.y - 55 + 100 && target.y >= this.y - 55 - 100 && this.upgrade > 0))){
+
+            if (target.health - damage_delta < 0){
+              target.health = 0;
+            } else {
+              target.health -= damage_delta;
+            }
+
+      }
     }
 
   }
+
+
 }

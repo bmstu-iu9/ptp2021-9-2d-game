@@ -120,7 +120,7 @@ function animate(){
   ctx.fillText(Math.floor(10000), 2, 150);
   ctx.fillText(Math.floor(10000), canvas.width - 100, 150);
   handleGameGrid();
-  ProcessProjectiles(enemies);
+  ProcessProjectiles(projectiles, enemies);
   handleTowers(enemies);
   handleEnemies();
   choosetowers();

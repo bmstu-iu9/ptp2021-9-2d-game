@@ -48,6 +48,8 @@ class Tower4 extends BaseTower {
 class Projectile4 {
     constructor(target, x, y, level, damage) {
         this.target = target;
+        this.targetX = target.x;
+        this.targetY = target.y;
         this.x = x;
         this.y = y;
         this.width = 10;
@@ -55,12 +57,25 @@ class Projectile4 {
         this.speed = 3;
         this.damage = damage;
         this.level = level;
+        this.hit = false;
     }
 
     update() {
-        let angel = Math.atan2(this.target.y + 50 - this.y, this.target.x + 50 - this.x);
-        this.x += this.speed * Math.cos(angel);
-        this.y += this.speed * Math.sin(angel);
+        if (this.hit) return;
+
+        if (this.target) {
+            this.targetX = this.target.x;
+            this.targetY = this.target.y;
+        }
+
+        let angle = Math.atan2(this.targetY + 50 - this.y,
+                               this.targetX + 50 - this.x);
+        this.x += this.speed * Math.cos(angle);
+        this.y += this.speed * Math.sin(angle);
+
+        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) < 30) {
+            this.hit = true;
+        }
     }
 
     hit() {
@@ -84,15 +99,19 @@ class Projectile4 {
     }
 
     draw() {
-        ctx.beginPath();
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.scale(1, this.height/this.width);
-        ctx.arc(0, 0, this.width, 0, Math.PI*2);
-        ctx.fill();
-        ctx.restore();
-        ctx.strokeStyle = 'red';
-        ctx.stroke();
-        ctx.closePath();
+        if (this.hit) {
+            // анимаиця взрыва снаряда и вызов метода hit()
+        } else {
+            ctx.beginPath();
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.scale(1, this.height/this.width);
+            ctx.arc(0, 0, this.width, 0, Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+            ctx.closePath();
+        }
     }
 }

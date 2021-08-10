@@ -19,6 +19,7 @@ class Projectile1 {
       this.angle = 0;
       this.delta_update_damage = 50; // Надо договориться!
       this.upgrade = upgrade;
+      this.explosion = 0;
     }
     update() {
 
@@ -61,7 +62,7 @@ class Projectile1 {
                             );
       */
       // Рисую овал для пули
-      if (this.health == true) {
+      if (this.health ) {
         ctx.beginPath();
         ctx.save(); // сохраняем стейт контекста
         ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
@@ -79,6 +80,11 @@ class Projectile1 {
         ctx.strokeStyle = 'red';
         ctx.stroke(); // обводим
         ctx.closePath();
+      } else {
+        this.explosion += 1;
+        if (this.explosion == 5) {
+          this = null;
+        }
       }
 
     }
@@ -124,6 +130,7 @@ class Projectile2 {
     this.angle = 0;
     this.delta_update_damage = 50; // Надо договориться!
     this.upgrade = upgrade;
+    this.explosion = 0;
   }
   update() {
 
@@ -184,6 +191,11 @@ class Projectile2 {
       ctx.strokeStyle = 'red';
       ctx.stroke(); // обводим
       ctx.closePath();
+    } else {
+      this.explosion += 1;
+      if (this.explosion == 5) {
+        this = null;
+      }
     }
 
   }
@@ -244,6 +256,7 @@ class Projectile3 {
     this.angle = 0;
     this.delta_update_damage = 50; // Надо договориться!
     this.upgrade = upgrade;
+    this.explosion = 0;
   }
   update() {
     /*
@@ -284,6 +297,11 @@ class Projectile3 {
 
       ctx.fillStyle = 'black';
       ctx.font = '30px Orbitron';
+    } else {
+      this.explosion += 1;
+      if (this.explosion == 5) {
+        this = null;
+      }
     }
 
     /*

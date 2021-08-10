@@ -20,6 +20,7 @@ class Projectile1 {
       this.delta_update_damage = 50; // Надо договориться!
       this.upgrade = upgrade;
       this.explosion = 0;
+      this.complete = false;
     }
     update() {
 
@@ -83,7 +84,7 @@ class Projectile1 {
       } else {
         this.explosion += 1;
         if (this.explosion == 5) {
-          this = null;
+          this.complete = true;
         }
       }
 
@@ -131,6 +132,7 @@ class Projectile2 {
     this.delta_update_damage = 50; // Надо договориться!
     this.upgrade = upgrade;
     this.explosion = 0;
+    this.complete = false;
   }
   update() {
 
@@ -194,7 +196,7 @@ class Projectile2 {
     } else {
       this.explosion += 1;
       if (this.explosion == 5) {
-        this = null;
+        this.complete = true;
       }
     }
 
@@ -257,6 +259,7 @@ class Projectile3 {
     this.delta_update_damage = 50; // Надо договориться!
     this.upgrade = upgrade;
     this.explosion = 0;
+    this.complete = false;
   }
   update() {
     /*
@@ -300,7 +303,7 @@ class Projectile3 {
     } else {
       this.explosion += 1;
       if (this.explosion == 5) {
-        this = null;
+        this.complete = true;
       }
     }
 

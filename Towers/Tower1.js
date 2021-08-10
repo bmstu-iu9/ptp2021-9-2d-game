@@ -17,7 +17,8 @@ class Tower1 extends BaseTower {
         projectiles.push(new Projectile1(
             target,
             this.x + 50,
-            this.y + 50
+            this.y + 50,
+            this.damage
         ))
     }
 

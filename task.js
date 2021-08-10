@@ -1,3 +1,4 @@
+import { calculateDistance } from 'utils/utils.js'
 class Projectile1 {
   constructor(target, x, y){ //
     this.towerx = x;
@@ -91,6 +92,7 @@ class Projectile2 {
     this.radius = 10;
     this.target = target;
     this.angle = 0;
+    this.delta_update_damage = 50; // Надо договориться!
   }
   update() {
     if (true) {
@@ -150,6 +152,38 @@ class Projectile2 {
       ctx.closePath();
     }
 
+  }
+
+  hit(targets) {
+    let list_target = [];
+    for (let i = 0; i < targets.length; i++) {
+      let target = targets[i];
+      if ( calculateDistance(target.x, target.y, this.x, this.y) <= this.radius){
+        list_target.push(targets)
+      }
+    }
+
+    let damage_delta = this.damage;
+
+    if (this.update > 0){
+      damage_delta /= list_target.length;
+    }
+
+    for (let i = 0; i < list_target.length; i++) {
+      let target = list_target[i];
+
+      if (target.health - damage_delta < 0){
+        target.health = 0;
+      } else {
+        target.health -= damage_delta;
+      }
+
+    }
+  }
+
+  update(){
+    this.update++ ;
+    this.damage += this.delta_update_damage;
   }
 }
 
@@ -222,7 +256,7 @@ class Projectile3 {
       ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
       ctx.fill();
       ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
-      ctx.strokeStyle = 'red'; 
+      ctx.strokeStyle = 'red';
       ctx.stroke(); // обводим
       ctx.closePath();
     }

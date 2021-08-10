@@ -86,7 +86,7 @@ class Projectile1 {
     hit(targets) {
       let list_target = [];
 
-      if ( calculateDistance(this.targetx, this.targety, this.x, this.y) > this.radius){
+      if ( calculateDistance(this.targetx, this.targety, this.x, this.y) > this.radius || !this.health){
         return ;
       }
 
@@ -191,7 +191,7 @@ class Projectile2 {
   hit(targets) {
     let list_target = [];
 
-    if ( calculateDistance(this.targetx, this.targety, this.x, this.y) > this.radius){
+    if ( calculateDistance(this.targetx, this.targety, this.x, this.y) > this.radius || !this.health){
       return ;
     }
 
@@ -323,7 +323,7 @@ class Projectile3 {
   hit(targets) {
     let list_target = [];
 
-    if (this.target == null){
+    if (this.target == null || !this.health){
       return ;
     }
 

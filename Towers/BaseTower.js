@@ -5,58 +5,73 @@ class BaseTower {
     this.width = 100;
     this.height = 100;
     this.projectiles = [];
-    this.timer = 0;
-    this.kills = 0;
     this.direction = 0;
-    this.target = null;
-    this.targetIndex = -1;
+    this.targetsAmount = 1;
+    this.targets = [];
     this.range = 300;
     }
 
     step() {
-        let target = this.findTarget(enemies);
+        this.findTargets(enemies, this.targetsAmount);
 
-        if (!target) return;
+        if (this.targets.length == 0) return;
 
-        let newDirection = Math.atan2(target.y - this.y, target.x - this.x);
+        let directionTarget = this.targets[0];
+        let newDirection = Math.atan2(directionTarget.y - this.y,
+                                      directionTarget.x - this.x);
         //newDirection = newDirection * (180 / Math.PI);
         //drawRotated(this.ctx, image, newDirection - this.direction);
         this.direction = newDirection;
 
         if (new Date - this.lastShotTime >= this.shootInterval) {
-            this.shoot();
+            for (let i = 0, n = this.targets.length; i < n; i++) {
+                this.shoot(this.targets[i]);
+            }
             this.lastShotTime = new Date();
         }
     }
 
-    findTarget(enemies) {
-        if (this.target !== null) {
-            let enemy = enemies[this.targetIndex];
-            if (enemy &&
-                calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range) {
-                return;
+    findTargets(enemies, n) {
+        for (let i = this.targets.length; i < n; i++) {
+            let target = this.findTarget(enemies)
+            if (target) {
+                this.targets.push(target)
             }
         }
 
-        let nearestEnemyId = -1;
+        for (let i = 0; i < this.targets.length; i++) {
+            let enemy = this.targets[i];
+            if (calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range) {
+                this.targets.splice(i, 1);
+            }
+        }
+    }
+
+    findTarget(enemies) {
+        let nearestEnemyIndex = -1;
         let minDistance = this.range;
 
-        for (let i = 0; n = enemies.length; i < n; i++) {
+        for (let i = 0, m = enemies.length; i < m; i++) {
             let enemy = enemies[i];
             let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 
             if (distance < minDistance) {
-                nearestEnemyId = i;
-                minDistance = distance;
+                let isTargetAlready = false;
+                for (let j = 0, k = this.targets.length; j < k; j++) {
+                    if (enemy == this.targets[j]) {
+                        isTargetAlready = true;
+                    }
+                }
+                if (!isTargetAlready) {
+                    nearestEnemyIndex = i;
+                    minDistance = distance;
+                }
             }
         }
 
-        if (nearestEnemyId !== -1) {
-            this.targetIndex = nearestEnemyId;
-            this.target = enemies[nearestEnemyId];
+        if (nearestEnemyIndex != -1) {
+            return enemies[nearestEnemyIndex];
         }
-
-        return this.target;
     }
 
     drawRotated(ctx, image, angle) {

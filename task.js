@@ -78,7 +78,7 @@ class Projectile1 {
 
 
 class Projectile2 {
-  constructor(target, x, y){ //
+  constructor(target, x, y, upgarde, damage){ //
     this.towerx = x;
     this.towery = y;
     this.targetx = target.x;
@@ -90,12 +90,12 @@ class Projectile2 {
     this.speed = 5; //!!! Надо договориться о скорости
     this.movement = this.speed;
     this.health = true;
-    this.damage = 10; //!!! Нада договориться про урон снаряда
+    this.damage = damage; //!!! Нада договориться про урон снаряда
     this.radius = 10;
     this.target = target;
     this.angle = 0;
     this.delta_update_damage = 50; // Надо договориться!
-    this.upgrade = 0;
+    this.upgrade = upgrade;
   }
   update() {
 
@@ -197,10 +197,7 @@ class Projectile2 {
     }
   }
 
-  upgrade(){
-    this.upgrade++ ;
-    this.damage += this.delta_update_damage;
-  }
+  
 }
 
 class Projectile3 {

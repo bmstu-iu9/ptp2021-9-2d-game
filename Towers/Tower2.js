@@ -12,7 +12,7 @@ class Tower2 extends BaseTower {
         this.range = 500;
         this.lastShotTime = new Date();
         this.shootInterval = 300;
-        this.level = 1;
+        this.level = 0;
     }
 
     shoot(target) {
@@ -23,7 +23,7 @@ class Tower2 extends BaseTower {
         this.step();
         let ctx = this.ctx;
         if (this.level == 1) {
-            ctx.fillStyle = 'green';
+            ctx.fillStyle = 'red';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = '30px Orbitron';

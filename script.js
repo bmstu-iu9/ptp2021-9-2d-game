@@ -1,3 +1,9 @@
+import 'task.js';
+import 'Towers./BaseTower.js';
+import 'Towers/Tower1.js';
+import 'Towers/Tower2.js';
+import 'Towers/Tower3.js';
+import 'Towers/Tower4.js';
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 canvas.width = 3000;
@@ -23,6 +29,7 @@ const mouse = {
   y: 10,
   width: 0.1,
   height: 0.1,
+  clicked: false
 }
 let canvasPosition = canvas.getBoundingClientRect();
 canvas.addEventListener('mousemove', function(e){
@@ -33,6 +40,13 @@ canvas.addEventListener('mouseleave', function(){
   mouse.x = undefined;
   mouse.y = undefined;
 });
+
+canvas.addEventListener('mousedown', function(){
+  mouse.clicked = true;
+});
+canvas.addEventListener('mouseup', function(){
+  mouse.clicked = false;
+});
 // свои башни
 //import vec2 from 'gl-matrix';
 //import vec2 from 'gl-matrix';
@@ -40,190 +54,6 @@ function calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
 }
 
-class BaseTower {
-    //import vec2 from 'gl-matrix';
-    constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.width = 100;
-    this.height = 100;
-    //this.projectiles = [];
-    this.timer = 0;
-    this.kills = 0;
-    this.direction = 0;
-    this.elite = 0;
-    //this.directionVec = vec2.create();
-    this.target = null;
-    this.targetIndex = -1;
-    this.range = 300;
-    }
-
-    findTarget(enemies) {
-        if (this.target !== null) {
-        //  let enemy = enemies[this.targetIndex];
-            if (
-                calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range) {
-                return;
-            }
-        }
-
-        let nearestEnemyId = -1;
-        let minDistance = this.range;
-
-        for (let i = 0, n = enemies.length; i < n; i++) {
-            let enemy = enemies[i];
-            let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
-//
-            if (distance < minDistance) {
-                nearestEnemyId = i;
-                minDistance = distance;
-            }
-        }
-
-        if (nearestEnemyId !== -1) {
-            this.targetIndex = nearestEnemyId;
-            this.target = enemies[nearestEnemyId];
-        }
-
-        return this.target;
-    }
-
-    drawRotated(image, angle) {
-        if (!image) return;
-        context.save();
-        context.translate(this.x + image.width/2, this.y + image.height/2);
-        context.rotate(angle * (Math.PI / 180));
-        context.drawImage(image, -image.width/2, -image.height/2);
-        context.restore();
-    }
-}
-
-class Tower1 extends BaseTower {
-    constructor(x, y) {
-        super(x, y);
-        //this.ctx = ctx;
-        this.cost = 100;
-        this.health = 100;
-        this.damage = 10;
-        this.upgradecost = 200;
-        this.range = 600;
-        this.elite = 0;
-        this.lastShotTime = new Date();
-        this.shootInterval = 1000;
-    }
-
-    step() {
-    /*  if (new Date - this.lastShotTime >= this.shootInterval) {
-          this.shoot();
-          this.lastShotTime = new Date();
-      }*/
-        let target = this.findTarget(enemies);
-        if (!target) return;
-
-        let newDirection = Math.atan2(target.y - this.y, target.x - this.x);
-        newDirection = newDirection * (180 / Math.PI);
-        let image = undefined;
-        //this.drawRotated(image, newDirection - this.direction);
-        this.direction = newDirection;
-
-        if (new Date - this.lastShotTime >= this.shootInterval) {
-            this.shoot();
-            this.lastShotTime = new Date();
-        }
-      /*  this.timer++;
-        console.log(this.timer)
-        if (this.timer % 100 === 0){
-          this.shoot();
-        }*/
-    }
-
-    shoot() {
-        // Добавление в массив снарядов новый объект класса снаряда
-
-      projectiles.push(new Projectile1(
-        this.target,
-        this.x + 55,          // число чтоб из центра вылетало
-        this.y + 55
-      ))
-    //  console.log(projectiles.length);
-    }
-
-    drawelite(){
-      this.step();
-      ctx.clearRect(this.x, this.y, this.width, this.height);
-      ctx.fillStyle = 'black';
-      ctx.fillRect(this.x, this.y, this.width, this.height);
-      ctx.fillStyle = 'red';
-      ctx.font = '30px Orbitron';
-      ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25)
-    }
-
-    draw() {
-        this.step();
-      //  ctx = this.ctx;
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'gold';
-        ctx.font = '30px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
-    }
-}
-//f
-
-canvas.addEventListener('click', function(){
-  const positionX = mouse.x - (mouse.x % cellSize);
-  const positionY = mouse.y - (mouse.y % cellSize);
-  if (positionY < cellSize) return;
-  //let flag = false;
-  for (let i = 0; i < towers.length; i++){
-    if (towers[i].x === positionX && towers[i].y === positionY){
-      return;
-    }
-  }
-  if (resourses >= 100){
-    towers.push(new Tower1(positionX, positionY))
-    resourses -= 100;
-  }
-  //console.log(resourses);
-});
-canvas.addEventListener('dblclick', function(){
-  const positionX1 = mouse.x - (mouse.x % cellSize);
-  const positionY1 = mouse.y - (mouse.y % cellSize);
-  let current = 0;
-  let flag = true;
-//  console.log(flag);
-  for (let i = 0; i < towers.length; i++){
-    if (towers[i].x === positionX1 && towers[i].y === positionY1 && towers[i].elite === 0){
-      current = i;
-      flag = false;
-    }
-  }
-//  console.log(flag);
-  if (flag) return;
-  if (resourses < towers[current].upgradecost) return;
-  if (flag) return;
-  switch (towers[current].check){
-    case 1:
-      if(towers[current].kills >= 5){
-        towers[current].damage += 2;    //цифры от балды
-        towers[current].firerate -= 2;
-        towers[current].elite = 1;// тут тоже
-        //console.log(towers[current].damage);
-        resourses -= towers[current].upgradecost;
-      }
-      break;
-  //  case 2: и так для всех башен их улучшения
-  }
-});
-function handleTowers(){
-  for (let i = 0; i < towers.length; i++){
-  //  towers[i].shoot();
-  //  towers[i].draw();
-    //console.log(towers.length);
-    if (towers[i].elite === 0) towers[i].draw();
-    if (towers[i].elite === 1) towers[i].drawelite();
-  }
-}
 
 /*function handleSamples(){
   ctx.fillRect()
@@ -265,6 +95,11 @@ class Enemies {
   }
 }
 function handleEnemies(){
+  for (let i = 0; i < projectiles.length; i++){
+    if (collision(projectiles[i].target, projectiles[i])){
+
+    }
+  }
   for (let i = 0; i < enemies.length; i++){
     enemies[i].update();
     enemies[i].draw();
@@ -282,7 +117,7 @@ function handleEnemies(){
 function handleInformation(){
   ctx.fillStyle = 'black';
   ctx.font = '35px Orbitron';
-  ctx.fillText('Resourses: ' + resourses, 15, 60);
+  ctx.fillText('Resourses: ' + resourses, 415, 60);
   if (gameover && mybase.health <= 0){
     ctx.fillStyle = 'red';
     ctx.font = '60px Orbitron';
@@ -365,151 +200,140 @@ window.onkeydown = function move_left(){
 };
 
 
+const card1 = {
+  x: 10,
+  y: 10,
+  width: 70,
+  height: 85,
+}
+
+const card2 = {
+  x: 90,
+  y: 10,
+  width: 70,
+  height: 85,
+}
+
+const card3 = {
+  x: 170,
+  y: 10,
+  width: 70,
+  height: 85,
+}
+
+const card4 = {
+  x: 250,
+  y: 10,
+  width: 70,
+  height: 85,
+}
+
+const card5 = {
+  x: 330,
+  y: 10,
+  width: 70,
+  height: 85,
+}
+
+let choosentower = 1;
+let card1stroke = 'black';
+let card2stroke = 'black';
+let card3stroke = 'black';
+let card4stroke = 'black';
+let card5stroke = 'black';  // чтобы все что ниже работало, надо в при создании башен смотреть на переменную chosentower
+
+function choosetowers(){
+  ctx.lineWidth = 1;
+  if (collisiondetection(mouse, card1) && mouse.clicked){
+    choosentower = 1;
+  } else if (collisiondetection(mouse,card2) && mouse.clicked){
+    choosentower = 2;
+  } else if (collisiondetection(mouse,card3) && mouse.clicked){
+    choosentower = 3;
+  } else if (collisiondetection(mouse,card4) && mouse.clicked){
+    choosentower = 4;
+  } else if (collisiondetection(mouse,card5) && mouse.clicked){
+    choosentower = 5;
+  }
+  switch (choosentower) {
+    case 1:
+      card1stroke = 'gold';
+      card2stroke = 'black';
+      card3stroke = 'black';
+      card4stroke = 'black';
+      card5stroke = 'black';
+      break;
+   case 2:
+     card1stroke = 'black';
+     card2stroke = 'gold';
+     card3stroke = 'black';
+     card4stroke = 'black';
+     card5stroke = 'black';
+     break;
+   case 3:
+     card1stroke = 'black';
+     card2stroke = 'black';
+     card3stroke = 'gold';
+     card4stroke = 'black';
+     card5stroke = 'black';
+     break;
+   case 4:
+     card1stroke = 'black';
+     card2stroke = 'black';
+     card3stroke = 'black';
+     card4stroke = 'gold';
+     card5stroke = 'black';
+     break;
+   case 5:
+     card1stroke = 'black';
+     card2stroke = 'black';
+     card3stroke = 'black';
+     card4stroke = 'black';
+     card5stroke = 'gold';
+     break;
+    default:
+    card1stroke = 'black';
+    card2stroke = 'black';
+    card3stroke = 'black';
+    card4stroke = 'black';
+    card5stroke = 'black';
+
+  }
+  ctx.fillStyle = 'green';
+  ctx.fillRect(15,15, 60, 75);
+  ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
+  ctx.strokeStyle = card1stroke;
+  ctx.strokeRect(card1.x, card1.y, card1.width,card1.height);
+  ctx.fillStyle = 'red';
+  ctx.fillRect(95,15, 60, 75);
+  ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
+  ctx.strokeStyle = card2stroke;
+  ctx.strokeRect(card2.x, card2.y, card2.width,card2.height);
+  ctx.fillStyle = 'blue';
+  ctx.fillRect(175,15, 60, 75);
+  ctx.fillRect(card3.x, card3.y, card3.width, card3.height);
+  ctx.strokeStyle = card3stroke;
+  ctx.strokeRect(card3.x, card3.y, card3.width,card3.height);
+  ctx.fillStyle = 'black';
+  ctx.fillRect(255,15, 60, 75);
+  ctx.fillRect(card4.x, card4.y, card4.width, card4.height);
+  ctx.strokeStyle = card4stroke;
+  ctx.strokeRect(card4.x, card4.y, card4.width,card4.height);
+  ctx.fillStyle = 'purple';
+  ctx.fillRect(335,15, 60, 75);
+  ctx.fillRect(card5.x, card5.y, card5.width, card5.height);
+  ctx.strokeStyle = card5stroke;
+  ctx.strokeRect(card5.x, card5.y, card5.width,card5.height);
+}
+
 // снаряды
-class Projectile1 {
-  constructor(target, x, verticalPosition){
-    this.x = x;
-    this.y = verticalPosition;
-    this.width = 10;
-    this.height = 10;
-    this.speed = 3; //!!! Надо договориться о скорости
-    this.movement = this.speed;
-    this.health = true;
-    this.damage = 5; //!!! Нада договориться про урон снаряда
-    this.target = target;
-  }
-  update() {
-    this.x += this.movement; //!!! Надо договорить о формуле для изменения
-                            // координат пули и куда стрелять !!!!!
-  }
-  draw() {
-
-  /*  ctx.fillStyle = 'red';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
-    ctx.fill();*/
-
-    // Рисую овал для пули
-    if (this.health == true) {
-      ctx.beginPath();
-      ctx.save(); // сохраняем стейт контекста
-      ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
-      ctx.scale(1, this.height/this.width); // сжимаем по вертикали
-      ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
-      ctx.fill();
-      ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
-      ctx.strokeStyle = 'red';
-      ctx.stroke(); // обводим
-      ctx.closePath();
-    }
-
-  }
-}
-
-
-class Projectile2 {
-  constructor(verticalPosition){
-    this.x = canvas.width;
-    this.y = verticalPosition;
-    this.width = cellSize;
-    this.height = cellSize;
-    this.speed = CONSTANTA; //!!! Надо договориться о скорости
-    this.movement = this.speed;
-    this.health = true;
-    this.damage = CONSTANTA; //!!! Нада договориться про урон снаряда
-  }
-  update() {
-    this.x += this.movement; //!!! Надо договорить о формуле для изменения
-                            // координат пули и куда стрелять !!!!!
-  }
-  draw() {
-
-
-    /*ctx.fillStyle = 'red';
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.width, 0, Math.PI * 2);
-    ctx.fill();*/
-
-
-    // Рисую овал для пули
-   if (this.health == true) {
-      ctx.beginPath();
-      ctx.save(); // сохраняем стейт контекста
-      ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
-      ctx.scale(1, this.height/this.width); // сжимаем по вертикали
-      ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
-      ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
-      ctx.strokeStyle = 'red';
-      ctx.stroke(); // обводим
-      ctx.closePath();
-    }
-
-  }
-}
-
-class Projectile3 {
-  constructor(verticalPosition){
-    this.x = canvas.width;
-    this.y = verticalPosition;
-    this.width = cellSize;
-    this.height = cellSize;
-    this.speed = CONSTANTA; //!!! Надо договориться о скорости
-    this.movement = this.speed;
-    this.health = true;
-    this.damage = CONSTANTA; //!!! Нада договориться про урон снаряда
-  }
-  update() {
-    this.x += this.movement; //!!! Надо договорить о формуле для изменения
-                            // координат пули и куда стрелять !!!!!
-  }
-  draw() {
-
-    /*
-    ctx.fillStyle = 'red';
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = 'black';
-    ctx.font = '30px Orbitron';
-
-    */
-    // Рисую овал для пули
-    if (this.health == true) {
-      ctx.beginPath();
-      ctx.save(); // сохраняем стейт контекста
-      ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
-      ctx.scale(1, this.height/this.width); // сжимаем по вертикали
-      ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
-      ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
-      ctx.strokeStyle = 'red';
-      ctx.stroke(); // обводим
-      ctx.closePath();
-    }
-
-  }
-}
-
-function draw_Projectiles() {
-
-  for (let i = 0; i < projectiles.length; i++){
-    //let projectile = projectiles.shift();
-    projectiles[i].update();
-    projectiles[i].draw();
-    console.log(projectiles.length);
-    if (projectiles[i].x > canvas.width - 100){
-      projectiles.splice(i, 1);
-      i--;
-      //projectile.health = false;
-    }
-
-    //if (projectile.health == true){
-  //    projectiles.push(projectile);
-    //}
-  }
-
-//  return list_projectiles;
-}
 // ресурсы
 //
+class Game {
+
+}
 function animate(){
+//  choosetowers();
   ctx.clearRect(0,0, canvas.width, canvas.height);
   ctx.fillStyle = 'grey';
   if (frame % 100 === 0 && frame > 0){
@@ -524,10 +348,11 @@ function animate(){
   ctx.fillText(Math.floor(10000), canvas.width - 100, 150);
   handleGameGrid();
   //draw_Projectiles();
-  handleTowers();
-  handleEnemies();
+  //handleTowers();
+  //handleEnemies();
+  choosetowers();
   handleInformation();
-  draw_Projectiles();
+//  draw_Projectiles();
   frame++;
   if (!gameover) requestAnimationFrame(animate);
 }

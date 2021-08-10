@@ -141,7 +141,7 @@ class Tower1 extends BaseTower {
         // Добавление в массив снарядов новый объект класса снаряда
 
       projectiles.push(new Projectile1(
-
+        this,
         this.target,
         this.x + 55,          // число чтоб из центра вылетало
         this.y + 55
@@ -368,7 +368,8 @@ window.onkeydown = function move_left(){
 
 // снаряды
 class Projectile1 {
-  constructor(target, x, y){ //
+  constructor(tower, target, x, y){ //
+    this.tower = tower;
     this.towerx = x;
     this.towery = y;
     this.x = x;
@@ -384,7 +385,7 @@ class Projectile1 {
     this.angle = 0;
   }
   update() {
-    if (true) {
+    if (this.tower.target === this.target) {
       this.angle = Math.acos(((-this.towerx + (this.target.x + 55)) + 0 * (- this.towery + (this.target.y + 55))) /
                               (
                                Math.sqrt(Math.pow((-this.towerx + (this.target.x + 55)), 2) + Math.pow((- this.towery + (this.target.y + 55)), 2)) *
@@ -392,7 +393,7 @@ class Projectile1 {
                               )
                             );
     } else {
-      this.health = false;
+      this.health = true;
     }
 
     this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения

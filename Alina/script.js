@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = 3000;
 canvas.height = 800;
 
-// всякая хрень глобальная
+// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 const gameGrid = [];
 const cellSize = 100;
 const towers = [];
@@ -17,7 +17,7 @@ let enemydamage = 10;
 let enemyfirerate = 10;
 let resourses = 300;
 let gameover = false;
-// мышка
+// пїЅпїЅпїЅпїЅпїЅ
 const mouse = {
     x: 10,
     y: 10,
@@ -33,7 +33,7 @@ canvas.addEventListener('mouseleave', function () {
     mouse.x = undefined;
     mouse.y = undefined;
 });
-// свои башни
+// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 //import vec2 from 'gl-matrix';
 //import vec2 from 'gl-matrix';
 function calculateDistance(x1, y1, x2, y2) {
@@ -62,7 +62,7 @@ class BaseTower {
         if (this.target !== null) {
             //  let enemy = enemies[this.targetIndex];
             if (
-                calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range && enemy.x - 100 < this.x) { /// новое условие
+                calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range && enemy.x - 100 < this.x) { /// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 return;
             }
         }
@@ -74,7 +74,7 @@ class BaseTower {
             let enemy = enemies[i];
             let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
             //
-            if (distance < minDistance && enemy.x - 100 > this.x) { //новое условие
+            if (distance < minDistance && enemy.x - 100 > this.x) { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 nearestEnemyId = i;
                 minDistance = distance;
             }
@@ -138,12 +138,12 @@ class Tower1 extends BaseTower {
     }
 
     shoot() {
-        // Добавление в массив снарядов новый объект класса снаряда
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
         projectiles.push(new Projectile1(
             this,
             this.target,
-            this.x + 55,          // число чтоб из центра вылетало
+            this.x + 55,          // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             this.y + 55
         ))
         //  console.log(projectiles.length);
@@ -206,14 +206,14 @@ canvas.addEventListener('dblclick', function () {
     switch (towers[current].check) {
         case 1:
             if (towers[current].kills >= 5) {
-                towers[current].damage += 2;    //цифры от балды
+                towers[current].damage += 2;    //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
                 towers[current].firerate -= 2;
-                towers[current].elite = 1;// тут тоже
+                towers[current].elite = 1;// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
                 //console.log(towers[current].damage);
                 resourses -= towers[current].upgradecost;
             }
             break;
-        //  case 2: и так для всех башен их улучшения
+        //  case 2: пїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     }
 });
 function handleTowers() {
@@ -229,7 +229,7 @@ function handleTowers() {
 /*function handleSamples(){
   ctx.fillRect()
 }*/
-// свои юниты
+// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 /*class Units {
   constructor(verticalPosition){
     this.x = 0;
@@ -240,7 +240,7 @@ function handleTowers() {
   }
 }*/
 
-// враги
+// пїЅпїЅпїЅпїЅпїЅ
 class Enemies {
     constructor(verticalPosition) {
         this.x = canvas.width;
@@ -279,7 +279,7 @@ function handleEnemies() {
         enemydamage += (frame / 1000);
     }
 }
-// игровое поле
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 function handleInformation() {
     ctx.fillStyle = 'black';
     ctx.font = '35px Orbitron';
@@ -366,7 +366,7 @@ window.onkeydown = function move_left() {
 };
 
 
-// снаряды
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 class Projectile1 {
     constructor(tower, target, x, y) { //
         this.tower = tower;
@@ -376,10 +376,10 @@ class Projectile1 {
         this.y = y;
         this.width = 10;
         this.height = 5;
-        this.speed = 5; //!!! Надо договориться о скорости
+        this.speed = 5; //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         this.movement = this.speed;
         this.health = true;
-        this.damage = 10; //!!! Нада договориться про урон снаряда
+        this.damage = 10; //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         this.radius = 10;
         this.target = target;
         this.angle = 0;
@@ -396,8 +396,8 @@ class Projectile1 {
             this.health = true;
         }
 
-        this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения
-        // координат пули и куда стрелять !!!!!
+        this.x += this.movement * Math.cos(this.angle); //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ !!!!!
         if (this.towery > this.target.y + 55) {
             this.y += this.movement * Math.sin(this.angle) * -1;
         } else {
@@ -421,24 +421,24 @@ class Projectile1 {
                                 )
                               );
         */
-        // Рисую овал для пули
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         if (this.health == true) {
             ctx.beginPath();
-            ctx.save(); // сохраняем стейт контекста
-            ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
-            //ctx.rotate(this.angle); // поворот на угол
+            ctx.save(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            ctx.translate(this.x, this.y); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            //ctx.rotate(this.angle); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
 
             if (this.towery > this.target.y + 55) {
                 ctx.rotate(-this.angle);
             } else {
                 ctx.rotate(this.angle);
             }
-            ctx.scale(1, this.height / this.width); // сжимаем по вертикали
-            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // рисуем круг
+            ctx.scale(1, this.height / this.width); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             ctx.fill();
-            ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
+            ctx.restore(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             ctx.strokeStyle = 'red';
-            ctx.stroke(); // обводим
+            ctx.stroke(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             ctx.closePath();
         }
 
@@ -454,10 +454,10 @@ class Projectile2 {
         this.y = y;
         this.width = 10;
         this.height = 5;
-        this.speed = 5; //!!! Надо договориться о скорости
+        this.speed = 5; //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         this.movement = this.speed;
         this.health = true;
-        this.damage = 10; //!!! Нада договориться про урон снаряда
+        this.damage = 10; //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         this.radius = 10;
         this.target = target;
         this.angle = 0;
@@ -474,8 +474,8 @@ class Projectile2 {
             this.health = false;
         }
 
-        this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения
-        // координат пули и куда стрелять !!!!!
+        this.x += this.movement * Math.cos(this.angle); //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ !!!!!
         if (this.towery > this.target.y + 55) {
             this.y += this.movement * Math.sin(this.angle) * -1;
         } else {
@@ -499,24 +499,24 @@ class Projectile2 {
                                 )
                               );
         */
-        // Рисую овал для пули
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         if (this.health == true) {
             ctx.beginPath();
-            ctx.save(); // сохраняем стейт контекста
-            ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
-            //ctx.rotate(this.angle); // поворот на угол
+            ctx.save(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            ctx.translate(this.x, this.y); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            //ctx.rotate(this.angle); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
 
             if (this.towery > this.target.y + 55) {
                 ctx.rotate(-this.angle);
             } else {
                 ctx.rotate(this.angle);
             }
-            ctx.scale(1, this.height / this.width); // сжимаем по вертикали
-            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // рисуем круг
+            ctx.scale(1, this.height / this.width); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             ctx.fill();
-            ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
+            ctx.restore(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             ctx.strokeStyle = 'red';
-            ctx.stroke(); // обводим
+            ctx.stroke(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             ctx.closePath();
         }
 
@@ -531,10 +531,10 @@ class Projectile3 {
         this.y = y;
         this.width = 10;
         this.height = 5;
-        this.speed = 5; //!!! Надо договориться о скорости
+        this.speed = 5; //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         this.movement = this.speed;
         this.health = true;
-        this.damage = 10; //!!! Нада договориться про урон снаряда
+        this.damage = 10; //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         this.radius = 10;
         this.target = target;
         this.angle = 0;
@@ -551,8 +551,8 @@ class Projectile3 {
             this.health = false;
         }
 
-        this.x += this.movement * Math.cos(this.angle); //!!! Надо договорить о формуле для изменения
-        // координат пули и куда стрелять !!!!!
+        this.x += this.movement * Math.cos(this.angle); //!!! пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ !!!!!
         if (this.towery > this.target.y + 55) {
             this.y += this.movement * Math.sin(this.angle) * -1;
         } else {
@@ -576,24 +576,24 @@ class Projectile3 {
                                 )
                               );
         */
-        // Рисую овал для пули
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         if (this.health == true) {
             ctx.beginPath();
-            ctx.save(); // сохраняем стейт контекста
-            ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
-            //ctx.rotate(this.angle); // поворот на угол
+            ctx.save(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            ctx.translate(this.x, this.y); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            //ctx.rotate(this.angle); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
 
             if (this.towery > this.target.y + 55) {
                 ctx.rotate(-this.angle);
             } else {
                 ctx.rotate(this.angle);
             }
-            ctx.scale(1, this.height / this.width); // сжимаем по вертикали
-            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // рисуем круг
+            ctx.scale(1, this.height / this.width); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
             ctx.fill();
-            ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
+            ctx.restore(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             ctx.strokeStyle = 'red';
-            ctx.stroke(); // обводим
+            ctx.stroke(); // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             ctx.closePath();
         }
 
@@ -623,26 +623,26 @@ function draw_Projectiles() {
     //  return list_projectiles;
 }
 
-//юниты
-class Unit1 { //ближнего боя
+//пїЅпїЅпїЅпїЅпїЅ
+class Unit1 { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 40; // какое-то число
-        this.height = 40; //какое-то число
-        this.speed = CONSTANTA; //какое-то число
+        this.width = 40; // пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.height = 40; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.speed = CONSTANTA; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         this.movement = this.speed;
         this.health = 100;
-        this.damage = 10; //какое-то число
-        this.radius = 20; //какое-то число
-        this.projectiles = []; //пули
-        //this.shooting = false; 
+        this.damage = 10; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.radius = 20; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.projectiles = []; //пїЅпїЅпїЅпїЅ
+        //this.shooting = false;
         //this.shootNow = false;
         /*this.frameX = 0;
         this.frameY = 0;
         this.minFrame = 0;
         this.maxFrame = 16;*/
-        this.target = null; //цель
+        this.target = null; //пїЅпїЅпїЅпїЅ
         this.targetIndex = -1;
         //this.range = 20;
     }
@@ -696,7 +696,7 @@ const card2 = {
     height: 85
 }
 
-function chooseUnit() { //выбор юнитов
+function chooseUnit() { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     ctx.lineWidth = 1;
     ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
     ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
@@ -706,7 +706,7 @@ function calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
 }
 
-function findTarget(enemies) { //поиск цели
+function findTarget(enemies) { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     if (this.target !== null) {
         enemy = enemies[this.targetIndex];
         if (enemy &&
@@ -731,25 +731,25 @@ function findTarget(enemies) { //поиск цели
     return this.target;
 }
 
-class Unit2 { //дальнего боя
+class Unit2 { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 40; // какое-то число
-        this.height = 40; //какое-то число
-        this.speed = CONSTANTA; //какое-то число
+        this.width = 40; // пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.height = 40; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.speed = CONSTANTA; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         this.movement = this.speed;
         this.health = 100;
-        this.damage = 10; //какое-то число
-        this.radius = 50; //какое-то число
-        this.projectiles = []; //пули
-        //this.shooting = false; 
+        this.damage = 10; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.radius = 50; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.projectiles = []; //пїЅпїЅпїЅпїЅ
+        //this.shooting = false;
         //this.shootNow = false;
         /*this.frameX = 0;
         this.frameY = 0;
         this.minFrame = 0;
         this.maxFrame = 16;*/
-        this.target = null; //цель
+        this.target = null; //пїЅпїЅпїЅпїЅ
         this.targetIndex = -1;
         this.timer = 1;
     }
@@ -791,12 +791,12 @@ class Unit2 { //дальнего боя
             y: this.y
         }))
         if (this.timer === 10) {
-            this.radius += 10; //увеличение радиуса атаки
+            this.radius += 10; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             this.timer = 1;
         }
     }
 }
-// ресурсы
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 //
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -815,7 +815,7 @@ function animate() {
     //draw_Projectiles();
     handleTowers();
     handleEnemies();
-    chooseUnit(); //вот вызов функции для кнопок
+    chooseUnit(); //пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
     handleInformation();
     draw_Projectiles();
     frame++;

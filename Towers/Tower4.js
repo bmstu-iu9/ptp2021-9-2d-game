@@ -25,7 +25,7 @@ class Tower4 extends BaseTower {
     draw() {
         this.step();
         if (this.level == 1) {
-            ctx.fillStyle = 'green';
+            ctx.fillStyle = 'black';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = '30px Orbitron';

@@ -95,7 +95,7 @@ class Tower3 extends BaseTower {
         this.step();
         let ctx = this.ctx;
         if (this.level == 1) {
-            ctx.fillStyle = 'green';
+            ctx.fillStyle = 'blue';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = '30px Orbitron';

@@ -11,7 +11,7 @@ class BaseTower {
     this.range = 300;
     }
 
-    step() {
+    step(enemies) {
         this.findTargets(enemies, this.targetsAmount);
 
         if (this.targets.length == 0) return;

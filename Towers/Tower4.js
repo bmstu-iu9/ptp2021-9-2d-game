@@ -22,8 +22,8 @@ class Tower4 extends BaseTower {
         ))
     }
 
-    draw() {
-        this.step();
+    draw(enemies) {
+        this.step(enemies);
         if (this.level == 1) {
             ctx.fillStyle = 'black';
             ctx.fillRect(this.x, this.y, this.width, this.height);

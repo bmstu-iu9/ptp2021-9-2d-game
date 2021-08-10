@@ -19,8 +19,8 @@ class Tower2 extends BaseTower {
         this.projectiles.push(new Projectile2(target, this.x, this.y, this.level, this.damage))
     }
 
-    draw() {
-        this.step();
+    draw(enemies) {
+        this.step(enemies);
         let ctx = this.ctx;
         if (this.level == 1) {
             ctx.fillStyle = 'red';

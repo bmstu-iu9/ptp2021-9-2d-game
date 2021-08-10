@@ -22,8 +22,8 @@ class Tower1 extends BaseTower {
         ))
     }
 
-    draw() {
-        this.step();
+    draw(enemies) {
+        this.step(enemies);
         let ctx = this.ctx;
         if (this.level == 1) {
             ctx.fillStyle = 'green';

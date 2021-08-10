@@ -1,13 +1,9 @@
-import './task.js';
-import './Towers/BaseTower.js';
-import './Towers/Tower1.js';
-import './Towers/Tower2.js';
-import './Towers/Tower3.js';
-import './Towers/Tower4.js';
-import './ProjectilesProcessing.js';
-import './Units.js';
-import './enemies.js';
-import './help.js';
+import { BaseTower, Tower1, Tower2, Tower3, Tower4 } from './entity/towers';
+import ProcessProjectiles from './components/ProjectilesProcessing.js';
+import { Enemies, handleEnemies } from './entity/enemies/enemies.js';
+
+//import './Units.js'; Нужно разбить классы и функции на файлы
+//import './help.js'; Нужно сделать всё по-людски
 
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');

@@ -1,4 +1,4 @@
-function qsort(n, less, swap) {
+export function qsort(n, less, swap) {
 
     function partition(l, r) {
         for (let j = l; j < r; j++) {
@@ -22,9 +22,12 @@ function qsort(n, less, swap) {
 }
 
 // Пример вызова:
+/*
 
 let a = [1, 4, 2, 3, 10, 3, 4, 3, 2, 1, 2, 33];
 
 qsort(a.length,
     new Function('i, j', 'return a[i] < a[j]'),
     new Function('i, j', '[ a[i], a[j] ] = [ a[j], a[i] ]'));
+
+*/

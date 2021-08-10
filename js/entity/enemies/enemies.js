@@ -1,4 +1,4 @@
-class Enemies {
+export class Enemies {
   constructor(verticalPosition){
     this.x = canvas.width;
     this.y = verticalPosition;
@@ -22,7 +22,8 @@ class Enemies {
     ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25)
   }
 }
-function handleEnemies(){
+
+export function handleEnemies(){
   for (let i = 0; i < enemies.length; i++){
     if (enemies[i].health <= 0){
       resourses += enemies[i].maxHealth / 10;

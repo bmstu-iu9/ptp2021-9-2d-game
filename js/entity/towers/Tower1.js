@@ -1,6 +1,7 @@
-import BaseTower from './BaseTower.js'
+import BaseTower from './BaseTower.js';
+import Projectile1 from '../projectiles/Projectile1.js';
 
-class Tower1 extends BaseTower {
+export default class Tower1 extends BaseTower {
     constructor(x, y) {
         super(x, y);
         this.cost = 100;

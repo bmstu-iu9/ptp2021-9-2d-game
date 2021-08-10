@@ -1,4 +1,4 @@
-function ProcessProjectiles(projectiles, enemies) {
+export default function ProcessProjectiles(projectiles, enemies) {
     for (let i = 0, n = projectiles.length; i < n; i++) {
         let projectile = projectiles[i];
 

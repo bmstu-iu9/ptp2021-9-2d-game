@@ -1,7 +1,8 @@
-import BaseTower from './BaseTower.js'
-import { calculateDistance } from '../utils/utils.js'
+import BaseTower from './BaseTower.js';
+import Projectile3 from '../projectiles/Projectile3.js';
+import { calculateDistance } from './../utils/utils.js';
 
-class Tower3 extends BaseTower {
+export default class Tower3 extends BaseTower {
     constructor(ctx, x, y) {
         super(x, y);
         this.ctx = ctx;

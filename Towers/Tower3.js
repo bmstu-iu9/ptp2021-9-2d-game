@@ -1,17 +1,20 @@
-class BaseTower {
-    constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.width = 100;
-    this.height = 100;
-    this.projectiles = [];
-    this.direction = 0;
-    this.targetsAmount = 1;
-    this.targets = [];
-    this.range = 300;
-    }
+import BaseTower from './BaseTower.js'
+import { calculateDistance } from '../utils/utils.js'
 
-    step(enemies) {
+class Tower3 extends BaseTower {
+    constructor(ctx, x, y) {
+        super(x, y);
+        this.ctx = ctx;
+        this.cost = 100;
+        this.health = 100;
+        this.damage = 10;
+        this.upgradecost = 200;
+        this.range = 250;
+        this.lastShotTime = new Date();
+        this.shootInterval = 300;
+        this.level = 0;
+    }
+    step() {
         this.findTargets(enemies, this.targetsAmount);
 
         if (this.targets.length == 0) return;
@@ -41,7 +44,7 @@ class BaseTower {
 
         for (let i = 0; i < this.targets.length; i++) {
             let enemy = this.targets[i];
-            if (calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range) {
+            if (calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range ) {
                 this.targets.splice(i, 1);
             }
         }
@@ -55,13 +58,23 @@ class BaseTower {
             let enemy = enemies[i];
             let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 
-            if (distance < minDistance) {
+            if (this.y < enemy.y){
+              distance = calculateDistance(this.x, this.y + 100, enemy.x, enemy.y);
+            } else if (this.y > enemy.y) {
+              distance = calculateDistance(this.x, this.y - 100, enemy.x, enemy.y);
+            }
+
+            if (distance < minDistance &&
+                ((enemy.y == this.y - 55 && this.level == 0) || (enemy.y <= this.y - 55 + 100 && enemy.y >= this.y - 55 - 100 && this.level > 0))) {
+
                 let isTargetAlready = false;
+
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (enemy == this.targets[j]) {
                         isTargetAlready = true;
                     }
                 }
+
                 if (!isTargetAlready) {
                     nearestEnemyIndex = i;
                     minDistance = distance;
@@ -74,12 +87,31 @@ class BaseTower {
         }
     }
 
-    drawRotated(ctx, image, angle) {
-        if (!image) return;
-        context.save();
-        context.translate(this.x + image.width/2, this.y + image.height/2);
-        context.rotate(angle * (Math.PI / 180));
-        context.drawImage(image, -image.width/2, -image.height/2);
-        context.restore();
+    shoot(target) {
+        this.projectiles.push(new Projectile3(target, this.x, this.y))
+    }
+
+    draw(enemies) {
+        this.step(enemies);
+        let ctx = this.ctx;
+        if (this.level == 1) {
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = 'gold';
+            ctx.font = '30px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+        } else {
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = 'gold';
+            ctx.font = '30px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+        }
+    }
+
+    upgrade() {
+        this.level += 1;
+        //this.damage += 20;
+        //this.shootInterval -= 50;
     }
 }

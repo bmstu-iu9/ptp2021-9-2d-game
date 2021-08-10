@@ -1,27 +1,3 @@
-import './task.js';
-import './BaseTower.js';
-import './Tower1.js';
-import './Tower4.js';
-const canvas = document.getElementById('canvas1');
-const ctx = canvas.getContext('2d');
-canvas.width = 3000;
-canvas.height = 800;
-
-// всякая хрень глобальная
-const gameGrid = [];
-const cellSize = 100;
-const towers = [];
-const units = [];
-const enemies = [];
-const projectiles = [];
-const left = 0;
-let frame = 0;
-let interval = 600;
-let enemydamage = 10;
-let enemyfirerate = 10;
-let resourses = 300;
-let gameover = false;
-// мышка
 const mouse = {
   x: 10,
   y: 10,
@@ -68,54 +44,11 @@ function calculateDistance(x1, y1, x2, y2) {
 }*/
 
 // враги
-class Enemies {
-  constructor(verticalPosition){
-    this.x = canvas.width;
-    this.y = verticalPosition;
-    this.width = cellSize;
-    this.height = cellSize;
-    this.speed = Math.random() * 0.2 + 0.4;
-    this.movement = this.speed;
-    this.health = 100;
-    this.damage = enemydamage;
-    this.firerate = enemyfirerate;
-    this.maxHealth = this.health;
-  }
-  update(){
-    this.x -= this.movement;
-  }
-  draw(){
-    ctx.fillStyle = 'red';
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = 'black';
-    ctx.font = '30px Orbitron';
-    ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25)
-  }
-}
-function handleEnemies(){
-  for (let i = 0; i < projectiles.length; i++){
-    if (collision(projectiles[i].target, projectiles[i])){
-
-    }
-  }
-  for (let i = 0; i < enemies.length; i++){
-    enemies[i].update();
-    enemies[i].draw();
-  }
-  if (frame % interval === 0){
-    let verticalPosition = Math.floor(Math.random() * 7 + 1) * cellSize;
-    enemies.push(new Enemies(verticalPosition));
-    if (interval > 120) interval-= 50;
-  }
-  if (frame % 2000 === 0 && frame > 0){
-    enemydamage += (frame / 1000);
-  }
-}
 // игровое поле
 function handleInformation(){
   ctx.fillStyle = 'black';
   ctx.font = '35px Orbitron';
-  ctx.fillText('Resourses: ' + resourses, 415, 60);
+  ctx.fillText('Resourses: ' + resourses, 555, 60);
   if (gameover && mybase.health <= 0){
     ctx.fillStyle = 'red';
     ctx.font = '60px Orbitron';
@@ -199,35 +132,35 @@ window.onkeydown = function move_left(){
 
 
 const card1 = {
-  x: 10,
-  y: 10,
-  width: 70,
-  height: 85,
-}
-
-const card2 = {
-  x: 90,
-  y: 10,
-  width: 70,
-  height: 85,
-}
-
-const card3 = {
   x: 170,
   y: 10,
   width: 70,
   height: 85,
 }
 
-const card4 = {
+const card2 = {
   x: 250,
   y: 10,
   width: 70,
   height: 85,
 }
 
-const card5 = {
+const card3 = {
   x: 330,
+  y: 10,
+  width: 70,
+  height: 85,
+}
+
+const card4 = {
+  x: 410,
+  y: 10,
+  width: 70,
+  height: 85,
+}
+
+const card5 = {
+  x: 490,
   y: 10,
   width: 70,
   height: 85,
@@ -323,44 +256,3 @@ function choosetowers(){
   ctx.strokeStyle = card5stroke;
   ctx.strokeRect(card5.x, card5.y, card5.width,card5.height);
 }
-
-// снаряды
-// ресурсы
-//
-class Game {
-
-}
-function animate(){
-//  choosetowers();
-  ctx.clearRect(0,0, canvas.width, canvas.height);
-  ctx.fillStyle = 'grey';
-  if (frame % 100 === 0 && frame > 0){
-    resourses += 10;
-  }
-  ctx.fillRect(0,0,controlsBar.width, controlsBar.height);
-  mybase.draw();
-  enemybase.draw();
-  ctx.fillStyle = 'white';
-  ctx.font = '26px Orbitron'
-  ctx.fillText(Math.floor(10000), 2, 150);
-  ctx.fillText(Math.floor(10000), canvas.width - 100, 150);
-  handleGameGrid();
-  //draw_Projectiles();
-  //handleTowers();
-  //handleEnemies();
-  choosetowers();
-  handleInformation();
-//  draw_Projectiles();
-  frame++;
-  if (!gameover) requestAnimationFrame(animate);
-}
-animate();
-
-function collisiondetection(first,second){
-  if (!(first.y + first.height < second.y ||
-     second.y + second.height < first.y ||
-     first.x + first.width < second.x ||
-     second.x + second.width < first.x)) {
-    return true;
-  };
-};

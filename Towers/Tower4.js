@@ -12,58 +12,106 @@ class Tower4 extends BaseTower {
         this.shootInterval = 1000;
     }
 
-    shoot() {
+    shoot(target) {
         projectiles.push(new Projectile4(
-            this.target,
+            target,
             this.x + 50,
-            this.y + 50
+            this.y + 50,
+            this.level,
+            this.damage
         ))
     }
 
-    draw() {
-        this.step();
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'gold';
-        ctx.font = '30px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+    draw(enemies) {
+        this.step(enemies);
+        if (this.level == 1) {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = 'gold';
+            ctx.font = '30px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+        } else {
+            ctx.fillStyle = 'blue';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = 'gold';
+            ctx.font = '30px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+        }
+    }
+
+    upgrade() {
+        this.level += 1;
+        this.damage += 20;
     }
 }
 
 class Projectile4 {
-    constructor(target, x, y) {
+    constructor(target, x, y, level, damage) {
         this.target = target;
+        this.targetX = target.x;
+        this.targetY = target.y;
         this.x = x;
         this.y = y;
         this.width = 10;
         this.height = 10;
         this.speed = 3;
-        this.damage = 5;
+        this.damage = damage;
+        this.level = level;
+        this.hit = false;
     }
 
     update() {
-        let angel = Math.atan2(this.target.y + 50 - this.y, this.target.x + 50 - this.x);
-        this.x += this.speed * Math.cos(angel);
-        this.y += this.speed * Math.sin(angel);
+        if (this.hit) return;
+
+        if (this.target) {
+            this.targetX = this.target.x;
+            this.targetY = this.target.y;
+        }
+
+        let angle = Math.atan2(this.targetY + 50 - this.y,
+                               this.targetX + 50 - this.x);
+        this.x += this.speed * Math.cos(angle);
+        this.y += this.speed * Math.sin(angle);
+
+        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) < 30) {
+            this.hit = true;
+        }
     }
 
     hit() {
-        this.target.health -= 10;
-        this.target.movement * 0.6;
+        if (this.level == 1) {
+            this.target.health -= this.damage;
+            this.target.movement *= 0.6;
+        } else {
+            epicenterX = this.target.x;
+            epicenterY = this.target.y;
+            for (let i = 0, n = enemies.length; i < n; i++) {
+                let enemy = enemise[i];
+                if (calculateDistance(epicenterX, enemy.x,
+                                      epicenterY, enemy.y) < 50) {
+                    enemy.health -= this.damage;
+                    enemy.movement *= 0.6;
+                }
+            }
+        }
         // У врагов нужно создать поле для проверки на то, находится ли он
         // под действием замедления. Если нет, то восстановить скорость
     }
 
     draw() {
-        ctx.beginPath();
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.scale(1, this.height/this.width);
-        ctx.arc(0, 0, this.width, 0, Math.PI*2);
-        ctx.fill();
-        ctx.restore();
-        ctx.strokeStyle = 'red';
-        ctx.stroke();
-        ctx.closePath();
+        if (this.hit) {
+            // анимаиця взрыва снаряда и вызов метода hit()
+        } else {
+            ctx.beginPath();
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.scale(1, this.height/this.width);
+            ctx.arc(0, 0, this.width, 0, Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+            ctx.closePath();
+        }
     }
 }

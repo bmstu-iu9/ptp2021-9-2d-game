@@ -1,8 +1,10 @@
 import BaseTower from './BaseTower.js'
+import { calculateDistance } from '../utils/utils.js'
 
-class Tower1 extends BaseTower {
-    constructor(x, y) {
+class Tower2 extends BaseTower {
+    constructor(ctx, x, y) {
         super(x, y);
+        this.ctx = ctx;
         this.cost = 100;
         this.health = 100;
         this.damage = 10;
@@ -10,23 +12,18 @@ class Tower1 extends BaseTower {
         this.range = 500;
         this.lastShotTime = new Date();
         this.shootInterval = 300;
-        this.level = 1;
+        this.level = 0;
     }
 
     shoot(target) {
-        projectiles.push(new Projectile1(
-            target,
-            this.x + 50,
-            this.y + 50,
-            this.damage
-        ))
+        this.projectiles.push(new Projectile2(target, this.x, this.y, this.level, this.damage))
     }
 
     draw(enemies) {
         this.step(enemies);
         let ctx = this.ctx;
         if (this.level == 1) {
-            ctx.fillStyle = 'green';
+            ctx.fillStyle = 'red';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = '30px Orbitron';

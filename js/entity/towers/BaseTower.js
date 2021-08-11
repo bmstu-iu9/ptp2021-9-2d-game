@@ -1,4 +1,4 @@
-import { calculateDistance } from './../utils/utils.js';
+import { calculateDistance } from './../../utils/utils.js';
 
 export default class BaseTower {
     constructor(x, y) {

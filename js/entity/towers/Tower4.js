@@ -1,6 +1,6 @@
 import BaseTower from './BaseTower.js';
 import Projectile4 from '../projectiles/Projectile4.js';
-import { calculateDistance } from './../utils/utils.js';
+import { calculateDistance } from './../../utils/utils.js';
 
 export default class Tower4 extends BaseTower {
     constructor(x, y) {

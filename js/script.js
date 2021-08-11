@@ -1,4 +1,8 @@
-import { BaseTower, Tower1, Tower2, Tower3, Tower4 } from './entity/towers';
+import BaseTower from './entity/towers/BaseTower.js';
+import Tower1 from './entity/towers/Tower1.js';
+import Tower2 from './entity/towers/Tower2.js';
+import Tower3 from './entity/towers/Tower3.js';
+import Tower4 from './entity/towers/Tower4.js';
 import ProcessProjectiles from './components/ProjectilesProcessing.js';
 import { Enemies, handleEnemies } from './entity/enemies/enemies.js';
 

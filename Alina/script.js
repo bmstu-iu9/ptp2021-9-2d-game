@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d');
 canvas.width = 3000;
 canvas.height = 800;
 
-// ������ ����� ����������
+// âñÿêàÿ õðåíü ãëîáàëüíàÿ
 const gameGrid = [];
 const cellSize = 100;
 const towers = [];
@@ -17,7 +17,7 @@ let enemydamage = 10;
 let enemyfirerate = 10;
 let resourses = 300;
 let gameover = false;
-// �����
+// ìûøêà
 const mouse = {
     x: 10,
     y: 10,
@@ -34,14 +34,15 @@ canvas.addEventListener('mouseleave', function () {
     mouse.x = undefined;
     mouse.y = undefined;
 });
-
 canvas.addEventListener('mousedown', function () {
     mouse.clicked = true;
 });
 canvas.addEventListener('mouseup', function () {
     mouse.clicked = false;
 });
-// ���� �����
+
+
+// свои башни
 //import vec2 from 'gl-matrix';
 //import vec2 from 'gl-matrix';
 function calculateDistance(x1, y1, x2, y2) {
@@ -70,7 +71,7 @@ class BaseTower {
         if (this.target !== null) {
             //  let enemy = enemies[this.targetIndex];
             if (
-                calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range && enemy.x - 100 < this.x) { /// ����� �������
+                calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range && enemy.x - 100 < this.x) { /// íîâîå óñëîâèå
                 return;
             }
         }
@@ -82,7 +83,7 @@ class BaseTower {
             let enemy = enemies[i];
             let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
             //
-            if (distance < minDistance && enemy.x - 100 > this.x) { //����� �������
+            if (distance < minDistance && enemy.x - 100 > this.x) { //íîâîå óñëîâèå
                 nearestEnemyId = i;
                 minDistance = distance;
             }
@@ -146,12 +147,12 @@ class Tower1 extends BaseTower {
     }
 
     shoot() {
-        // ���������� � ������ �������� ����� ������ ������ �������
+        // Äîáàâëåíèå â ìàññèâ ñíàðÿäîâ íîâûé îáúåêò êëàññà ñíàðÿäà
 
         projectiles.push(new Projectile1(
             this,
             this.target,
-            this.x + 55,          // ����� ���� �� ������ ��������
+            this.x + 55,          // ÷èñëî ÷òîá èç öåíòðà âûëåòàëî
             this.y + 55
         ))
         //  console.log(projectiles.length);
@@ -214,14 +215,14 @@ canvas.addEventListener('dblclick', function () {
     switch (towers[current].check) {
         case 1:
             if (towers[current].kills >= 5) {
-                towers[current].damage += 2;    //����� �� �����
+                towers[current].damage += 2;    //öèôðû îò áàëäû
                 towers[current].firerate -= 2;
-                towers[current].elite = 1;// ��� ����
+                towers[current].elite = 1;// òóò òîæå
                 //console.log(towers[current].damage);
                 resourses -= towers[current].upgradecost;
             }
             break;
-        //  case 2: � ��� ��� ���� ����� �� ���������
+        //  case 2: è òàê äëÿ âñåõ áàøåí èõ óëó÷øåíèÿ
     }
 });
 function handleTowers() {
@@ -237,7 +238,7 @@ function handleTowers() {
 /*function handleSamples(){
   ctx.fillRect()
 }*/
-// ���� �����
+// ñâîè þíèòû
 /*class Units {
   constructor(verticalPosition){
     this.x = 0;
@@ -248,7 +249,7 @@ function handleTowers() {
   }
 }*/
 
-// �����
+// âðàãè
 class Enemies {
     constructor(verticalPosition) {
         this.x = canvas.width;
@@ -287,7 +288,7 @@ function handleEnemies() {
         enemydamage += (frame / 1000);
     }
 }
-// ������� ����
+// èãðîâîå ïîëå
 function handleInformation() {
     ctx.fillStyle = 'black';
     ctx.font = '35px Orbitron';
@@ -374,7 +375,7 @@ window.onkeydown = function move_left() {
 };
 
 
-// �������
+// ñíàðÿäû
 class Projectile1 {
     constructor(tower, target, x, y) { //
         this.tower = tower;
@@ -384,10 +385,10 @@ class Projectile1 {
         this.y = y;
         this.width = 10;
         this.height = 5;
-        this.speed = 5; //!!! ���� ������������ � ��������
+        this.speed = 5; //!!! Íàäî äîãîâîðèòüñÿ î ñêîðîñòè
         this.movement = this.speed;
         this.health = true;
-        this.damage = 10; //!!! ���� ������������ ��� ���� �������
+        this.damage = 10; //!!! Íàäà äîãîâîðèòüñÿ ïðî óðîí ñíàðÿäà
         this.radius = 10;
         this.target = target;
         this.angle = 0;
@@ -404,8 +405,8 @@ class Projectile1 {
             this.health = true;
         }
 
-        this.x += this.movement * Math.cos(this.angle); //!!! ���� ���������� � ������� ��� ���������
-        // ��������� ���� � ���� �������� !!!!!
+        this.x += this.movement * Math.cos(this.angle); //!!! Íàäî äîãîâîðèòü î ôîðìóëå äëÿ èçìåíåíèÿ
+        // êîîðäèíàò ïóëè è êóäà ñòðåëÿòü !!!!!
         if (this.towery > this.target.y + 55) {
             this.y += this.movement * Math.sin(this.angle) * -1;
         } else {
@@ -429,24 +430,24 @@ class Projectile1 {
                                 )
                               );
         */
-        // ����� ���� ��� ����
+        // Ðèñóþ îâàë äëÿ ïóëè
         if (this.health == true) {
             ctx.beginPath();
-            ctx.save(); // ��������� ����� ���������
-            ctx.translate(this.x, this.y); // ���������� ���������� � ����� �������
-            //ctx.rotate(this.angle); // ������� �� ����
+            ctx.save(); // ñîõðàíÿåì ñòåéò êîíòåêñòà
+            ctx.translate(this.x, this.y); // ïåðåìåùàåì êîîðäèíàòû â öåíòð ýëëèïñà
+            //ctx.rotate(this.angle); // ïîâîðîò íà óãîë
 
             if (this.towery > this.target.y + 55) {
                 ctx.rotate(-this.angle);
             } else {
                 ctx.rotate(this.angle);
             }
-            ctx.scale(1, this.height / this.width); // ������� �� ���������
-            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // ������ ����
+            ctx.scale(1, this.height / this.width); // ñæèìàåì ïî âåðòèêàëè
+            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // ðèñóåì êðóã
             ctx.fill();
-            ctx.restore(); // ��������������� �����, ����� ������� � ������� ����� ����������� � �����������
+            ctx.restore(); // âîññòàíàâëèâàåò ñòåéò, èíà÷å îáâîäêà è çàëèâêà áóäóò ñïëþùåííûìè è ïîâ¸ðíóòûìè
             ctx.strokeStyle = 'red';
-            ctx.stroke(); // �������
+            ctx.stroke(); // îáâîäèì
             ctx.closePath();
         }
 
@@ -462,10 +463,10 @@ class Projectile2 {
         this.y = y;
         this.width = 10;
         this.height = 5;
-        this.speed = 5; //!!! ���� ������������ � ��������
+        this.speed = 5; //!!! Íàäî äîãîâîðèòüñÿ î ñêîðîñòè
         this.movement = this.speed;
         this.health = true;
-        this.damage = 10; //!!! ���� ������������ ��� ���� �������
+        this.damage = 10; //!!! Íàäà äîãîâîðèòüñÿ ïðî óðîí ñíàðÿäà
         this.radius = 10;
         this.target = target;
         this.angle = 0;
@@ -482,8 +483,8 @@ class Projectile2 {
             this.health = false;
         }
 
-        this.x += this.movement * Math.cos(this.angle); //!!! ���� ���������� � ������� ��� ���������
-        // ��������� ���� � ���� �������� !!!!!
+        this.x += this.movement * Math.cos(this.angle); //!!! Íàäî äîãîâîðèòü î ôîðìóëå äëÿ èçìåíåíèÿ
+        // êîîðäèíàò ïóëè è êóäà ñòðåëÿòü !!!!!
         if (this.towery > this.target.y + 55) {
             this.y += this.movement * Math.sin(this.angle) * -1;
         } else {
@@ -507,24 +508,24 @@ class Projectile2 {
                                 )
                               );
         */
-        // ����� ���� ��� ����
+        // Ðèñóþ îâàë äëÿ ïóëè
         if (this.health == true) {
             ctx.beginPath();
-            ctx.save(); // ��������� ����� ���������
-            ctx.translate(this.x, this.y); // ���������� ���������� � ����� �������
-            //ctx.rotate(this.angle); // ������� �� ����
+            ctx.save(); // ñîõðàíÿåì ñòåéò êîíòåêñòà
+            ctx.translate(this.x, this.y); // ïåðåìåùàåì êîîðäèíàòû â öåíòð ýëëèïñà
+            //ctx.rotate(this.angle); // ïîâîðîò íà óãîë
 
             if (this.towery > this.target.y + 55) {
                 ctx.rotate(-this.angle);
             } else {
                 ctx.rotate(this.angle);
             }
-            ctx.scale(1, this.height / this.width); // ������� �� ���������
-            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // ������ ����
+            ctx.scale(1, this.height / this.width); // ñæèìàåì ïî âåðòèêàëè
+            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // ðèñóåì êðóã
             ctx.fill();
-            ctx.restore(); // ��������������� �����, ����� ������� � ������� ����� ����������� � �����������
+            ctx.restore(); // âîññòàíàâëèâàåò ñòåéò, èíà÷å îáâîäêà è çàëèâêà áóäóò ñïëþùåííûìè è ïîâ¸ðíóòûìè
             ctx.strokeStyle = 'red';
-            ctx.stroke(); // �������
+            ctx.stroke(); // îáâîäèì
             ctx.closePath();
         }
 
@@ -539,10 +540,10 @@ class Projectile3 {
         this.y = y;
         this.width = 10;
         this.height = 5;
-        this.speed = 5; //!!! ���� ������������ � ��������
+        this.speed = 5; //!!! Íàäî äîãîâîðèòüñÿ î ñêîðîñòè
         this.movement = this.speed;
         this.health = true;
-        this.damage = 10; //!!! ���� ������������ ��� ���� �������
+        this.damage = 10; //!!! Íàäà äîãîâîðèòüñÿ ïðî óðîí ñíàðÿäà
         this.radius = 10;
         this.target = target;
         this.angle = 0;
@@ -559,8 +560,8 @@ class Projectile3 {
             this.health = false;
         }
 
-        this.x += this.movement * Math.cos(this.angle); //!!! ���� ���������� � ������� ��� ���������
-        // ��������� ���� � ���� �������� !!!!!
+        this.x += this.movement * Math.cos(this.angle); //!!! Íàäî äîãîâîðèòü î ôîðìóëå äëÿ èçìåíåíèÿ
+        // êîîðäèíàò ïóëè è êóäà ñòðåëÿòü !!!!!
         if (this.towery > this.target.y + 55) {
             this.y += this.movement * Math.sin(this.angle) * -1;
         } else {
@@ -584,24 +585,24 @@ class Projectile3 {
                                 )
                               );
         */
-        // ����� ���� ��� ����
+        // Ðèñóþ îâàë äëÿ ïóëè
         if (this.health == true) {
             ctx.beginPath();
-            ctx.save(); // ��������� ����� ���������
-            ctx.translate(this.x, this.y); // ���������� ���������� � ����� �������
-            //ctx.rotate(this.angle); // ������� �� ����
+            ctx.save(); // ñîõðàíÿåì ñòåéò êîíòåêñòà
+            ctx.translate(this.x, this.y); // ïåðåìåùàåì êîîðäèíàòû â öåíòð ýëëèïñà
+            //ctx.rotate(this.angle); // ïîâîðîò íà óãîë
 
             if (this.towery > this.target.y + 55) {
                 ctx.rotate(-this.angle);
             } else {
                 ctx.rotate(this.angle);
             }
-            ctx.scale(1, this.height / this.width); // ������� �� ���������
-            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // ������ ����
+            ctx.scale(1, this.height / this.width); // ñæèìàåì ïî âåðòèêàëè
+            ctx.arc(0, 0, this.width, 0, Math.PI * 2); // ðèñóåì êðóã
             ctx.fill();
-            ctx.restore(); // ��������������� �����, ����� ������� � ������� ����� ����������� � �����������
+            ctx.restore(); // âîññòàíàâëèâàåò ñòåéò, èíà÷å îáâîäêà è çàëèâêà áóäóò ñïëþùåííûìè è ïîâ¸ðíóòûìè
             ctx.strokeStyle = 'red';
-            ctx.stroke(); // �������
+            ctx.stroke(); // îáâîäèì
             ctx.closePath();
         }
 
@@ -631,28 +632,22 @@ function draw_Projectiles() {
     //  return list_projectiles;
 }
 
-//�����
-class Unit1 { //�������� ���
+//þíèòû
+class Unit1 { //áëèæíåãî áîÿ
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 40; // �����-�� �����
-        this.height = 40; //�����-�� �����
-        this.speed = CONSTANTA; //�����-�� �����
+        this.width = 40; // êàêîå-òî ÷èñëî
+        this.height = 40; //êàêîå-òî ÷èñëî
+        this.speed = CONSTANTA; //êàêîå-òî ÷èñëî
         this.movement = this.speed;
         this.health = 100;
-        this.damage = 10; //�����-�� �����
-        this.radius = 20; //�����-�� �����
-        this.projectiles = []; //����
-        //this.shooting = false;
-        //this.shootNow = false;
-        /*this.frameX = 0;
-        this.frameY = 0;
-        this.minFrame = 0;
-        this.maxFrame = 16;*/
-        this.target = null; //����
+        this.damage = 10; //êàêîå-òî ÷èñëî
+        this.radius = 20; //êàêîå-òî ÷èñëî
+        this.projectiles = []; //ïóëè
+        this.target = null; //öåëü
         this.targetIndex = -1;
-        //this.range = 20;
+        this.chosenUnit = chosenUnit;
     }
     update() {
         if (this.target === null) this.x += this.movement;
@@ -692,50 +687,51 @@ class Unit1 { //�������� ���
 }
 
 let chosenUnit = 1; //глобальная переменная
-const card1 = {
+const card6 = {
     x: 360,
     y: 10,
     width: 70,
     height: 85
 }
-const card2 = {
+const card7 = {
     x: 440,
     y: 10,
     width: 70,
     height: 85
 }
 
-function chooseUnit() { //выбор юнитов
-    let card1stroke = 'black';
-    let card2stroke = 'black';
-    if (collision(mouse, card1) && mouse.clicked) {
+let card6stroke = 'black';
+let card7stroke = 'black';
+function chooseUnit() { //âûáîð þíèòîâ
+    
+    if (collisiondetection(mouse, card6) && mouse.clicked) {
         chosenUnit = 1;
-    } else if (collision(mouse, card2) && mouse.clicked) {
+    } else if (collisiondetection(mouse, card7) && mouse.clicked) {
         chosenUnit = 2;
     }
     if (chosenUnit === 1) {
-        let card1stroke = 'gold';
-        let card2stroke = 'black';
+        card6stroke = 'gold';
+        card7stroke = 'black';
     } else if (chosenUnit === 2) {
-        let card1stroke = 'black';
-        let card2stroke = 'gold';
+        card6stroke = 'black';
+        card7stroke = 'gold';
     } else {
-        let card1stroke = 'black';
-        let card2stroke = 'black';
+        card6stroke = 'black';
+        card7stroke = 'black';
     }
     ctx.lineWidth = 1;
-    ctx.fillStyle = 'rgba(0,0,0,0.2)';
-    ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
-    ctx.strokeStyle = card1stroke;
-    ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
-    ctx.strokeStyle = card2stroke;
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(card6.x, card6.y, card6.width, card6.height);
+    ctx.strokeStyle = card6stroke;
+    ctx.fillRect(card7.x, card7.y, card7.width, card7.height);
+    ctx.strokeStyle = card7stroke;
 }
 
 function calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
 }
 
-function findTarget(enemies) { //����� ����
+function findTarget(enemies) { //ïîèñê öåëè
     if (this.target !== null) {
         enemy = enemies[this.targetIndex];
         if (enemy &&
@@ -760,27 +756,28 @@ function findTarget(enemies) { //����� ����
     return this.target;
 }
 
-class Unit2 { //�������� ���
+class Unit2 { //äàëüíåãî áîÿ
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 40; // �����-�� �����
-        this.height = 40; //�����-�� �����
-        this.speed = CONSTANTA; //�����-�� �����
+        this.width = 40; // êàêîå-òî ÷èñëî
+        this.height = 40; //êàêîå-òî ÷èñëî
+        this.speed = CONSTANTA; //êàêîå-òî ÷èñëî
         this.movement = this.speed;
         this.health = 100;
-        this.damage = 10; //�����-�� �����
-        this.radius = 50; //�����-�� �����
-        this.projectiles = []; //����
-        //this.shooting = false;
+        this.damage = 10; //êàêîå-òî ÷èñëî
+        this.radius = 50; //êàêîå-òî ÷èñëî
+        this.projectiles = []; //ïóëè
+        //this.shooting = false; 
         //this.shootNow = false;
         /*this.frameX = 0;
         this.frameY = 0;
         this.minFrame = 0;
         this.maxFrame = 16;*/
-        this.target = null; //����
+        this.target = null; //öåëü
         this.targetIndex = -1;
         this.timer = 1;
+        this.chosenUnit = chosenUnit;
     }
     update() {
         if (this.target === null) this.x += this.movement;
@@ -820,12 +817,12 @@ class Unit2 { //�������� ���
             y: this.y
         }))
         if (this.timer === 10) {
-            this.radius += 10; //���������� ������� �����
+            this.radius += 10; //óâåëè÷åíèå ðàäèóñà àòàêè
             this.timer = 1;
         }
     }
 }
-// �������
+// ðåñóðñû
 //
 function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -844,7 +841,7 @@ function animate() {
     //draw_Projectiles();
     handleTowers();
     handleEnemies();
-    chooseUnit(); //��� ����� ������� ��� ������
+    chooseUnit(); //âîò âûçîâ ôóíêöèè äëÿ êíîïîê
     handleInformation();
     draw_Projectiles();
     frame++;
@@ -859,4 +856,4 @@ function collisiondetection(first, second) {
         second.x + second.width < first.x)) {
         return true;
     };
-};
+}; 

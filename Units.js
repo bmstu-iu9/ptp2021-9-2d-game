@@ -55,43 +55,45 @@ class Unit1 { //ближнего боя
 }
 
 let chosenUnit = 1; //глобальная переменная
-const card1 = {
+const card6 = {
     x: 360,
     y: 10,
     width: 70,
     height: 85
 }
-const card2 = {
+const card7 = {
     x: 440,
     y: 10,
     width: 70,
     height: 85
 }
 
+let card6stroke = 'black';
+let card7stroke = 'black';
+
 function chooseUnit() { //выбор юнитов
-    let card1stroke = 'black';
-    let card2stroke = 'black';
-    if (collision(mouse, card1) && mouse.clicked) {
+    
+    if (collisiondetection(mouse, card6) && mouse.clicked) {
         chosenUnit = 1;
-    } else if (collision(mouse, card2) && mouse.clicked) {
+    } else if (collisiondetection(mouse, card7) && mouse.clicked) {
         chosenUnit = 2;
     }
     if (chosenUnit === 1) {
-        let card1stroke = 'gold';
-        let card2stroke = 'black';
+        card6stroke = 'gold';
+        card7stroke = 'black';
     } else if (chosenUnit === 2) {
-        let card1stroke = 'black';
-        let card2stroke = 'gold';
+        card6stroke = 'black';
+        card7stroke = 'gold';
     } else {
-        let card1stroke = 'black';
-        let card2stroke = 'black';
+        card6stroke = 'black';
+        card7stroke = 'black';
     }
     ctx.lineWidth = 1;
-    ctx.fillStyle = 'rgba(0,0,0,0.2)';
-    ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
-    ctx.strokeStyle = card1stroke;
-    ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
-    ctx.strokeStyle = card2stroke;
+    ctx.fillStyle = 'yellow';
+    ctx.fillRect(card6.x, card6.y, card6.width, card6.height);
+    ctx.strokeStyle = card6stroke;
+    ctx.fillRect(card7.x, card7.y, card7.width, card7.height);
+    ctx.strokeStyle = card7stroke;
 }
 
 function calculateDistance(x1, y1, x2, y2) {

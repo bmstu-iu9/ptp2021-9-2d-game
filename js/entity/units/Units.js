@@ -12,6 +12,7 @@ class Unit1 { //ближнего боя
         this.projectiles = []; //пули
         this.target = null; //цель
         this.targetIndex = -1;
+        this.chosenUnit = chosenUnit;
     }
     update() {
         if (this.target === null) this.x += this.movement;
@@ -39,6 +40,9 @@ class Unit1 { //ближнего боя
         ctx.fillStyle = 'black';
         ctx.font = '30px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+        if (this.chosenUnit === 1) {
+            //рисуем юнита1
+        }
     }
     shoot() {
         this.projectiles.push(new Projectile({
@@ -50,35 +54,46 @@ class Unit1 { //ближнего боя
     }
 }
 
-const card1 = {
-    x: 10,
+let chosenUnit = 1; //глобальная переменная
+const card6 = {
+    x: 360,
     y: 10,
     width: 70,
     height: 85
 }
-const card2 = {
-    x: 90,
+const card7 = {
+    x: 440,
     y: 10,
     width: 70,
     height: 85
 }
 
+let card6stroke = 'black';
+let card7stroke = 'black';
+
 function chooseUnit() { //выбор юнитов
-    /*let card1stroke = 'black';
-    let card2stroke = 'black';
-    if (collision(mouse, card1)) {
-        choosenUnit = 1;
-    } else if (collision(mouse, card2)) {
-        choosenUnit = 2;
+    
+    if (collisiondetection(mouse, card6) && mouse.clicked) {
+        chosenUnit = 1;
+    } else if (collisiondetection(mouse, card7) && mouse.clicked) {
+        chosenUnit = 2;
     }
-    if (choosenUnit === 1) {
-        //какое-то действиие
-    } else if (choosenUnit === 2) {
-         //какое-то действиие
-    }*/
+    if (chosenUnit === 1) {
+        card6stroke = 'gold';
+        card7stroke = 'black';
+    } else if (chosenUnit === 2) {
+        card6stroke = 'black';
+        card7stroke = 'gold';
+    } else {
+        card6stroke = 'black';
+        card7stroke = 'black';
+    }
     ctx.lineWidth = 1;
-    ctx.fillRect(card1.x, card1.y, card1.width, card1.height);
-    ctx.fillRect(card2.x, card2.y, card2.width, card2.height);
+    ctx.fillStyle = 'yellow';
+    ctx.fillRect(card6.x, card6.y, card6.width, card6.height);
+    ctx.strokeStyle = card6stroke;
+    ctx.fillRect(card7.x, card7.y, card7.width, card7.height);
+    ctx.strokeStyle = card7stroke;
 }
 
 function calculateDistance(x1, y1, x2, y2) {
@@ -95,7 +110,7 @@ function findTarget(enemies) { //поиск цели
     }
     nearestEnemyId = -1;
     minDistance = this.radius;
-    for (let i = 0; n = enemies.length; i < n; i++) {
+    for (let i = 0; i < enemies.length; i++) {
         enemy = enemies[i];
         distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
         if (distance < minDistance) {
@@ -125,6 +140,7 @@ class Unit2 { //дальнего боя
         this.target = null; //цель
         this.targetIndex = -1;
         this.timer = 1;
+        this.chosenUnit = chosenUnit;
     }
     update() {
         if (this.target === null) this.x += this.movement;
@@ -139,6 +155,9 @@ class Unit2 { //дальнего боя
         ctx.fillStyle = 'black';
         ctx.font = '30px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+        if (this.chosenUnit === 2) {
+            //рисуем юнита2
+        }
     }
     shoot() {
         this.timer++;

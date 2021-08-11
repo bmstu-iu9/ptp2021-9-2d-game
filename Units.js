@@ -12,6 +12,7 @@ class Unit1 { //ближнего боя
         this.projectiles = []; //пули
         this.target = null; //цель
         this.targetIndex = -1;
+        this.chosenUnit = chosenUnit;
     }
     update() {
         if (this.target === null) this.x += this.movement;
@@ -39,6 +40,9 @@ class Unit1 { //ближнего боя
         ctx.fillStyle = 'black';
         ctx.font = '30px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+        if (this.chosenUnit === 1) {
+            //рисуем юнита1
+        }
     }
     shoot() {
         this.projectiles.push(new Projectile({
@@ -134,6 +138,7 @@ class Unit2 { //дальнего боя
         this.target = null; //цель
         this.targetIndex = -1;
         this.timer = 1;
+        this.chosenUnit = chosenUnit;
     }
     update() {
         if (this.target === null) this.x += this.movement;
@@ -148,6 +153,9 @@ class Unit2 { //дальнего боя
         ctx.fillStyle = 'black';
         ctx.font = '30px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+        if (this.chosenUnit === 2) {
+            //рисуем юнита2
+        }
     }
     shoot() {
         this.timer++;

@@ -16,8 +16,8 @@ import { handleTowers, handleInformation, handleGameGrid, handleEnemies } from  
 
 class Game {
     constructor() {
-        this.canvas = canvas; //document.getElementById('canvas1');
-        this.ctx = ctx; //this.canvas.getContext('2d');
+        this.canvas = document.getElementById('canvas1');
+        this.ctx = this.canvas.getContext('2d');
         this.canvas.width = Constant.canvasWidth;
         this.canvas.height = Constant.canvasHeight;
         this.gameGrid = [];
@@ -55,7 +55,7 @@ class Game {
     animate() {
         //let canvas = this.canvas;
         //while (true) {
-        
+
             //console.log(this == undefined)
             this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
             //console.log(this == undefined)
@@ -78,10 +78,15 @@ class Game {
             handleGameGrid(this.gameGrid, this.ctx, this.mouse);
             ProcessProjectiles(this.projectiles, this.enemies, this.ctx);
             handleTowers(this.enemies);
-            handleEnemies(this.enemies, this.resources, this.ctx, this.enemydamage, Constant.interval);
+            handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
             handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
 
             this.frame++;
+            console.log("job");
+            let ms = 1000/60;
+            ms += new Date().getTime();
+            while (new Date().getTime() < ms){}
+            //break;
         //}
         //if (!this.gameOver) requestAnimationFrame(this.animate);
         //console.log(this == undefined)
@@ -95,9 +100,12 @@ class Game {
 
 }
 
-const canvas = document.getElementById('canvas1');
-const ctx = canvas.getContext('2d');
-
 let game = new Game();
 game.start();
-if (!game.gameOver) requestAnimationFrame(game.animate);
+
+function f(){
+    game.animate()
+    if (!game.gameOver) requestAnimationFrame(f);
+}
+f()
+//if (!game.gameOver) requestAnimationFrame(game.animate);

@@ -43,7 +43,7 @@ export function handleEnemies(enemies, resources, ctx, frame, enemydamage, inter
     }
 
     if (frame % interval === 0) {
-        let verticalPosition = Math.floor(Math.random() * 7 + 1) * cellSize;
+        let verticalPosition = Math.floor(Math.random() * 7 + 1) * 100;
         enemies.push(new Enemies(verticalPosition, ctx));
 
         if (interval > 120) interval-= 50;

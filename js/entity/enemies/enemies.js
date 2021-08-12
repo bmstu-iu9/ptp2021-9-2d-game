@@ -2,16 +2,17 @@ import * as Constant from './../../constants.js';
 
 export default class Enemies {
     constructor(verticalPosition, ctx) {
-        this.x = canvas.width;
+        this.x = Constant.canvasWidth;
         this.y = verticalPosition;
-        this.width = cellSize;
-        this.height = cellSize;
+        this.width = Constant.cellSize;
+        this.height = Constant.cellSize;
         this.speed = Math.random() * 0.2 + 0.4;
         this.movement = this.speed;
         this.health = 100;
         this.damage = 10; //enemydamage;
         this.firerate = 100; //enemyfirerate;
         this.maxHealth = this.health;
+        this.ctx = ctx;
     }
 
     update() {

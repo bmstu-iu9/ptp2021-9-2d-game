@@ -2,6 +2,7 @@ import { chooseTower } from './towerSelection.js';
 import * as Constant from './../constants.js';
 
 export function putTower(towers, mouse, resources, ctx) {
+    console.log("chek")
     let chosenTower = chooseTower(ctx, mouse)
     const positionX = mouse.x - (mouse.x % Constant.cellSize);
     const positionY = mouse.y - (mouse.y % Constant.cellSize);

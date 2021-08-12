@@ -31,7 +31,7 @@ export default class Projectile3 {
         if (this.target == null) {
             return ;
         }
-        if (this.healf) {
+        if (this.health) {
             ctx.fillStyle = 'red';
             if (this.uograde == 0) {
                 ctx.fillRect(this.x, this.y, this.width, this.height);

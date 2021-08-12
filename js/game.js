@@ -16,8 +16,8 @@ import { handleTowers, handleInformation, handleGameGrid, handleEnemies } from  
 
 class Game {
     constructor() {
-        this.canvas = document.getElementById('canvas1');
-        this.ctx = this.canvas.getContext('2d');
+        this.canvas = canvas; //document.getElementById('canvas1');
+        this.ctx = ctx; //this.canvas.getContext('2d');
         this.canvas.width = Constant.canvasWidth;
         this.canvas.height = Constant.canvasHeight;
         this.gameGrid = [];
@@ -27,18 +27,20 @@ class Game {
         this.projectiles = [];
         this.gameOver = false;
         this.resources = 300;
+        this.enemydamage = 10;
         this.frame = 0;
-        this.playerBase = new playerBase();
-        this.enemyBase = new enemyBase();
-        this.mouse = new Mouse();
+        this.playerBase = new PlayerBase();
+        this.enemyBase = new EnemyBase();
+        this.mouse = new Mouse(this.canvas);
+
+
     }
 
     init() {
 
         this.mouse.init();
 
-        canvas.addEventListener('click', putTower(Constant.cellSize,
-                                                  this.towers,
+        this.canvas.addEventListener('click', putTower(this.towers,
                                                   this.mouse,
                                                   this.resources,
                                                   this.ctx));
@@ -51,42 +53,51 @@ class Game {
     }
 
     animate() {
-        let ctx = this.ctx;
+        //let canvas = this.canvas;
+        //while (true) {
+        
+            //console.log(this == undefined)
+            this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
+            //console.log(this == undefined)
+            this.ctx.fillStyle = 'grey';
 
-        ctx.clearRect(0,0, canvas.width, canvas.height);
-        ctx.fillStyle = 'grey';
+            if (this.frame % 100 === 0 && this.frame > 0) {
+                this.resources += 10;
+            }
 
-        if (this.frame % 100 === 0 && this.frame > 0) {
-            this.resources += 10;
-        }
+            this.ctx.fillRect(0, 0, Constant.controlsBarWidth, Constant.controlsBarHeight);
+            this.playerBase.draw(this.ctx);
+            this.enemyBase.draw(this.ctx);
 
-        ctx.fillRect(0, 0, Constant.controlsBarWidth, Constant.controlsBarHeight);
-        this.playerBase.draw();
-        this.enemyBase.draw();
+            this.ctx.fillStyle = 'white';
+            this.ctx.font = '26px Orbitron'
+            this.ctx.fillText(10000, 2, 150);
+            this.ctx.fillText(10000, this.canvas.width - 100, 150);
 
-        ctx.fillStyle = 'white';
-        ctx.font = '26px Orbitron'
-        ctx.fillText(10000, 2, 150);
-        ctx.fillText(10000, canvas.width - 100, 150);
 
-        handleGameGrid(this.gameGrid, ctx, this.mouse);
-        ProcessProjectiles(this.projectiles, this.enemies, ctx);
-        handleTowers(this.enemies);
-        handleEnemies(this.enemies, this.resources, ctx);
-        handleInformation(ctx, this.gameOver, this.resources, this.playerBase);
+            handleGameGrid(this.gameGrid, this.ctx, this.mouse);
+            ProcessProjectiles(this.projectiles, this.enemies, this.ctx);
+            handleTowers(this.enemies);
+            handleEnemies(this.enemies, this.resources, this.ctx, this.enemydamage, Constant.interval);
+            handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
 
-        this.frame++;
-
-        if (!this.gameOver) requestAnimationFrame(this.animate);
+            this.frame++;
+        //}
+        //if (!this.gameOver) requestAnimationFrame(this.animate);
+        //console.log(this == undefined)
     }
 
     start() {
-        init();
-        animate();
+        this.init();
+        //this.animate();
     }
 
 
 }
 
-game = Game()
-game.start()
+const canvas = document.getElementById('canvas1');
+const ctx = canvas.getContext('2d');
+
+let game = new Game();
+game.start();
+if (!game.gameOver) requestAnimationFrame(game.animate);

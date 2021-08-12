@@ -3,8 +3,8 @@ export default class PlayerBase {
         this.health = 10000;
     }
 
-    draw() {
+    draw(ctx) {
         ctx.fillStyle = 'green';
-        ctx.fillRect(0,cellSize,100, 700);
+        ctx.fillRect(0, 100, 100, 700);
     }
 }

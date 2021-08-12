@@ -2,8 +2,8 @@ export default class EnemyBase {
     constructor() {
         this.health = 10000;
     }
-    draw() {
+    draw(ctx) {
         ctx.fillStyle = 'red';
-        ctx.fillRect(canvas.width - cellSize,cellSize,100, 700);
+        ctx.fillRect(3000 - 100, 100, 100, 700);
     }
 }

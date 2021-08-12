@@ -1,13 +1,16 @@
 export default class Mouse {
-    constructor() {
+    constructor(canvas) {
         this.x = 0;
         this.y =  0;
         this.width = 0.1;
         this.height = 0.1;
         this.clicked = false;
+        this.canvas = canvas;
     }
 
     init() {
+        let canvas = this.canvas;
+        
         let canvasPosition = canvas.getBoundingClientRect();
 
         canvas.addEventListener('mousemove', function(e) {

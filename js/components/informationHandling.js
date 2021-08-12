@@ -30,7 +30,8 @@ export function handleGameGrid(gameGrid, ctx, mouse) {
     }
 }
 
-export function handleEnemies(enemies, resources, ctx) {
+export function handleEnemies(enemies, resources, ctx, frame, enemydamage, interval) {
+
     for (let i = 0; i < enemies.length; i++) {
         if (enemies[i].health <= 0) {
             resources += enemies[i].maxHealth / 10;
@@ -51,4 +52,5 @@ export function handleEnemies(enemies, resources, ctx) {
     if (frame % 2000 === 0 && frame > 0) {
         enemydamage += (frame / 1000);
     }
+
 }

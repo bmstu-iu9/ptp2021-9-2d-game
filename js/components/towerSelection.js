@@ -1,4 +1,5 @@
 import * as Constant from './../constants.js';
+import { collisiondetection } from './../utils/utils.js';
 
 export function chooseTower(ctx, mouse) {
     let chosenTower = 1;
@@ -94,6 +95,6 @@ export function chooseTower(ctx, mouse) {
     ctx.fillRect(Constant.card5.x, Constant.card5.y, Constant.card5.width, Constant.card5.height);
     ctx.strokeStyle = card5stroke;
     ctx.strokeRect(Constant.card5.x, Constant.card5.y, Constant.card5.width,Constant.card5.height);
-    
+
     return chosenTower;
 }

@@ -1,20 +1,22 @@
 import { calculateDistance } from './../../utils/utils.js';
 
 export default class BaseTower {
-    constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.width = 100;
-    this.height = 100;
-    this.projectiles = [];
-    this.direction = 0;
-    this.targetsAmount = 1;
-    this.targets = [];
-    this.range = 300;
+    constructor(ctx, x, y, projectiles, enemies) {
+        this.ctx = ctx;
+        this.x = x;
+        this.y = y;
+        this.width = 100;
+        this.height = 100;
+        this.projectiles = projectiles;
+        this.enemies = enemies;
+        this.direction = 0;
+        this.targetsAmount = 1;
+        this.targets = [];
+        this.range = 300;
     }
 
-    step(enemies) {
-        this.findTargets(enemies, this.targetsAmount);
+    step() {
+        this.findTargets(this.enemies, this.targetsAmount);
 
         if (this.targets.length == 0) return;
 
@@ -33,9 +35,9 @@ export default class BaseTower {
         }
     }
 
-    findTargets(enemies, n) {
+    findTargets(n) {
         for (let i = this.targets.length; i < n; i++) {
-            let target = this.findTarget(enemies)
+            let target = this.findTarget()
             if (target) {
                 this.targets.push(target)
             }
@@ -49,12 +51,12 @@ export default class BaseTower {
         }
     }
 
-    findTarget(enemies) {
+    findTarget() {
         let nearestEnemyIndex = -1;
         let minDistance = this.range;
 
-        for (let i = 0, m = enemies.length; i < m; i++) {
-            let enemy = enemies[i];
+        for (let i = 0, m = this.enemies.length; i < m; i++) {
+            let enemy = this.enemies[i];
             let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 
             if (distance < minDistance) {
@@ -76,8 +78,11 @@ export default class BaseTower {
         }
     }
 
-    drawRotated(ctx, image, angle) {
+    drawRotated(image, angle) {
+        let context = this.ctx;
+
         if (!image) return;
+
         context.save();
         context.translate(this.x + image.width/2, this.y + image.height/2);
         context.rotate(angle * (Math.PI / 180));

@@ -3,9 +3,8 @@ import Projectile3 from '../projectiles/Projectile3.js';
 import { calculateDistance } from './../../utils/utils.js';
 
 export default class Tower3 extends BaseTower {
-    constructor(ctx, x, y) {
-        super(x, y);
-        this.ctx = ctx;
+    constructor(ctx, x, y, projectiles, enemies) {
+        super(ctx, x, y, projectiles, enemies);
         this.cost = 100;
         this.health = 100;
         this.damage = 10;
@@ -16,7 +15,7 @@ export default class Tower3 extends BaseTower {
         this.level = 0;
     }
     step() {
-        this.findTargets(enemies, this.targetsAmount);
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) return;
 
@@ -35,9 +34,9 @@ export default class Tower3 extends BaseTower {
         }
     }
 
-    findTargets(enemies, n) {
+    findTargets(n) {
         for (let i = this.targets.length; i < n; i++) {
-            let target = this.findTarget(enemies)
+            let target = this.findTarget()
             if (target) {
                 this.targets.push(target)
             }
@@ -51,22 +50,23 @@ export default class Tower3 extends BaseTower {
         }
     }
 
-    findTarget(enemies) {
+    findTarget() {
         let nearestEnemyIndex = -1;
         let minDistance = this.range;
 
-        for (let i = 0, m = enemies.length; i < m; i++) {
-            let enemy = enemies[i];
+        for (let i = 0, m = this.enemies.length; i < m; i++) {
+            let enemy = this.enemies[i];
             let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 
             if (this.y < enemy.y){
-              distance = calculateDistance(this.x, this.y + 100, enemy.x, enemy.y);
+                distance = calculateDistance(this.x, this.y + 100, enemy.x, enemy.y);
             } else if (this.y > enemy.y) {
-              distance = calculateDistance(this.x, this.y - 100, enemy.x, enemy.y);
+                distance = calculateDistance(this.x, this.y - 100, enemy.x, enemy.y);
             }
 
             if (distance < minDistance &&
-                ((enemy.y == this.y - 55 && this.level == 0) || (enemy.y <= this.y - 55 + 100 && enemy.y >= this.y - 55 - 100 && this.level > 0))) {
+               ((enemy.y == this.y - 55 && this.level == 0) ||
+                (enemy.y <= this.y - 55 + 100 && enemy.y >= this.y - 55 - 100 && this.level > 0))) {
 
                 let isTargetAlready = false;
 
@@ -92,8 +92,8 @@ export default class Tower3 extends BaseTower {
         this.projectiles.push(new Projectile3(target, this.x, this.y))
     }
 
-    draw(enemies) {
-        this.step(enemies);
+    draw() {
+        this.step();
         let ctx = this.ctx;
         if (this.level == 1) {
             ctx.fillStyle = 'blue';

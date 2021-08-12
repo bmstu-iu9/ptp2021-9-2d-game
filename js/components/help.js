@@ -1,129 +1,20 @@
-const mouse = {
-  x: 10,
-  y: 10,
-  width: 0.1,
-  height: 0.1,
-  clicked: false
-}
-let canvasPosition = canvas.getBoundingClientRect();
-canvas.addEventListener('mousemove', function(e){
-  mouse.x = e.x - canvasPosition.left;
-  mouse.y = e.y - canvasPosition.top;
-});
-canvas.addEventListener('mouseleave', function(){
-  mouse.x = undefined;
-  mouse.y = undefined;
-});
-
-canvas.addEventListener('mousedown', function(){
-  mouse.clicked = true;
-});
-canvas.addEventListener('mouseup', function(){
-  mouse.clicked = false;
-});
-// свои башни
-//import vec2 from 'gl-matrix';
-//import vec2 from 'gl-matrix';
-function calculateDistance(x1, y1, x2, y2) {
-    return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
-}
-
-
-/*function handleSamples(){
-  ctx.fillRect()
-}*/
-// свои юниты
-/*class Units {
-  constructor(verticalPosition){
-    this.x = 0;
-    this.y = verticalPosition;
-    this.width = cellSize;
-    this.height = cellSize;
-    this.speed = Math.random() * 0.2 + 0.4;
-  }
-}*/
 
 // враги
 // игровое поле
-function handleInformation(){
-  ctx.fillStyle = 'black';
-  ctx.font = '35px Orbitron';
-  ctx.fillText('Resourses: ' + resourses, 555, 60);
-  if (gameover && mybase.health <= 0){
-    ctx.fillStyle = 'red';
-    ctx.font = '60px Orbitron';
-    ctx.fillText('YOU LOSE', 250, 330)
-  }
-  if (gameover && enemybase.health <= 0){
-    ctx.fillStyle = 'green';
-    ctx.font = '60px Orbitron';
-    ctx.fillText('YOU WIN', 250, 330)
-  }
-}
+
 
 const controlsBar = {
   width: canvas.width,
   height: 100,
 }
 
-class myBase {
-  constructor(){
-    this.health = 10000;
-  }
-  draw(){
-    ctx.fillStyle = 'green';
-    ctx.fillRect(0,cellSize,100, 700);
-  }
-}
-
-const mybase = new myBase();
-
-class enemyBase {
-  constructor(){
-    this.health = 10000;
-  }
-  draw(){
-    ctx.fillStyle = 'red';
-    ctx.fillRect(canvas.width - cellSize,cellSize,100, 700);
-  }
-}
-
-const enemybase = new enemyBase();
-
-class Cell {
-  constructor(x, y){
-    this.x = x;
-    this.y = y;
-    this.width = 100;
-    this.height = 100;
-  }
-  draw(){
-    if (mouse.x && mouse.y && collisiondetection(this, mouse)){
-      ctx.strokeStyle = 'black';
-      ctx.strokeRect(this.x, this.y, this.width, this.height);
-    }
-  }
-}
-function createGrid(){
-  for (let y = cellSize; y < canvas.height; y += cellSize){
-    for (let x = 0; x < canvas.width; x += cellSize){
-      gameGrid.push(new Cell(x, y));
-    }
-  }
-}
-createGrid();
-function handleGameGrid(){
-  for (let i = 0; i < gameGrid.length; i++){
-    gameGrid[i].draw();
-  }
-}
 
 window.onkeydown = function move_left(){
   if(event.keyCode==38){
     left=left-10;
     document.getElementById('canvas1').style.left = left + 'px';
   }
-  else if(event.keyCode==40){
+  else if(event.keyCode == 40){
     left=left+10;
     document.getElementById('canvas1').style.left = left + 'px';
   }

@@ -2,8 +2,8 @@ import BaseTower from './BaseTower.js';
 import Projectile1 from '../projectiles/Projectile1.js';
 
 export default class Tower1 extends BaseTower {
-    constructor(x, y) {
-        super(x, y);
+    constructor(ctx, x, y, projectiles, enemies) {
+        super(ctx, x, y, projectiles, enemies);
         this.cost = 100;
         this.health = 100;
         this.damage = 10;
@@ -23,8 +23,8 @@ export default class Tower1 extends BaseTower {
         ))
     }
 
-    draw(enemies) {
-        this.step(enemies);
+    draw() {
+        this.step();
         let ctx = this.ctx;
         if (this.level == 1) {
             ctx.fillStyle = 'green';

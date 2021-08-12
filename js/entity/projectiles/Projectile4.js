@@ -55,7 +55,7 @@ export default class Projectile4 {
         // под действием замедления. Если нет, то восстановить скорость
     }
 
-    draw() {
+    draw(ctx) {
         if (this.hit) {
             this.complete = true;
             // Здесь будет обработка анимации взрыва

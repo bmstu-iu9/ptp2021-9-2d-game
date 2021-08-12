@@ -39,9 +39,9 @@ class Game {
 
         canvas.addEventListener('click', putTower(Constant.cellSize,
                                                   this.towers,
-                                                  chooseTower,
                                                   this.mouse,
-                                                  resources));
+                                                  this.resources,
+                                                  this.ctx));
         //gameGrid
         for (let y = Constant.cellSize; y < this.canvas.height; y += Constant.cellSize){
             for (let x = 0; x < this.canvas.width; x += Constant.cellSize){
@@ -60,7 +60,7 @@ class Game {
             this.resources += 10;
         }
 
-        ctx.fillRect(0, 0, controlsBar.width, controlsBar.height);
+        ctx.fillRect(0, 0, Constant.controlsBarWidth, Constant.controlsBarHeight);
         this.playerBase.draw();
         this.enemyBase.draw();
 
@@ -75,7 +75,7 @@ class Game {
         handleEnemies(this.enemies, this.resources, ctx);
         handleInformation(ctx, this.gameOver, this.resources, this.playerBase);
 
-        frame++;
+        this.frame++;
 
         if (!this.gameOver) requestAnimationFrame(this.animate);
     }

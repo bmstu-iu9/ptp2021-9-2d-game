@@ -73,10 +73,10 @@ export default class Projectile1 {
         this.health = false;
 
         if (this.target != null) {
-            if (this.target.healf - this.damage < 0) {
-                this.target.healf = 0;
+            if (this.target.health - this.damage < 0) {
+                this.target.health = 0;
             } else {
-                this.target.healf -= this.damage;
+                this.target.health -= this.damage;
             }
         }
     }

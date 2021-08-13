@@ -7,7 +7,8 @@ import ProcessProjectiles from './components/ProjectilesProcessing.js';
 import Enemies from './entity/enemies/enemies.js';
 
 import * as Constant from './constants.js';
-import { putTower } from './components/towersProcessing.js'
+import { chooseTower } from './components/towerSelection.js';
+import { putTower } from './components/towersProcessing.js';
 import Mouse from './components/mouse.js';
 import PlayerBase from './entity/bases/playerBase.js';
 import EnemyBase from './entity/bases/enemyBase.js';
@@ -38,20 +39,19 @@ class Game {
 
     init() {
 
-        this.mouse.init();
+        game.mouse.init();
 
-        this.canvas.addEventListener('click', function () {
-            putTower(this.towers,
-                this.mouse,
-                this.resources,
-                this.ctx);
+        game.canvas.addEventListener('click', function () {
+            putTower(game);
         });
         //gameGrid
-        for (let y = Constant.cellSize; y < this.canvas.height; y += Constant.cellSize){
-            for (let x = 0; x < this.canvas.width; x += Constant.cellSize){
+        for (let y = Constant.cellSize; y < this.canvas.height; y += Constant.cellSize) {
+            //console.log("jkfkf");
+            for (let x = 0; x < this.canvas.width; x += Constant.cellSize) {
                 this.gameGrid.push(new Cell(x, y));
             }
         }
+      //  console.log(this.gameGrid.length);
     }
 
     animate() {
@@ -76,13 +76,13 @@ class Game {
             this.ctx.fillText(10000, 2, 150);
             this.ctx.fillText(10000, this.canvas.width - 100, 150);
 
-
             handleGameGrid(this.gameGrid, this.ctx, this.mouse);
             ProcessProjectiles(this.projectiles, this.enemies, this.ctx);
-            handleTowers(this.enemies);
+            handleTowers(game);
+            //console.log(game.towers.length);
             handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
             handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
-
+            chooseTower(this.ctx, this.mouse);
             this.frame++;
             console.log("job");
             let ms = 1000/60;

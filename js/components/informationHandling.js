@@ -1,8 +1,8 @@
 import Enemies from './../entity/enemies/enemies.js';
 
-export function handleTowers(towers, enemies, ctx) {
-    for (let i = 0; i < towers.length; i++) {
-        towers[i].draw();
+export function handleTowers(game) {
+    for (let i = 0; i < game.towers.length; i++) {
+        game.towers[i].draw();
     }
 }
 
@@ -26,6 +26,7 @@ export function handleInformation(ctx, gameover, resources, mybase) {
 
 export function handleGameGrid(gameGrid, ctx, mouse) {
     for (let i = 0; i < gameGrid.length; i++) {
+        //console.log(mouse);
         gameGrid[i].draw(ctx, mouse);
     }
 }

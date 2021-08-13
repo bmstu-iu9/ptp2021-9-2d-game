@@ -40,10 +40,12 @@ class Game {
 
         this.mouse.init();
 
-        this.canvas.addEventListener('click', putTower(this.towers,
-                                                  this.mouse,
-                                                  this.resources,
-                                                  this.ctx));
+        this.canvas.addEventListener('click', function () {
+            putTower(this.towers,
+                this.mouse,
+                this.resources,
+                this.ctx);
+        });
         //gameGrid
         for (let y = Constant.cellSize; y < this.canvas.height; y += Constant.cellSize){
             for (let x = 0; x < this.canvas.width; x += Constant.cellSize){

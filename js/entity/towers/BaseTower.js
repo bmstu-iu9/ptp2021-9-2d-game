@@ -16,7 +16,6 @@ export default class BaseTower {
     }
 
     step() {
-
         this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) return;
@@ -37,7 +36,6 @@ export default class BaseTower {
     }
 
     findTargets(n) {
-        console.log(this.targets.length)
         for (let i = this.targets.length; i < n; i++) {
             let target = this.findTarget()
             if (target) {
@@ -47,7 +45,8 @@ export default class BaseTower {
 
         for (let i = 0; i < this.targets.length; i++) {
             let enemy = this.targets[i];
-            if (calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range) {
+            if (calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range ||
+               (enemy.health <= 0)) {
                 this.targets.splice(i, 1);
             }
         }
@@ -58,8 +57,8 @@ export default class BaseTower {
         let nearestEnemyIndex = -1;
         let minDistance = this.range;
 
-
         for (let i = 0, m = this.enemies.length; i < m; i++) {
+
             let enemy = this.enemies[i];
             let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 

@@ -10,11 +10,9 @@ export default class Mouse {
     }
 
     init(game) {
-        //let canvas = this.canvas;
         let canvasPosition = game.canvas.getBoundingClientRect();
 
         this.canvas.addEventListener('mousemove', function(e) {
-            //console.log(canvasPosition, game.mouse.x)
             game.mouse.x = e.x - canvasPosition.left;
             game.mouse.y = e.y - canvasPosition.top;
         });

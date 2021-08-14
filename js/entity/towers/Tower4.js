@@ -3,8 +3,8 @@ import Projectile4 from '../projectiles/Projectile4.js';
 import { calculateDistance } from './../../utils/utils.js';
 
 export default class Tower4 extends BaseTower {
-    constructor(ctx, x, y, projectiles, enemies) {
-        super(ctx, x, y, projectiles, enemies);
+    constructor(game, x, y) {
+        super(game, x, y);
         this.cost = 100;
         this.health = 100;
         this.damage = 10;
@@ -12,7 +12,7 @@ export default class Tower4 extends BaseTower {
         this.range = 600;
         this.lastShotTime = new Date();
         this.shootInterval = 1000;
-        this.targetsAmount = 2;
+        this.targetsAmount = 4;
         this.complete = false;
         this.level = 1;
     }

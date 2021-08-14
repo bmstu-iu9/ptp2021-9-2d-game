@@ -12,11 +12,11 @@ export default class Projectile4 {
         this.speed = 3;
         this.damage = damage;
         this.level = level;
-        this.hit = false;
+        this.hitt = false;
     }
 
     update() {
-        if (this.hit) return;
+        if (this.hitt) return;
 
         if (this.target) {
             this.targetX = this.target.x;
@@ -30,24 +30,24 @@ export default class Projectile4 {
     }
 
     hit(enemies) {
-        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > 30 || this.hit) {
+        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > 71 || this.hitt) {
             return;
         }
 
-        this.hit = true;
+        this.hitt = true;
 
         if (this.level == 1) {
             this.target.health -= this.damage;
-            this.target.movement *= 0.6;
+            this.target.movement *= 0.95;
         } else {
             epicenterX = this.target.x;
             epicenterY = this.target.y;
             for (let i = 0, n = enemies.length; i < n; i++) {
                 let enemy = enemies[i];
-                if (calculateDistance(epicenterX, enemy.x,
-                                      epicenterY, enemy.y) < 50) {
+                if (calculateDistance(epicenterX, epicenterY,
+                                      enemy.x, enemy.y) < 50) {
                     enemy.health -= this.damage;
-                    enemy.movement *= 0.6;
+                    enemy.movement *= 0.95;
                 }
             }
         }
@@ -55,21 +55,21 @@ export default class Projectile4 {
         // под действием замедления. Если нет, то восстановить скорость
     }
 
-    draw(ctx) {
-        if (this.hit) {
+    draw(game) {
+        if (this.hitt) {
             this.complete = true;
             // Здесь будет обработка анимации взрыва
         } else {
-            ctx.beginPath();
-            ctx.save();
-            ctx.translate(this.x, this.y);
-            ctx.scale(1, this.height/this.width);
-            ctx.arc(0, 0, this.width, 0, Math.PI*2);
-            ctx.fill();
-            ctx.restore();
-            ctx.strokeStyle = 'red';
-            ctx.stroke();
-            ctx.closePath();
+            game.ctx.beginPath();
+            game.ctx.save();
+            game.ctx.translate(this.x, this.y);
+            game.ctx.scale(1, this.height/this.width);
+            game.ctx.arc(0, 0, this.width, 0, Math.PI*2);
+            game.ctx.fill();
+            game.ctx.restore();
+            game.ctx.strokeStyle = 'red';
+            game.ctx.stroke();
+            game.ctx.closePath();
         }
     }
 }

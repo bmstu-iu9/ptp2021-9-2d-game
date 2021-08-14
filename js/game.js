@@ -25,17 +25,15 @@ class Game {
         this.towers = [];
         this.units = [];
         this.enemies = [];
-        this.projectiles = { data : [] };
+        this.projectiles = [];
         this.gameOver = false;
-        this.resources = 5000000000;
+        this.resources = 300;
         this.enemydamage = 10;
         this.frame = 0;
         this.playerBase = new PlayerBase();
         this.enemyBase = new EnemyBase();
         this.mouse = null;
         this.chosenTower = 0;
-
-
     }
 
     init() {
@@ -47,73 +45,50 @@ class Game {
             putTower(game);
         });
 
-
-
-        //gameGrid
         for (let y = Constant.cellSize; y < this.canvas.height; y += Constant.cellSize) {
-            //console.log("jkfkf");
             for (let x = 0; x < this.canvas.width; x += Constant.cellSize) {
                 this.gameGrid.push(new Cell(x, y));
             }
         }
-      //  console.log(this.gameGrid.length);
     }
 
     animate() {
-        //let canvas = this.canvas;
-        //while (true) {
+        this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
+        this.ctx.fillStyle = 'grey';
 
-            //console.log(this == undefined)
-            this.ctx.clearRect(0,0, this.canvas.width, this.canvas.height);
-            //console.log(this == undefined)
-            this.ctx.fillStyle = 'grey';
+        if (this.frame % 100 === 0 && this.frame > 0) {
+            this.resources += 10;
+        }
 
-            if (this.frame % 100 === 0 && this.frame > 0) {
-                this.resources += 10;
-            }
+        this.ctx.fillRect(0, 0, Constant.controlsBarWidth, Constant.controlsBarHeight);
+        this.playerBase.draw(this.ctx);
+        this.enemyBase.draw(this.ctx);
 
-            this.ctx.fillRect(0, 0, Constant.controlsBarWidth, Constant.controlsBarHeight);
-            this.playerBase.draw(this.ctx);
-            this.enemyBase.draw(this.ctx);
+        this.ctx.fillStyle = 'white';
+        this.ctx.font = '26px Orbitron'
+        this.ctx.fillText(10000, 2, 150);
+        this.ctx.fillText(10000, this.canvas.width - 100, 150);
 
-            this.ctx.fillStyle = 'white';
-            this.ctx.font = '26px Orbitron'
-            this.ctx.fillText(10000, 2, 150);
-            this.ctx.fillText(10000, this.canvas.width - 100, 150);
+        handleGameGrid(game);
+        ProcessProjectiles(game);
+        handleTowers(game);
+        handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
+        handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
+        chooseTower(this.ctx, this.mouse);
 
-            handleGameGrid(game); //(this.gameGrid, this.ctx, this.mouse);
-            ProcessProjectiles(game);
-            handleTowers(game);
-            //console.log(game.towers.length);
-            handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
-            handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
-            chooseTower(this.ctx, this.mouse);
+        this.frame++;
 
-            this.frame++;
-
-            let ms = 1000/60;
-            ms += new Date().getTime();
-            while (new Date().getTime() < ms){}
-            //break;
-        //}
-        //if (!this.gameOver) requestAnimationFrame(this.animate);
-        //console.log(this == undefined)
+        //let ms = 1000/60;
+        //ms += new Date().getTime();
+        //while (new Date().getTime() < ms){}
     }
-
-    start() {
-        this.init();
-        //this.animate();
-    }
-
-
 }
 
 let game = new Game();
-game.start();
+game.init();
 
-function f(){
+function play() {
     game.animate()
-    if (!game.gameOver) requestAnimationFrame(f);
+    if (!game.gameOver) requestAnimationFrame(play);
 }
-f()
-//if (!game.gameOver) requestAnimationFrame(game.animate);
+play()

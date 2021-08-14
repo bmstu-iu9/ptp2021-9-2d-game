@@ -38,8 +38,7 @@ export function putTower(game) {
 
         case 2:
             if (game.resources >= 100) {
-                let currentTower = new Tower2(game.ctx, positionX, positionY,
-                                              game.projectiles, game.enemies);
+                let currentTower = new Tower2(game, positionX, positionY);
                 game.towers.push(currentTower);
                 game.resources -= currentTower.cost;
             }
@@ -47,8 +46,7 @@ export function putTower(game) {
 
         case 3:
             if (game.resources >= 100) {
-                let currentTower = new Tower3(game.ctx, positionX, positionY,
-                                              game.projectiles, game.enemies);
+                let currentTower = new Tower3(game, positionX, positionY);
                 game.towers.push(currentTower);
                 game.resources -= currentTower.cost;
             }
@@ -56,8 +54,7 @@ export function putTower(game) {
 
         case 4:
             if (game.resources >= 100) {
-                let currentTower = new Tower4(game.ctx, positionX, positionY,
-                                              game.projectiles, game.enemies);
+                let currentTower = new Tower4(game, positionX, positionY);
                 game.towers.push(currentTower);
                 game.resources -= currentTower.cost;
             }

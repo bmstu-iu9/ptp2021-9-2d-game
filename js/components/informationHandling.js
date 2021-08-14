@@ -24,11 +24,10 @@ export function handleInformation(ctx, gameover, resources, mybase) {
     }
 }
 
-export function handleGameGrid(game) { //(gameGrid, ctx, mouse) {
+export function handleGameGrid(game) {
     let gameGrid = game.gameGrid;
 
     for (let i = 0; i < gameGrid.length; i++) {
-        //console.log(mouse);
         gameGrid[i].draw(game);
     }
 }
@@ -36,20 +35,23 @@ export function handleGameGrid(game) { //(gameGrid, ctx, mouse) {
 export function handleEnemies(enemies, resources, ctx, frame, enemydamage, interval) {
 
     for (let i = 0; i < enemies.length; i++) {
+        enemies[i].update();
+        enemies[i].draw();
+
         if (enemies[i].health <= 0) {
             resources += enemies[i].maxHealth / 10;
             enemies.splice(i, 1);
             i--;
         }
-        enemies[i].update();
-        enemies[i].draw();
     }
 
     if (frame % interval === 0) {
         let verticalPosition = Math.floor(Math.random() * 7 + 1) * 100;
         enemies.push(new Enemies(verticalPosition, ctx));
 
-        if (interval > 120) interval-= 50;
+        if (interval > 120) {
+            interval -= 50;
+        }
     }
 
     if (frame % 2000 === 0 && frame > 0) {

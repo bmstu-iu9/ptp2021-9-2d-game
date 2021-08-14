@@ -2,8 +2,8 @@ import BaseTower from './BaseTower.js';
 import Projectile1 from '../projectiles/Projectile1.js';
 
 export default class Tower1 extends BaseTower {
-    constructor(ctx, x, y, projectiles, enemies) {
-        super(ctx, x, y, projectiles, enemies);
+    constructor(game, x, y) {
+        super(game, x, y);
         this.cost = 100;
         this.health = 100;
         this.damage = 10;
@@ -15,12 +15,12 @@ export default class Tower1 extends BaseTower {
     }
 
     shoot(target) {
-        
-        this.projectiles.data.push(new Projectile1(
+        this.projectiles.push(new Projectile1(
             target,
             this.x + 50,
             this.y + 50,
-            this.damage
+            this.damage,
+            this.level
         ))
     }
 

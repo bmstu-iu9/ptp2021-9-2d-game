@@ -96,6 +96,5 @@ export function chooseTower(ctx, mouse) {
     ctx.strokeStyle = card5stroke;
     ctx.strokeRect(Constant.card5.x, Constant.card5.y, Constant.card5.width,Constant.card5.height);
 
-
     return chosenTower;
 }

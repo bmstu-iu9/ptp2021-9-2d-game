@@ -1,46 +1,56 @@
 import { calculateDistance } from './../../utils/utils.js';
 
 export default class Projectile3 {
-    constructor(target, x, y, upgrade, damage) { //
+    constructor(target, x, y, damage, upgrade) {
         this.towerx = x;
         this.towery = y;
         this.targetX = target.x;
         this.targetY = target.y;
-        this.x = x + 55;
-        this.y = y + 55;
-        this.width = 250;
-        this.height = this.y + 45;
-        this.speed = 5; //!!! Надо договориться о скорости
+        this.x = x + 50;
+        this.y = y + 50;
+        this.width = 30;
+        this.height = 20;
+        this.speed = 1;
         this.health = true;
-        this.damage = damage; //!!! Нада договориться про урон снаряда
-        this.radius = 10;
+        this.damage = damage;
+        this.radius = 650;
         this.target = target;
         this.angle = 0;
-        this.delta_update_damage = 50; // Надо договориться!
+        this.delta_update_damage = 50;
         this.upgrade = upgrade;
         this.explosion = 0;
         this.complete = false;
     }
 
     update() {
+        if (this.target != null) {
+            this.targetX = this.target.x;
+        }
 
+        this.x += this.speed;
+
+        if (this.x - this.towerx >= this.radius) {
+            this.complete = true;
+        }
     }
 
-    draw(ctx) {
-
-        if (this.target == null) {
-            return ;
+    draw(game) {
+        if (this.complete) {
+            return;
         }
-        if (this.health) {
-            ctx.fillStyle = 'red';
-            if (this.uograde == 0) {
-                ctx.fillRect(this.x, this.y, this.width, this.height);
-            } else {
-                ctx.fillRect(this.x, this.y - 100, this.width, this.height + 45);
-            }
 
-            ctx.fillStyle = 'black';
-            ctx.font = '30px Orbitron';
+        if (this.health) {
+            game.ctx.beginPath();
+            game.ctx.save(); // сохраняем стейт контекста
+            game.ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
+            game.ctx.scale(1, this.height/this.width); // сжимаем по вертикали
+            game.ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
+            game.ctx.strokeStyle = 'black';
+            game.ctx.fill();
+            game.ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
+            game.ctx.strokeStyle = 'red';
+            game.ctx.stroke(); // обводим
+            game.ctx.closePath();
         } else {
             this.explosion += 1;
             if (this.explosion == 5) {
@@ -49,27 +59,16 @@ export default class Projectile3 {
         }
     }
 
-    hit(targets) {
-        let list_target = [];
-
-        if (this.target == null || !this.health) {
-            return ;
+    hit(enemies) {
+        if (this.complete) {
+            return;
         }
 
-        this.health = false;
-
-        for (let i = 0; i < targets.length; i++) {
-            let target = targets[i];
-
-            if (target.x < this.x + 250 &&
-               ((target.y == this.y - 55 && this.upgrade == 0) ||
-                (target.y <= this.y - 55 + 100 && target.y >= this.y - 55 - 100 && this.upgrade > 0))) {
-
-                if (target.health - damage_delta < 0) {
-                    target.health = 0;
-                } else {
-                    target.health -= damage_delta;
-                }
+        for (let i = 0; i < enemies.length; i++) {
+            let enemy = enemies[i];
+            if (calculateDistance(enemy.x, enemy.y, this.x, this.y) < 50.01 &&
+               (this.y - 50 == enemy.y)) {
+                enemy.health -= this.damage;
             }
         }
     }

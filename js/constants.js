@@ -3,6 +3,7 @@ export const
     canvasHeight = 800,
     controlsBarWidth = 3000,
     controlsBarHeight = 100;
+
 export const
     left = 0,
     frame = 0,

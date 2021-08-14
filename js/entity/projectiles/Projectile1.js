@@ -37,21 +37,22 @@ export default class Projectile1 {
 
     }
 
-    draw(ctx) {
+    draw(game) {
       // Рисую овал для пули
         if (this.health ) {
-            ctx.beginPath();
-            ctx.save(); // сохраняем стейт контекста
-            ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
+            
+            game.ctx.beginPath();
+            game.ctx.save(); // сохраняем стейт контекста
+            game.ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
             //ctx.rotate(this.angle); // поворот на угол
-            ctx.rotate(this.angle);
-            ctx.scale(1, this.height/this.width); // сжимаем по вертикали
-            ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
-            ctx.fill();
-            ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
-            ctx.strokeStyle = 'red';
-            ctx.stroke(); // обводим
-            ctx.closePath();
+            game.ctx.rotate(this.angle);
+            game.ctx.scale(1, this.height/this.width); // сжимаем по вертикали
+            game.ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
+            game.ctx.fill();
+            game.ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
+            game.ctx.strokeStyle = 'red';
+            game.ctx.stroke(); // обводим
+            game.ctx.closePath();
         } else {
 
             this.explosion += 1;

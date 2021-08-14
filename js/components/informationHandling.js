@@ -24,10 +24,12 @@ export function handleInformation(ctx, gameover, resources, mybase) {
     }
 }
 
-export function handleGameGrid(gameGrid, ctx, mouse) {
+export function handleGameGrid(game) { //(gameGrid, ctx, mouse) {
+    let gameGrid = game.gameGrid;
+
     for (let i = 0; i < gameGrid.length; i++) {
         //console.log(mouse);
-        gameGrid[i].draw(ctx, mouse);
+        gameGrid[i].draw(game);
     }
 }
 

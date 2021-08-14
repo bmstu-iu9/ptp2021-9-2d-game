@@ -7,7 +7,10 @@ export default class Cell {
         this.height = 100;
     }
 
-    draw(ctx, mouse) {
+    draw(game) {
+        let mouse = game.mouse;
+        let ctx = game.ctx;
+        //console.log(mouse.x, mouse.y);
         if (mouse.x && mouse.y && collisiondetection(this, mouse)) {
             ctx.strokeStyle = 'black';
             ctx.strokeRect(this.x, this.y, this.width, this.height);

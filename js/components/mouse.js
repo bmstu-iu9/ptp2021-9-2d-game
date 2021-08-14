@@ -1,33 +1,36 @@
 export default class Mouse {
-    constructor(canvas) {
-        this.x = 150;
-        this.y =  150;
+    constructor(game) {
+
+        this.x = 0;
+        this.y =  0;
         this.width = 0.1;
         this.height = 0.1;
         this.clicked = false;
-        this.canvas = canvas;
+        this.canvas = game.canvas;
     }
 
-    init() {
-        let canvas = this.canvas;
-        let canvasPosition = canvas.getBoundingClientRect();
+    init(game) {
+        //let canvas = this.canvas;
+        let canvasPosition = game.canvas.getBoundingClientRect();
 
-        canvas.addEventListener('mousemove', function(e) {
-            this.x = e.x - canvasPosition.left;
-            this.y = e.y - canvasPosition.top;
+        this.canvas.addEventListener('mousemove', function(e) {
+            //console.log(canvasPosition, game.mouse.x)
+            game.mouse.x = e.x - canvasPosition.left;
+            game.mouse.y = e.y - canvasPosition.top;
         });
 
-        canvas.addEventListener('mouseleave', function() {
-            this.x = undefined;
-            this.y = undefined;
+        this.canvas.addEventListener('mouseleave', function() {
+            game.mouse.x = undefined;
+            game.mouse.y = undefined;
         });
 
-        canvas.addEventListener('mousedown', function() {
-            this.clicked = true;
+        this.canvas.addEventListener('mousedown', function() {
+            game.mouse.clicked = true;
         });
-
-        canvas.addEventListener('mouseup', function() {
-            this.clicked = false;
+        /*
+        this.canvas.addEventListener('mouseup', function() {
+            game.mouse.clicked = false;
         });
+        */
     }
 }

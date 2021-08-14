@@ -1,14 +1,14 @@
 import { calculateDistance } from './../../utils/utils.js';
 
 export default class BaseTower {
-    constructor(ctx, x, y, projectiles, enemies) {
-        this.ctx = ctx;
+    constructor(game, x, y) {
+        this.ctx = game.ctx;
         this.x = x;
         this.y = y;
         this.width = 100;
         this.height = 100;
-        this.projectiles = projectiles;
-        this.enemies = enemies;
+        this.projectiles = game.projectiles;
+        this.enemies = game.enemies;
         this.direction = 0;
         this.targetsAmount = 1;
         this.targets = [];
@@ -16,7 +16,8 @@ export default class BaseTower {
     }
 
     step() {
-        this.findTargets(this.enemies, this.targetsAmount);
+
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) return;
 
@@ -36,6 +37,7 @@ export default class BaseTower {
     }
 
     findTargets(n) {
+        console.log(this.targets.length)
         for (let i = this.targets.length; i < n; i++) {
             let target = this.findTarget()
             if (target) {
@@ -49,11 +51,13 @@ export default class BaseTower {
                 this.targets.splice(i, 1);
             }
         }
+
     }
 
     findTarget() {
         let nearestEnemyIndex = -1;
         let minDistance = this.range;
+
 
         for (let i = 0, m = this.enemies.length; i < m; i++) {
             let enemy = this.enemies[i];
@@ -74,7 +78,7 @@ export default class BaseTower {
         }
 
         if (nearestEnemyIndex != -1) {
-            return enemies[nearestEnemyIndex];
+            return this.enemies[nearestEnemyIndex];
         }
     }
 

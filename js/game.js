@@ -25,25 +25,30 @@ class Game {
         this.towers = [];
         this.units = [];
         this.enemies = [];
-        this.projectiles = [];
+        this.projectiles = { data : [] };
         this.gameOver = false;
-        this.resources = 300;
+        this.resources = 5000000000;
         this.enemydamage = 10;
         this.frame = 0;
         this.playerBase = new PlayerBase();
         this.enemyBase = new EnemyBase();
-        this.mouse = new Mouse(this.canvas);
+        this.mouse = null;
+        this.chosenTower = 0;
 
 
     }
 
     init() {
+        this.mouse = new Mouse(game);
 
-        game.mouse.init();
+        game.mouse.init(game);
 
         game.canvas.addEventListener('click', function () {
             putTower(game);
         });
+
+
+
         //gameGrid
         for (let y = Constant.cellSize; y < this.canvas.height; y += Constant.cellSize) {
             //console.log("jkfkf");
@@ -76,15 +81,16 @@ class Game {
             this.ctx.fillText(10000, 2, 150);
             this.ctx.fillText(10000, this.canvas.width - 100, 150);
 
-            handleGameGrid(this.gameGrid, this.ctx, this.mouse);
-            ProcessProjectiles(this.projectiles, this.enemies, this.ctx);
+            handleGameGrid(game); //(this.gameGrid, this.ctx, this.mouse);
+            ProcessProjectiles(game);
             handleTowers(game);
             //console.log(game.towers.length);
             handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
             handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
             chooseTower(this.ctx, this.mouse);
+
             this.frame++;
-            console.log("job");
+
             let ms = 1000/60;
             ms += new Date().getTime();
             while (new Date().getTime() < ms){}

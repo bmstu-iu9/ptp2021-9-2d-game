@@ -95,7 +95,7 @@ export default class Tower3 extends BaseTower {
     draw() {
         this.step();
         let ctx = this.ctx;
-        if (this.level == 1) {
+        if (this.level == 0) {
             ctx.fillStyle = 'blue';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';

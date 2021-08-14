@@ -1,13 +1,16 @@
-export default function ProcessProjectiles(projectiles, enemies, ctx) {
-    for (let i = 0, n = projectiles.length; i < n; i++) {
-        let projectile = projectiles[i];
+export default function ProcessProjectiles(game) {
+    let projectiles = game.projectiles;
+    let enemies = game.enemies;
+    //console.log(projectiles.data.length)
+    for (let i = 0, n = projectiles.data.length; i < n; i++) {
+        let projectile = projectiles.data[i];
 
         projectile.update();
         projectile.hit(enemies);
-        projectile.draw(ctx);
+        projectile.draw(game);
 
         if (projectile.complete) {
-            projectiles.splice(i, 1);
+            projectiles.data.splice(i, 1);
             i--;
         }
     }

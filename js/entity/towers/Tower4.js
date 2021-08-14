@@ -14,6 +14,7 @@ export default class Tower4 extends BaseTower {
         this.shootInterval = 1000;
         this.targetsAmount = 2;
         this.complete = false;
+        this.level = 1;
     }
 
     shoot(target) {

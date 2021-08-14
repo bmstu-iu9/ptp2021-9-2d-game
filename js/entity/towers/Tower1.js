@@ -15,7 +15,8 @@ export default class Tower1 extends BaseTower {
     }
 
     shoot(target) {
-        projectiles.push(new Projectile1(
+        
+        this.projectiles.data.push(new Projectile1(
             target,
             this.x + 50,
             this.y + 50,

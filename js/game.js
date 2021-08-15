@@ -74,7 +74,7 @@ class Game {
         handleTowers(game);
         handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
         handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
-        chooseTower(this.ctx, this.mouse);
+        chooseTower(this.ctx, this.mouse, this.chosenTower);
 
         this.frame++;
 

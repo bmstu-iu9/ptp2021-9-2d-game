@@ -1,8 +1,8 @@
 import * as Constant from './../constants.js';
 import { collisiondetection } from './../utils/utils.js';
 
-export function chooseTower(ctx, mouse) {
-    let chosenTower = 0;
+export function chooseTower(ctx, mouse, chosenTower) {
+    //let chosenTower = 0;
     let card1stroke = 'black';
     let card2stroke = 'black';
     let card3stroke = 'black';

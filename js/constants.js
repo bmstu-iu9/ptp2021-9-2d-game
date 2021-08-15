@@ -11,6 +11,20 @@ export const
     resources = 300,
     cellSize = 193.84;
 
+export const ucard1 = {
+    x: 10,
+    y: 10,
+    width: 70,
+    height: 85
+}
+
+export const ucard2 = {
+    x: 90,
+    y: 10,
+    width: 70,
+    height: 85
+}
+
 export const card1 = {
     x: 285,
     y: 150,

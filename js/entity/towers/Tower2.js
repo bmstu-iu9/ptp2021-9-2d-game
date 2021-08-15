@@ -18,8 +18,8 @@ export default class Tower2 extends BaseTower {
     shoot(target) {
         this.projectiles.push(new Projectile2(
             target,
-            this.x,
-            this.y,
+            this.x + 50,
+            this.y + 50,
             this.damage,
             this.level
         ))

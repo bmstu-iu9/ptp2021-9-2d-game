@@ -42,7 +42,7 @@ export default class Tower3 extends BaseTower {
             let enemy = this.enemies[i];
             let distance = enemy.x - this.x;
 
-            if (this.y == enemy.y && distance < minDistance && distance > 0) {
+            if (this.y + 50 == enemy.y && distance < minDistance && distance > 0) {
                 let isTargetAlready = false;
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (enemy == this.targets[j]) {
@@ -64,8 +64,8 @@ export default class Tower3 extends BaseTower {
     shoot(target) {
         this.projectiles.push(new Projectile3(
             target,
-            this.x,
-            this.y,
+            this.x + 50,
+            this.y + 50,
             this.damage,
             this.level
         ))

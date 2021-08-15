@@ -6,8 +6,8 @@ export default class Projectile3 {
         this.towery = y;
         this.targetX = target.x;
         this.targetY = target.y;
-        this.x = x + 50;
-        this.y = y + 50;
+        this.x = x;
+        this.y = y;
         this.width = 30;
         this.height = 20;
         this.speed = 1;
@@ -66,9 +66,10 @@ export default class Projectile3 {
 
         for (let i = 0; i < enemies.length; i++) {
             let enemy = enemies[i];
-            if (calculateDistance(enemy.x, enemy.y, this.x, this.y) < 50.01 &&
-               (this.y - 50 == enemy.y)) {
-                enemy.health -= this.damage;
+
+            if (calculateDistance(enemy.x, 0, this.x, 0) < 0.8 &&
+               (this.y == enemy.y)) {
+                   enemy.health -= this.damage;
             }
         }
     }

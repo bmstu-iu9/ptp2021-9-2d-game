@@ -28,8 +28,8 @@ export default class Projectile2 {
             this.targetY = this.target.y;
         }
 
-        this.angle = Math.atan2(this.targetY + 50 - this.y,
-                               this.targetX + 50 - this.x);
+        this.angle = Math.atan2(this.targetY - this.y,
+                               this.targetX - this.x);
         this.x += this.speed * Math.cos(this.angle);
         this.y += this.speed * Math.sin(this.angle);
     }

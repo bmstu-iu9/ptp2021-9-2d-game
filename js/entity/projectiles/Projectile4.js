@@ -23,8 +23,8 @@ export default class Projectile4 {
             this.targetY = this.target.y;
         }
 
-        let angle = Math.atan2(this.targetY + 50 - this.y,
-                               this.targetX + 50 - this.x);
+        let angle = Math.atan2(this.targetY - this.y,
+                               this.targetX - this.x);
         this.x += this.speed * Math.cos(angle);
         this.y += this.speed * Math.sin(angle);
     }
@@ -45,7 +45,7 @@ export default class Projectile4 {
             for (let i = 0, n = enemies.length; i < n; i++) {
                 let enemy = enemies[i];
                 if (calculateDistance(epicenterX, epicenterY,
-                                      enemy.x, enemy.y) < 50) {
+                                      enemy.x, enemy.y) < 3) {
                     enemy.health -= this.damage;
                     enemy.movement *= 0.95;
                 }

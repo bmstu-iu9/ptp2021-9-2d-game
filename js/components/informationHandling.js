@@ -8,8 +8,16 @@ export function handleTowers(game) {
 
 export function handleInformation(ctx, gameover, resources, mybase) {
     ctx.fillStyle = 'black';
-    ctx.font = '35px Orbitron';
-    ctx.fillText('resources: ' + resources, 555, 60);
+    ctx.font = '75px Orbitron';
+    ctx.fillText('Resources: ' + resources, 2550, 100);
+
+    ctx.fillStyle = 'black';
+    ctx.font = '75px Orbitron';
+    ctx.fillText('Towers', 1150, 100);
+
+    ctx.fillStyle = 'black';
+    ctx.font = '75px Orbitron';
+    ctx.fillText('Units', 4380, 100);
 
     if (gameover && mybase.health <= 0) {
         ctx.fillStyle = 'red';
@@ -46,7 +54,7 @@ export function handleEnemies(enemies, resources, ctx, frame, enemydamage, inter
     }
 
     if (frame % interval === 0) {
-        let verticalPosition = Math.floor(Math.random() * 7 + 1) * 100;
+        let verticalPosition = Math.floor(Math.random() * 13 + 4) * 193.84;
         enemies.push(new Enemies(verticalPosition, ctx));
 
         if (interval > 120) {

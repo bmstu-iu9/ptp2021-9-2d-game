@@ -1,16 +1,16 @@
-class Unit1 { //ближнего боя
+class Unit1 { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 40; // какое-то число
-        this.height = 40; //какое-то число
-        this.speed = CONSTANTA; //какое-то число
+        this.width = 40; // пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.height = 40; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.speed = CONSTANTA; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         this.movement = this.speed;
         this.health = 100;
-        this.damage = 10; //какое-то число
-        this.radius = 20; //какое-то число
-        this.projectiles = []; //пули
-        this.target = null; //цель
+        this.damage = 10; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.radius = 20; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.projectiles = []; //пїЅпїЅпїЅпїЅ
+        this.target = null; //пїЅпїЅпїЅпїЅ
         this.targetIndex = -1;
         this.chosenUnit = chosenUnit;
     }
@@ -41,7 +41,7 @@ class Unit1 { //ближнего боя
         ctx.font = '30px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
         if (this.chosenUnit === 1) {
-            //рисуем юнита1
+            //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ1
         }
     }
     shoot() {
@@ -54,53 +54,12 @@ class Unit1 { //ближнего боя
     }
 }
 
-let chosenUnit = 1; //глобальная переменная
-const card6 = {
-    x: 360,
-    y: 10,
-    width: 70,
-    height: 85
-}
-const card7 = {
-    x: 440,
-    y: 10,
-    width: 70,
-    height: 85
-}
-
-let card6stroke = 'black';
-let card7stroke = 'black';
-
-function chooseUnit() { //выбор юнитов
-    
-    if (collisiondetection(mouse, card6) && mouse.clicked) {
-        chosenUnit = 1;
-    } else if (collisiondetection(mouse, card7) && mouse.clicked) {
-        chosenUnit = 2;
-    }
-    if (chosenUnit === 1) {
-        card6stroke = 'gold';
-        card7stroke = 'black';
-    } else if (chosenUnit === 2) {
-        card6stroke = 'black';
-        card7stroke = 'gold';
-    } else {
-        card6stroke = 'black';
-        card7stroke = 'black';
-    }
-    ctx.lineWidth = 1;
-    ctx.fillStyle = 'yellow';
-    ctx.fillRect(card6.x, card6.y, card6.width, card6.height);
-    ctx.strokeStyle = card6stroke;
-    ctx.fillRect(card7.x, card7.y, card7.width, card7.height);
-    ctx.strokeStyle = card7stroke;
-}
 
 function calculateDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2))
 }
 
-function findTarget(enemies) { //поиск цели
+function findTarget(enemies) { //пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
     if (this.target !== null) {
         enemy = enemies[this.targetIndex];
         if (enemy &&
@@ -125,19 +84,19 @@ function findTarget(enemies) { //поиск цели
     return this.target;
 }
 
-class Unit2 { //дальнего боя
+class Unit2 { //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 40; // какое-то число
-        this.height = 40; //какое-то число
-        this.speed = CONSTANTA; //какое-то число
+        this.width = 40; // пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.height = 40; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.speed = CONSTANTA; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         this.movement = this.speed;
         this.health = 100;
-        this.damage = 10; //какое-то число
-        this.radius = 50; //какое-то число
-        this.projectiles = []; //пули
-        this.target = null; //цель
+        this.damage = 10; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.radius = 50; //пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+        this.projectiles = []; //пїЅпїЅпїЅпїЅ
+        this.target = null; //пїЅпїЅпїЅпїЅ
         this.targetIndex = -1;
         this.timer = 1;
         this.chosenUnit = chosenUnit;
@@ -156,7 +115,7 @@ class Unit2 { //дальнего боя
         ctx.font = '30px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
         if (this.chosenUnit === 2) {
-            //рисуем юнита2
+            //пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ2
         }
     }
     shoot() {
@@ -167,7 +126,7 @@ class Unit2 { //дальнего боя
             y: this.y
         }))
         if (this.timer === 10) {
-            this.radius += 10; //увеличение радиуса атаки
+            this.radius += 10; //пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             this.timer = 1;
         }
     }

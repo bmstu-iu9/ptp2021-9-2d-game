@@ -8,7 +8,7 @@ export default class Enemies {
         this.height = Constant.cellSize;
         this.speed = Math.random() * 0.2 + 0.4;
         this.movement = this.speed;
-        this.health = 10000;
+        this.health = 1000;
         this.damage = 10;
         this.firerate = 100;
         this.maxHealth = this.health;

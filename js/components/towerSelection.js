@@ -8,7 +8,7 @@ export function chooseTower(ctx, mouse, chosenTower) {
     let card3stroke = 'black';
     let card4stroke = 'black';
     let card5stroke = 'black';
-    ctx.lineWidth = 1;
+    ctx.lineWidth = 10;
 
     if (collisiondetection(mouse, Constant.card1) && mouse.clicked) {
         chosenTower = 1;
@@ -67,31 +67,26 @@ export function chooseTower(ctx, mouse, chosenTower) {
     }
 
     ctx.fillStyle = 'green';
-    ctx.fillRect(15,15, 60, 75);
     ctx.fillRect(Constant.card1.x, Constant.card1.y, Constant.card1.width, Constant.card1.height);
     ctx.strokeStyle = card1stroke;
     ctx.strokeRect(Constant.card1.x, Constant.card1.y, Constant.card1.width,Constant.card1.height);
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(95,15, 60, 75);
     ctx.fillRect(Constant.card2.x, Constant.card2.y, Constant.card2.width, Constant.card2.height);
     ctx.strokeStyle = card2stroke;
     ctx.strokeRect(Constant.card2.x, Constant.card2.y, Constant.card2.width,Constant.card2.height);
 
     ctx.fillStyle = 'blue';
-    ctx.fillRect(175,15, 60, 75);
     ctx.fillRect(Constant.card3.x, Constant.card3.y, Constant.card3.width, Constant.card3.height);
     ctx.strokeStyle = card3stroke;
     ctx.strokeRect(Constant.card3.x, Constant.card3.y, Constant.card3.width,Constant.card3.height);
 
     ctx.fillStyle = 'black';
-    ctx.fillRect(255,15, 60, 75);
     ctx.fillRect(Constant.card4.x, Constant.card4.y, Constant.card4.width, Constant.card4.height);
     ctx.strokeStyle = card4stroke;
     ctx.strokeRect(Constant.card4.x, Constant.card4.y, Constant.card4.width,Constant.card4.height);
 
     ctx.fillStyle = 'purple';
-    ctx.fillRect(335,15, 60, 75);
     ctx.fillRect(Constant.card5.x, Constant.card5.y, Constant.card5.width, Constant.card5.height);
     ctx.strokeStyle = card5stroke;
     ctx.strokeRect(Constant.card5.x, Constant.card5.y, Constant.card5.width,Constant.card5.height);

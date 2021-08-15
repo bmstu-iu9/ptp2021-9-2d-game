@@ -66,8 +66,8 @@ class Game {
 
         this.ctx.fillStyle = 'white';
         this.ctx.font = '26px Orbitron'
-        this.ctx.fillText(10000, 2, 150);
-        this.ctx.fillText(10000, this.canvas.width - 100, 150);
+        this.ctx.fillText(10000, 2, 450);
+        this.ctx.fillText(10000, this.canvas.width - 100, 450);
 
         handleGameGrid(game);
         ProcessProjectiles(game);

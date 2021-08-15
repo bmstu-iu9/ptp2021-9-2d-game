@@ -5,6 +5,6 @@ export default class PlayerBase {
 
     draw(ctx) {
         ctx.fillStyle = 'green';
-        ctx.fillRect(0, 100, 100, 700);
+        ctx.fillRect(0, 400, 100, 2520);
     }
 }

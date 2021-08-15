@@ -4,9 +4,8 @@ body {
 #canvas1 {
   border: 1px solid white;
   position: absolute;
-  top: 8%;
-  width: 3000px;
-  height: 800px;
+  width: 5740px;
+  height: 2907px;
   background: white;
   font-family: 'Orbitron', sans-serif;
 }

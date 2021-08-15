@@ -28,8 +28,8 @@ export default class Projectile1 {
             this.targetY = this.target.y;
         }
 
-        this.angle = Math.atan2(this.targetY + 50 - this.y,
-                                this.targetX + 50 - this.x);
+        this.angle = Math.atan2(this.targetY  - this.y,
+                                this.targetX  - this.x);
         this.x += this.speed * Math.cos(this.angle);
         this.y += this.speed * Math.sin(this.angle);
     }
@@ -66,7 +66,7 @@ export default class Projectile1 {
         if (calculateDistance(this.targetX, this.targetY, this.x, this.y) > this.radius || !this.health) {
             return;
         }
-        console.log(targets.length);
+
         this.health = false;
 
         if (this.target != null) {

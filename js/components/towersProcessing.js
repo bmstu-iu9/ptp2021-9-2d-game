@@ -5,6 +5,7 @@ import Tower1 from './../entity/towers/Tower1.js';
 import Tower2 from './../entity/towers/Tower2.js';
 import Tower3 from './../entity/towers/Tower3.js';
 import Tower4 from './../entity/towers/Tower4.js';
+import Tower5 from './../entity/towers/Tower5.js';
 
 export function putTower(game) {
 
@@ -62,8 +63,7 @@ export function putTower(game) {
 
         case 5:
             if (game.resources >= 100) {
-                let currentTower = new Tower1(game.ctx, positionX, positionY,
-                                              game.projectiles, game.enemies);
+                let currentTower = new Tower5(game, positionX, positionY);
                 game.towers.push(currentTower);
                 game.resources -= currentTower.cost;
             }

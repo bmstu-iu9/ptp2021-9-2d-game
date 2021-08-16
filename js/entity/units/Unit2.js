@@ -1,3 +1,5 @@
+import BaseUnit from './BaseUnit.js';
+
 export default class Unit2 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
@@ -15,7 +17,7 @@ export default class Unit2 extends BaseUnit {
                     this.targets[i],
                     this.x + this.width/2,
                     this.y + this.height/2,
-                    this.damage);
+                    this.damage));
                     //this.level);
             }
             this.lastShotTime = new Date();

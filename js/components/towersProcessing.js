@@ -1,4 +1,4 @@
-import { chooseTower } from './towerSelection.js';
+import { collisiondetection } from './../utils/utils.js';
 import * as Constant from './../constants.js';
 import BaseTower from './../entity/towers/BaseTower.js';
 import Tower1 from './../entity/towers/Tower1.js';
@@ -6,6 +6,24 @@ import Tower2 from './../entity/towers/Tower2.js';
 import Tower3 from './../entity/towers/Tower3.js';
 import Tower4 from './../entity/towers/Tower4.js';
 import Tower5 from './../entity/towers/Tower5.js';
+
+export function chooseTower(ctx, mouse) {
+    let chosenTower = null;
+
+    if (collisiondetection(mouse, Constant.card1)) {
+        chosenTower = 1;
+    } else if (collisiondetection(mouse, Constant.card2)) {
+        chosenTower = 2;
+    } else if (collisiondetection(mouse, Constant.card3)) {
+        chosenTower = 3;
+    } else if (collisiondetection(mouse, Constant.card4)) {
+        chosenTower = 4;
+    } else if (collisiondetection(mouse, Constant.card5)) {
+        chosenTower = 5;
+    }
+
+    return chosenTower;
+}
 
 export function putTower(game) {
     let chosenTower = game.chosenTower;

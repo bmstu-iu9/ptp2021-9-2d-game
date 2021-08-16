@@ -68,6 +68,14 @@ export function handleEnemies(enemies, resources, ctx, frame, enemydamage, inter
     }
 }
 
+export function detectClickLocation(game) {
+    if (game.mouse.y <= Constant.controlsBarHeight) {
+        return "Control Bar";
+    } else {
+        return "Game Grid";
+    }
+}
+
 export function handleControlBar(ctx, chosenTower, chosenUnit) {
     let card1stroke = 'black';
     let card2stroke = 'black';

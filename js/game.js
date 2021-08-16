@@ -7,15 +7,14 @@ import ProcessProjectiles from './components/ProjectilesProcessing.js';
 import Enemies from './entity/enemies/enemies.js';
 
 import * as Constant from './constants.js';
-import { detectClickLocation } from './components/ClickHandling.js';
-import { chooseTower } from './components/towerSelection.js';
-import { chooseUnit } from './components/unitSelection.js';
-import { putTower } from './components/towersProcessing.js';
+import { chooseTower, putTower } from './components/towersProcessing.js';
+import { chooseUnit, putUnit } from './components/unitsProcessing.js';
 import Mouse from './components/mouse.js';
 import PlayerBase from './entity/bases/playerBase.js';
 import EnemyBase from './entity/bases/enemyBase.js';
 import Cell from './components/cell.js';
-import { handleTowers, handleInformation, handleGameGrid, handleEnemies, handleControlBar } from  './components/informationHandling.js';
+import { handleTowers, handleInformation, handleGameGrid,
+         handleEnemies, handleControlBar, detectClickLocation } from  './components/informationHandling.js';
 
 class Game {
     constructor() {

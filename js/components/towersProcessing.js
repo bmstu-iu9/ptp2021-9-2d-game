@@ -8,13 +8,6 @@ import Tower4 from './../entity/towers/Tower4.js';
 import Tower5 from './../entity/towers/Tower5.js';
 
 export function putTower(game) {
-
-    if (game.chosenTower == 0) {
-        game.chosenTower = chooseTower(game.ctx, game.mouse)
-        game.mouse.click = false;
-        return;
-    }
-
     let chosenTower = game.chosenTower;
 
     const positionX = game.mouse.x - (game.mouse.x % Constant.cellSize);
@@ -69,5 +62,6 @@ export function putTower(game) {
             }
             break;
         }
-    game.chosenTower = 0;
+
+    chosenTower = null;
 }

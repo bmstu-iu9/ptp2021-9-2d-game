@@ -7,13 +7,15 @@ import ProcessProjectiles from './components/ProjectilesProcessing.js';
 import Enemies from './entity/enemies/enemies.js';
 
 import * as Constant from './constants.js';
+import { detectClickLocation } from './components/ClickHandling.js';
 import { chooseTower } from './components/towerSelection.js';
+import { chooseUnit } from './components/unitSelection.js';
 import { putTower } from './components/towersProcessing.js';
 import Mouse from './components/mouse.js';
 import PlayerBase from './entity/bases/playerBase.js';
 import EnemyBase from './entity/bases/enemyBase.js';
 import Cell from './components/cell.js';
-import { handleTowers, handleInformation, handleGameGrid, handleEnemies } from  './components/informationHandling.js';
+import { handleTowers, handleInformation, handleGameGrid, handleEnemies, handleControlBar } from  './components/informationHandling.js';
 
 class Game {
     constructor() {
@@ -33,7 +35,8 @@ class Game {
         this.playerBase = new PlayerBase();
         this.enemyBase = new EnemyBase();
         this.mouse = null;
-        this.chosenTower = 0;
+        this.chosenTower = null;
+        this.chosenUnit = null;
     }
 
     init() {
@@ -42,7 +45,29 @@ class Game {
         game.mouse.init(game);
 
         game.canvas.addEventListener('click', function () {
-            putTower(game);
+            let clickLocation = detectClickLocation(game);
+
+            if (clickLocation == "Control Bar") {
+                let chosenTower = chooseTower(game.ctx, game.mouse);
+                if (chosenTower == game.chosenTower) {
+                    game.chosenTower = null;
+                } else {
+                    game.chosenTower = chosenTower;
+                }
+
+                let chosenUnit = chooseUnit(game.ctx, game.mouse);
+                if (chosenUnit == game.chosenUnit) {
+                    game.chooseUnit = null;
+                } else {
+                    game.chosenUnit = chosenUnit;
+                }
+            } else if (clickLocation == "Game Grid") {
+                if (game.chosenTower) {
+                    putTower(game);
+                } else if (game.chosenUnit) {
+                    putUnit(game);
+                }
+            }
         });
 
         for (let y = Constant.cellSize; y < this.canvas.height; y += Constant.cellSize) {
@@ -70,6 +95,7 @@ class Game {
         this.ctx.fillText(10000, this.canvas.width - 100, 450);
 
         handleGameGrid(game);
+        handleControlBar(game.ctx, game.chosenTower, game.chooseUnit);
         ProcessProjectiles(game);
         handleTowers(game);
         handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);

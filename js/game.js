@@ -93,11 +93,6 @@ class Game {
         this.playerBase.draw(this.ctx);
         this.enemyBase.draw(this.ctx);
 
-        this.ctx.fillStyle = 'white';
-        this.ctx.font = '26px Orbitron'
-        this.ctx.fillText(10000, 2, 450);
-        this.ctx.fillText(10000, this.canvas.width - 100, 450);
-
         handleGameGrid(game);
         handleControlBar(game.ctx, game.chosenTower, game.chosenUnit);
         ProcessProjectiles(game);
@@ -108,9 +103,9 @@ class Game {
 
         this.frame++;
 
-        //let ms = 1000/60;
-        //ms += new Date().getTime();
-        //while (new Date().getTime() < ms){}
+        let ms = 1000/60;
+        ms += new Date().getTime();
+        while (new Date().getTime() < ms) {}
     }
 }
 

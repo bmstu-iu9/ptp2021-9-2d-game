@@ -8,17 +8,19 @@ export function handleTowers(game) {
 }
 
 export function handleInformation(ctx, gameover, resources, mybase) {
+    let fontSize = Constant.cellSize * 3 / 5;
     ctx.fillStyle = 'black';
-    ctx.font = '75px Orbitron';
-    ctx.fillText('Resources: ' + resources, 2550, 100);
+    ctx.font = fontSize + 'px Orbitron';
+    let delta = Constant.cellSize + (Constant.canvasWidth / 2 - 10 * Constant.cellSize - 6 * Constant.cellSize / 2) / 2;
+    ctx.fillText('Resources: ' + resources, Constant.canvasWidth / 2 - delta * 7 / 6, Constant.cellSize * 2 / 3);
 
     ctx.fillStyle = 'black';
-    ctx.font = '75px Orbitron';
-    ctx.fillText('Towers', 1150, 100);
+    ctx.font = fontSize + 'px Orbitron';
+    ctx.fillText('Towers', (Constant.canvasWidth / 2 - delta - Constant.cellSize) / 2, Constant.cellSize * 3 / 5);
 
     ctx.fillStyle = 'black';
-    ctx.font = '75px Orbitron';
-    ctx.fillText('Units', 4380, 100);
+    ctx.font = fontSize + 'px Orbitron';
+    ctx.fillText('Units', Constant.canvasWidth / 2 + (Constant.canvasWidth / 2 - Constant.cellSize) / 2, Constant.cellSize * 3 / 5);
 
     if (gameover && mybase.health <= 0) {
         ctx.fillStyle = 'red';
@@ -55,7 +57,7 @@ export function handleEnemies(enemies, resources, ctx, frame, enemydamage, inter
     }
 
     if (frame % interval === 0) {
-        let verticalPosition = Math.floor(Math.random() * 13 + 4) * 193.84;
+        let verticalPosition = Math.floor(Math.random() * 13 + 2) * Constant.cellSize;
         enemies.push(new Enemies(verticalPosition, ctx));
 
         if (interval > 120) {
@@ -255,7 +257,7 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             ucard7stroke = 'black';
     }
 
-    ctx.lineWidth = 10;
+    ctx.lineWidth = Constant.cellSize / 20;
 
     ctx.fillStyle = 'green';
     ctx.fillRect(Constant.card1.x, Constant.card1.y, Constant.card1.width, Constant.card1.height);

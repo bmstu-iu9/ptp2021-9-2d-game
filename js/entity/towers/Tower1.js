@@ -1,5 +1,6 @@
 import BaseTower from './BaseTower.js';
 import Projectile1 from '../projectiles/Projectile1.js';
+import * as Constant from './../../constants.js';
 
 export default class Tower1 extends BaseTower {
     constructor(game, x, y) {
@@ -8,7 +9,7 @@ export default class Tower1 extends BaseTower {
         this.health = 100;
         this.damage = 10;
         this.upgradecost = 200;
-        this.range = 500;
+        this.range = Constant.cellSize * 5;
         this.lastShotTime = new Date();
         this.shootInterval = 300;
         this.level = 1;
@@ -17,8 +18,8 @@ export default class Tower1 extends BaseTower {
     shoot(target) {
         this.projectiles.push(new Projectile1(
             target,
-            this.x + 50,
-            this.y + 50,
+            this.x + Constant.cellSize / 2,
+            this.y + Constant.cellSize / 2,
             this.damage,
             this.level
         ))
@@ -31,14 +32,14 @@ export default class Tower1 extends BaseTower {
             ctx.fillStyle = 'green';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
-            ctx.font = '30px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+            ctx.font = Constant.fontSize + 'px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         } else {
             ctx.fillStyle = 'blue';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
-            ctx.font = '30px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+            ctx.font = Constant.fontSize + 'px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         }
     }
 

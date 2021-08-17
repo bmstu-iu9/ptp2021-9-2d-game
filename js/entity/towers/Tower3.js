@@ -1,6 +1,7 @@
 import BaseTower from './BaseTower.js';
 import Projectile3 from '../projectiles/Projectile3.js';
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constant from './../../constants.js';
 
 export default class Tower3 extends BaseTower {
     constructor(game, x, y) {
@@ -9,9 +10,9 @@ export default class Tower3 extends BaseTower {
         this.health = 100;
         this.damage = 10;
         this.upgradecost = 200;
-        this.range = 650;
+        this.range = Constant.cellSize * 6 + Constant.cellSize / 2;
         this.lastShotTime = new Date();
-        this.shootInterval = 1000;
+        this.shootInterval = 3000;
         this.level = 0;
     }
 
@@ -42,7 +43,7 @@ export default class Tower3 extends BaseTower {
             let enemy = this.enemies[i];
             let distance = enemy.x - this.x;
 
-            if (this.y + 50 == enemy.y && distance < minDistance && distance > 0) {
+            if (this.y + Constant.cellSize / 2 == enemy.y && distance < minDistance && distance > 0) {
                 let isTargetAlready = false;
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (enemy == this.targets[j]) {
@@ -64,8 +65,8 @@ export default class Tower3 extends BaseTower {
     shoot(target) {
         this.projectiles.push(new Projectile3(
             target,
-            this.x + 50,
-            this.y + 50,
+            this.x + Constant.cellSize / 2,
+            this.y + Constant.cellSize / 2,
             this.damage,
             this.level
         ))
@@ -78,14 +79,14 @@ export default class Tower3 extends BaseTower {
             ctx.fillStyle = 'blue';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
-            ctx.font = '30px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+            ctx.font = Constant.fontSize + 'px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         } else {
             ctx.fillStyle = 'blue';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
-            ctx.font = '30px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
+            ctx.font = Constant.fontSize + 'px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         }
     }
 

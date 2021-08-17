@@ -3,7 +3,9 @@ export const
     canvasHeight = document.documentElement.scrollHeight,
     controlBarWidth = canvasWidth,
     cellSize = canvasHeight / 15,
-    controlBarHeight = cellSize * 2;
+    controlBarHeight = cellSize * 2,
+    fontSize = cellSize * 2 / 5 ;
+
 
 export const
     left = 0,
@@ -11,102 +13,71 @@ export const
     interval = 600,
     resources = 300;
 
-export const ucard1 = {
-    x: 3730,
-    y: 150,
-    width: 200,
-    height: 200
+
+function createCoords() {
+    let list = [];
+    let x = cellSize + (canvasWidth / 2 - 10 * cellSize - 6 * cellSize / 2) / 2;
+    let y = cellSize - cellSize / 5;
+
+    for (var i = 0; i < 7; i++) {
+        const card = {
+            x: x,
+            y: y,
+            width: cellSize,
+            height: cellSize
+        };
+        list.push(card);
+        x += cellSize + cellSize / 2;
+    }
+
+    x += (canvasWidth / 2 + cellSize / 2 - x) * 2 - cellSize / 2;
+
+
+
+    for (var i = 0; i < 7; i++) {
+        const card = {
+            x: x,
+            y: y,
+            width: cellSize,
+            height: cellSize
+        };
+        list.push(card);
+        x += cellSize + cellSize / 2 ;
+    }
+
+    return list;
 }
 
-export const ucard2 = {
-    x: 3950,
-    y: 150,
-    width: 200,
-    height: 200
-}
-
-export const ucard3 = {
-    x: 4170,
-    y: 150,
-    width: 200,
-    height: 200
-}
-
-export const ucard4 = {
-    x: 4390,
-    y: 150,
-    width: 200,
-    height: 200
-}
-
-export const ucard5 = {
-    x: 4610,
-    y: 150,
-    width: 200,
-    height: 200
-}
-
-export const ucard6 = {
-    x: 4830,
-    y: 150,
-    width: 200,
-    height: 200
-}
-
-export const ucard7 = {
-    x: 5050,
-    y: 150,
-    width: 200,
-    height: 200
-}
+const list = createCoords();
 
 
 
-export const card1 = {
-    x: 550,
-    y: 150,
-    width: 200,
-    height: 200
-}
+export const ucard1 = list[7];
 
-export const card2 = {
-    x: 770,
-    y: 150,
-    width: 200,
-    height: 200
-}
+export const ucard2 = list[8];
 
-export const card3 = {
-    x: 990,
-    y: 150,
-    width: 200,
-    height: 200
-}
+export const ucard3 = list[9];
 
-export const card4 = {
-    x: 1210,
-    y: 150,
-    width: 200,
-    height: 200
-}
+export const ucard4 = list[10];
 
-export const card5 = {
-    x: 1430,
-    y: 150,
-    width: 200,
-    height: 200
-}
+export const ucard5 = list[11];
 
-export const card6 = {
-    x: 1650,
-    y: 150,
-    width: 200,
-    height: 200
-}
+export const ucard6 = list[12];
 
-export const card7 = {
-    x: 1870,
-    y: 150,
-    width: 200,
-    height: 200
-}
+export const ucard7 = list[13];
+
+
+
+export const card1 = list[0];
+
+export const card2 = list[1];
+
+export const card3 = list[2];
+
+export const card4 = list[3];
+
+export const card5 = list[4];
+
+export const card6 = list[5];
+
+export const card7 = list[6];

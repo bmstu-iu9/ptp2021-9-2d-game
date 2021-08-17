@@ -1,4 +1,5 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constant from './../../constants.js';
 
 export default class Projectile4 {
     constructor(target, x, y, level, damage) {
@@ -30,7 +31,7 @@ export default class Projectile4 {
     }
 
     hit(enemies) {
-        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > 71 || this.hitt) {
+        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > Constant.cellSize / 2 || this.hitt) {
             return;
         }
 

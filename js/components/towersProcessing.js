@@ -101,5 +101,5 @@ export function putTower(game) {
             break;
         }
 
-    chosenTower = null;
+    game.chosenTower = null;
 }

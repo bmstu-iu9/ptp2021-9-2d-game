@@ -23,7 +23,7 @@ export function chooseUnit(ctx, mouse) {
     } else if (collisiondetection(mouse, Constant.ucard7)) {
         chosenUnit = 7;
     }
-    
+
     return chosenUnit;
 }
 
@@ -106,5 +106,5 @@ export function putUnit(game) {
             break;
         }
 
-    chosenUnit = null;
+    game.chosenUnit = null;
 }

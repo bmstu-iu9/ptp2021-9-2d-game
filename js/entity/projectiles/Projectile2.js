@@ -1,4 +1,5 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constant from './../../constants.js';
 
 export default class Projectile2 {
     constructor(target, x, y, damage, upgrade) {
@@ -13,7 +14,7 @@ export default class Projectile2 {
         this.speed = 5;
         this.health = true;
         this.damage = damage;
-        this.radius = 75;
+        this.radius = Constant.cellSize / 2;
         this.target = target;
         this.angle = 0;
         this.delta_update_damage = 50;

@@ -1,4 +1,5 @@
 import BaseUnit from './BaseUnit.js';
+import Projectile1 from '../projectiles/Projectile1.js';
 
 export default class Unit1 extends BaseUnit {
     constructor(game, x, y) {

@@ -108,3 +108,15 @@ export function putUnit(game) {
 
     game.chosenUnit = null;
 }
+
+export function processUnits(game) {
+    let units = game.units;
+
+    for (let i = 0; i < units.length; i++) {
+        let unit = units[i];
+
+        unit.update();
+        unit.shoot();
+        unit.draw();
+    }
+}

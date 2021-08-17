@@ -8,7 +8,7 @@ import Enemies from './entity/enemies/enemies.js';
 
 import * as Constant from './constants.js';
 import { chooseTower, putTower } from './components/towersProcessing.js';
-import { chooseUnit, putUnit } from './components/unitsProcessing.js';
+import { chooseUnit, putUnit, processUnits } from './components/unitsProcessing.js';
 import Mouse from './components/mouse.js';
 import PlayerBase from './entity/bases/playerBase.js';
 import EnemyBase from './entity/bases/enemyBase.js';
@@ -92,9 +92,10 @@ class Game {
         handleControlBar(game.ctx, game.chosenTower, game.chosenUnit);
         ProcessProjectiles(game);
         handleTowers(game);
+        processUnits(game);
         handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
         handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
-        chooseTower(this.ctx, this.mouse, this.chosenTower);
+        //chooseTower(this.ctx, this.mouse, this.chosenTower);
 
         this.frame++;
 

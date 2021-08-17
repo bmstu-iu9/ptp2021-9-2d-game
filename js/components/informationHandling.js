@@ -69,7 +69,7 @@ export function handleEnemies(enemies, resources, ctx, frame, enemydamage, inter
 }
 
 export function detectClickLocation(game) {
-    if (game.mouse.y <= Constant.controlsBarHeight) {
+    if (game.mouse.y <= Constant.controlBarHeight) {
         return "Control Bar";
     } else {
         return "Game Grid";

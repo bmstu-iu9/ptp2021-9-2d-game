@@ -1,15 +1,15 @@
 export const
-    canvasWidth = 5740,
-    canvasHeight = 2907,
-    controlsBarWidth = 5740,
-    controlsBarHeight = 400;
+    canvasWidth = document.documentElement.scrollWidth,
+    canvasHeight = document.documentElement.scrollHeight,
+    controlBarWidth = canvasWidth,
+    cellSize = canvasHeight / 15,
+    controlBarHeight = cellSize * 2;
 
 export const
     left = 0,
     frame = 0,
     interval = 600,
-    resources = 300,
-    cellSize = 193.84;
+    resources = 300;
 
 export const ucard1 = {
     x: 10,

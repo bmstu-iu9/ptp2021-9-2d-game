@@ -39,6 +39,11 @@ class Game {
     }
 
     init() {
+
+        console.log(document.documentElement.scrollWidth, document.documentElement.scrollHeight,
+            screen.width,
+            screen.height)
+
         this.mouse = new Mouse(game);
 
         game.mouse.init(game);
@@ -84,7 +89,7 @@ class Game {
             this.resources += 10;
         }
 
-        this.ctx.fillRect(0, 0, Constant.controlsBarWidth, Constant.controlsBarHeight);
+        this.ctx.fillRect(0, 0, Constant.controlBarWidth, Constant.controlBarHeight);
         this.playerBase.draw(this.ctx);
         this.enemyBase.draw(this.ctx);
 

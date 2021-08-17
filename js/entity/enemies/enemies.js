@@ -6,8 +6,7 @@ export default class Enemies {
         this.y = verticalPosition + Constant.cellSize / 2;
         this.width = Constant.cellSize;
         this.height = Constant.cellSize;
-        this.speed = Math.random() * 0.2 + 0.4;
-        this.movement = this.speed;
+        this.speed = Constant.cellSize * 0.5/100;
         this.health = 666;
         this.damage = 10;
         this.firerate = 100;
@@ -16,7 +15,7 @@ export default class Enemies {
     }
 
     update() {
-        this.x -= this.movement;
+        this.x -= this.speed;
     }
 
     draw() {

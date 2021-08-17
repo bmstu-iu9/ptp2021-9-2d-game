@@ -11,7 +11,7 @@ export default class Projectile2 {
         this.y = y;
         this.width = 10;
         this.height = 5;
-        this.speed = 5;
+        this.speed = Constant.cellSize * 5/100;
         this.health = true;
         this.damage = damage;
         this.radius = Constant.cellSize / 2;

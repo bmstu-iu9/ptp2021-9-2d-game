@@ -39,11 +39,6 @@ class Game {
     }
 
     init() {
-
-        console.log(document.documentElement.scrollWidth, document.documentElement.scrollHeight,
-            screen.width,
-            screen.height)
-
         this.mouse = new Mouse(game);
 
         game.mouse.init(game);

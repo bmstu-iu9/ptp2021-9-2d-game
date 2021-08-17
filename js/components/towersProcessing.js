@@ -10,19 +10,19 @@ import Tower5 from './../entity/towers/Tower5.js';
 export function chooseTower(ctx, mouse) {
     let chosenTower = null;
 
-    if (collisiondetection(mouse, Constant.card1)) {
+    if (collisiondetection(mouse, Constant.towerCard1)) {
         chosenTower = 1;
-    } else if (collisiondetection(mouse, Constant.card2)) {
+    } else if (collisiondetection(mouse, Constant.towerCard2)) {
         chosenTower = 2;
-    } else if (collisiondetection(mouse, Constant.card3)) {
+    } else if (collisiondetection(mouse, Constant.towerCard3)) {
         chosenTower = 3;
-    } else if (collisiondetection(mouse, Constant.card4)) {
+    } else if (collisiondetection(mouse, Constant.towerCard4)) {
         chosenTower = 4;
-    } else if (collisiondetection(mouse, Constant.card5)) {
+    } else if (collisiondetection(mouse, Constant.towerCard5)) {
         chosenTower = 5;
-    } else if (collisiondetection(mouse, Constant.card6)) {
+    } else if (collisiondetection(mouse, Constant.towerCard6)) {
         chosenTower = 6;
-    } else if (collisiondetection(mouse, Constant.card7)) {
+    } else if (collisiondetection(mouse, Constant.towerCard7)) {
         chosenTower = 7;
     }
 

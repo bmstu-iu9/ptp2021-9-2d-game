@@ -79,256 +79,153 @@ export function detectClickLocation(game) {
 }
 
 export function handleControlBar(ctx, chosenTower, chosenUnit) {
-    let card1stroke = 'black';
-    let card2stroke = 'black';
-    let card3stroke = 'black';
-    let card4stroke = 'black';
-    let card5stroke = 'black';
-    let card6stroke = 'black';
-    let card7stroke = 'black';
+    let towerCard1stroke = 'black';
+    let towerCard2stroke = 'black';
+    let towerCard3stroke = 'black';
+    let towerCard4stroke = 'black';
+    let towerCard5stroke = 'black';
+    let towerCard6stroke = 'black';
+    let towerCard7stroke = 'black';
 
-    let ucard1stroke = 'black';
-    let ucard2stroke = 'black';
-    let ucard3stroke = 'black';
-    let ucard4stroke = 'black';
-    let ucard5stroke = 'black';
-    let ucard6stroke = 'black';
-    let ucard7stroke = 'black';
+    let unitCard1stroke = 'black';
+    let unitCard2stroke = 'black';
+    let unitCard3stroke = 'black';
+    let unitCard4stroke = 'black';
+    let unitCard5stroke = 'black';
+    let unitCard6stroke = 'black';
+    let unitCard7stroke = 'black';
 
     switch (chosenTower) {
         case 1:
-            card1stroke = 'gold';
-            card2stroke = 'black';
-            card3stroke = 'black';
-            card4stroke = 'black';
-            card5stroke = 'black';
-            card6stroke = 'black';
-            card7stroke = 'black';
+            towerCard1stroke = 'gold';
             break;
 
         case 2:
-            card1stroke = 'black';
-            card2stroke = 'gold';
-            card3stroke = 'black';
-            card4stroke = 'black';
-            card5stroke = 'black';
-            card6stroke = 'black';
-            card7stroke = 'black';
+            towerCard2stroke = 'gold';
             break;
 
         case 3:
-            card1stroke = 'black';
-            card2stroke = 'black';
-            card3stroke = 'gold';
-            card4stroke = 'black';
-            card5stroke = 'black';
-            card6stroke = 'black';
-            card7stroke = 'black';
+            towerCard3stroke = 'gold';
             break;
 
         case 4:
-            card1stroke = 'black';
-            card2stroke = 'black';
-            card3stroke = 'black';
-            card4stroke = 'gold';
-            card5stroke = 'black';
-            card6stroke = 'black';
-            card7stroke = 'black';
+            towerCard4stroke = 'gold';
             break;
 
         case 5:
-            card1stroke = 'black';
-            card2stroke = 'black';
-            card3stroke = 'black';
-            card4stroke = 'black';
-            card5stroke = 'gold';
-            card6stroke = 'black';
-            card7stroke = 'black';
+            towerCard5stroke = 'gold';
             break;
 
         case 6:
-            card1stroke = 'black';
-            card2stroke = 'black';
-            card3stroke = 'black';
-            card4stroke = 'black';
-            card5stroke = 'black';
-            card6stroke = 'gold';
-            card7stroke = 'black';
+            towerCard6stroke = 'gold';
             break;
 
         case 7:
-            card1stroke = 'black';
-            card2stroke = 'black';
-            card3stroke = 'black';
-            card4stroke = 'black';
-            card5stroke = 'black';
-            card6stroke = 'black';
-            card7stroke = 'gold';
+            towerCard7stroke = 'gold';
             break;
-
-        default:
-            card1stroke = 'black';
-            card2stroke = 'black';
-            card3stroke = 'black';
-            card4stroke = 'black';
-            card5stroke = 'black';
-            card6stroke = 'black';
-            card7stroke = 'black';
     }
 
     switch (chosenUnit) {
         case 1:
-            ucard1stroke = 'gold';
-            ucard2stroke = 'black';
-            ucard3stroke = 'black';
-            ucard4stroke = 'black';
-            ucard5stroke = 'black';
-            ucard6stroke = 'black';
-            ucard7stroke = 'black';
+            unitCard1stroke = 'gold';
             break;
 
         case 2:
-            ucard1stroke = 'black';
-            ucard2stroke = 'gold';
-            ucard3stroke = 'black';
-            ucard4stroke = 'black';
-            ucard5stroke = 'black';
-            ucard6stroke = 'black';
-            ucard7stroke = 'black';
+            unitCard2stroke = 'gold';
             break;
 
         case 3:
-            ucard1stroke = 'black';
-            ucard2stroke = 'black';
-            ucard3stroke = 'gold';
-            ucard4stroke = 'black';
-            ucard5stroke = 'black';
-            ucard6stroke = 'black';
-            ucard7stroke = 'black';
+            unitCard3stroke = 'gold';
             break;
 
         case 4:
-            ucard1stroke = 'black';
-            ucard2stroke = 'black';
-            ucard3stroke = 'black';
-            ucard4stroke = 'gold';
-            ucard5stroke = 'black';
-            ucard6stroke = 'black';
-            ucard7stroke = 'black';
+            unitCard4stroke = 'gold';
             break;
 
         case 5:
-            ucard1stroke = 'black';
-            ucard2stroke = 'black';
-            ucard3stroke = 'black';
-            ucard4stroke = 'black';
-            ucard5stroke = 'gold';
-            ucard6stroke = 'black';
-            ucard7stroke = 'black';
+            unitCard5stroke = 'gold';
             break;
 
         case 6:
-            ucard1stroke = 'black';
-            ucard2stroke = 'black';
-            ucard3stroke = 'black';
-            ucard4stroke = 'black';
-            ucard5stroke = 'black';
-            ucard6stroke = 'gold';
-            ucard7stroke = 'black';
+            unitCard6stroke = 'gold';
             break;
 
         case 7:
-            ucard1stroke = 'black';
-            ucard2stroke = 'black';
-            ucard3stroke = 'black';
-            ucard4stroke = 'black';
-            ucard5stroke = 'black';
-            ucard6stroke = 'black';
-            ucard7stroke = 'gold';
+            unitCard7stroke = 'gold';
             break;
-
-        default:
-            ucard1stroke = 'black';
-            ucard2stroke = 'black';
-            ucard3stroke = 'black';
-            ucard4stroke = 'black';
-            ucard5stroke = 'black';
-            ucard6stroke = 'black';
-            ucard7stroke = 'black';
     }
 
     ctx.lineWidth = Constant.cellSize / 20;
 
     ctx.fillStyle = 'green';
-    ctx.fillRect(Constant.card1.x, Constant.card1.y, Constant.card1.width, Constant.card1.height);
-    ctx.strokeStyle = card1stroke;
-    ctx.strokeRect(Constant.card1.x, Constant.card1.y, Constant.card1.width, Constant.card1.height);
+    ctx.fillRect(Constant.towerCard1.x, Constant.towerCard1.y, Constant.towerCard1.width, Constant.towerCard1.height);
+    ctx.strokeStyle = towerCard1stroke;
+    ctx.strokeRect(Constant.towerCard1.x, Constant.towerCard1.y, Constant.towerCard1.width, Constant.towerCard1.height);
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(Constant.card2.x, Constant.card2.y, Constant.card2.width, Constant.card2.height);
-    ctx.strokeStyle = card2stroke;
-    ctx.strokeRect(Constant.card2.x, Constant.card2.y, Constant.card2.width, Constant.card2.height);
+    ctx.fillRect(Constant.towerCard2.x, Constant.towerCard2.y, Constant.towerCard2.width, Constant.towerCard2.height);
+    ctx.strokeStyle = towerCard2stroke;
+    ctx.strokeRect(Constant.towerCard2.x, Constant.towerCard2.y, Constant.towerCard2.width, Constant.towerCard2.height);
 
     ctx.fillStyle = 'blue';
-    ctx.fillRect(Constant.card3.x, Constant.card3.y, Constant.card3.width, Constant.card3.height);
-    ctx.strokeStyle = card3stroke;
-    ctx.strokeRect(Constant.card3.x, Constant.card3.y, Constant.card3.width, Constant.card3.height);
+    ctx.fillRect(Constant.towerCard3.x, Constant.towerCard3.y, Constant.towerCard3.width, Constant.towerCard3.height);
+    ctx.strokeStyle = towerCard3stroke;
+    ctx.strokeRect(Constant.towerCard3.x, Constant.towerCard3.y, Constant.towerCard3.width, Constant.towerCard3.height);
 
     ctx.fillStyle = 'black';
-    ctx.fillRect(Constant.card4.x, Constant.card4.y, Constant.card4.width, Constant.card4.height);
-    ctx.strokeStyle = card4stroke;
-    ctx.strokeRect(Constant.card4.x, Constant.card4.y, Constant.card4.width, Constant.card4.height);
+    ctx.fillRect(Constant.towerCard4.x, Constant.towerCard4.y, Constant.towerCard4.width, Constant.towerCard4.height);
+    ctx.strokeStyle = towerCard4stroke;
+    ctx.strokeRect(Constant.towerCard4.x, Constant.towerCard4.y, Constant.towerCard4.width, Constant.towerCard4.height);
 
     ctx.fillStyle = 'purple';
-    ctx.fillRect(Constant.card5.x, Constant.card5.y, Constant.card5.width, Constant.card5.height);
-    ctx.strokeStyle = card5stroke;
-    ctx.strokeRect(Constant.card5.x, Constant.card5.y, Constant.card5.width, Constant.card5.height);
+    ctx.fillRect(Constant.towerCard5.x, Constant.towerCard5.y, Constant.towerCard5.width, Constant.towerCard5.height);
+    ctx.strokeStyle = towerCard5stroke;
+    ctx.strokeRect(Constant.towerCard5.x, Constant.towerCard5.y, Constant.towerCard5.width, Constant.towerCard5.height);
 
     ctx.fillStyle = 'orange';
-    ctx.fillRect(Constant.card6.x, Constant.card6.y, Constant.card6.width, Constant.card6.height);
-    ctx.strokeStyle = card6stroke;
-    ctx.strokeRect(Constant.card6.x, Constant.card6.y, Constant.card6.width, Constant.card6.height);
+    ctx.fillRect(Constant.towerCard6.x, Constant.towerCard6.y, Constant.towerCard6.width, Constant.towerCard6.height);
+    ctx.strokeStyle = towerCard6stroke;
+    ctx.strokeRect(Constant.towerCard6.x, Constant.towerCard6.y, Constant.towerCard6.width, Constant.towerCard6.height);
 
     ctx.fillStyle = 'pink';
-    ctx.fillRect(Constant.card7.x, Constant.card7.y, Constant.card7.width, Constant.card7.height);
-    ctx.strokeStyle = card7stroke;
-    ctx.strokeRect(Constant.card7.x, Constant.card7.y, Constant.card7.width, Constant.card7.height);
+    ctx.fillRect(Constant.towerCard7.x, Constant.towerCard7.y, Constant.towerCard7.width, Constant.towerCard7.height);
+    ctx.strokeStyle = towerCard7stroke;
+    ctx.strokeRect(Constant.towerCard7.x, Constant.towerCard7.y, Constant.towerCard7.width, Constant.towerCard7.height);
 
     // кнопки юнитов
 
     ctx.fillStyle = 'green';
-    ctx.fillRect(Constant.ucard1.x, Constant.ucard1.y, Constant.ucard1.width, Constant.ucard1.height);
-    ctx.strokeStyle = ucard1stroke;
-    ctx.strokeRect(Constant.ucard1.x, Constant.ucard1.y, Constant.ucard1.width, Constant.ucard1.height);
+    ctx.fillRect(Constant.unitCard1.x, Constant.unitCard1.y, Constant.unitCard1.width, Constant.unitCard1.height);
+    ctx.strokeStyle = unitCard1stroke;
+    ctx.strokeRect(Constant.unitCard1.x, Constant.unitCard1.y, Constant.unitCard1.width, Constant.unitCard1.height);
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(Constant.ucard2.x, Constant.ucard2.y, Constant.ucard2.width, Constant.ucard2.height);
-    ctx.strokeStyle = ucard2stroke;
-    ctx.strokeRect(Constant.ucard2.x, Constant.ucard2.y, Constant.ucard2.width, Constant.ucard2.height);
+    ctx.fillRect(Constant.unitCard2.x, Constant.unitCard2.y, Constant.unitCard2.width, Constant.unitCard2.height);
+    ctx.strokeStyle = unitCard2stroke;
+    ctx.strokeRect(Constant.unitCard2.x, Constant.unitCard2.y, Constant.unitCard2.width, Constant.unitCard2.height);
 
     ctx.fillStyle = 'blue';
-    ctx.fillRect(Constant.ucard3.x, Constant.ucard3.y, Constant.ucard3.width, Constant.ucard3.height);
-    ctx.strokeStyle = ucard3stroke;
-    ctx.strokeRect(Constant.ucard3.x, Constant.ucard3.y, Constant.ucard3.width, Constant.ucard3.height);
+    ctx.fillRect(Constant.unitCard3.x, Constant.unitCard3.y, Constant.unitCard3.width, Constant.unitCard3.height);
+    ctx.strokeStyle = unitCard3stroke;
+    ctx.strokeRect(Constant.unitCard3.x, Constant.unitCard3.y, Constant.unitCard3.width, Constant.unitCard3.height);
 
     ctx.fillStyle = 'purple';
-    ctx.fillRect(Constant.ucard4.x, Constant.ucard4.y, Constant.ucard4.width, Constant.ucard4.height);
-    ctx.strokeStyle = ucard4stroke;
-    ctx.strokeRect(Constant.ucard4.x, Constant.ucard4.y, Constant.ucard4.width, Constant.ucard4.height);
+    ctx.fillRect(Constant.unitCard4.x, Constant.unitCard4.y, Constant.unitCard4.width, Constant.unitCard4.height);
+    ctx.strokeStyle = unitCard4stroke;
+    ctx.strokeRect(Constant.unitCard4.x, Constant.unitCard4.y, Constant.unitCard4.width, Constant.unitCard4.height);
 
     ctx.fillStyle = 'orange';
-    ctx.fillRect(Constant.ucard5.x, Constant.ucard5.y, Constant.ucard5.width, Constant.ucard5.height);
-    ctx.strokeStyle = ucard5stroke;
-    ctx.strokeRect(Constant.ucard5.x, Constant.ucard5.y, Constant.ucard5.width, Constant.ucard5.height);
+    ctx.fillRect(Constant.unitCard5.x, Constant.unitCard5.y, Constant.unitCard5.width, Constant.unitCard5.height);
+    ctx.strokeStyle = unitCard5stroke;
+    ctx.strokeRect(Constant.unitCard5.x, Constant.unitCard5.y, Constant.unitCard5.width, Constant.unitCard5.height);
 
     ctx.fillStyle = 'black';
-    ctx.fillRect(Constant.ucard6.x, Constant.ucard6.y, Constant.ucard6.width, Constant.ucard6.height);
-    ctx.strokeStyle = ucard6stroke;
-    ctx.strokeRect(Constant.ucard6.x, Constant.ucard6.y, Constant.ucard6.width, Constant.ucard6.height);
+    ctx.fillRect(Constant.unitCard6.x, Constant.unitCard6.y, Constant.unitCard6.width, Constant.unitCard6.height);
+    ctx.strokeStyle = unitCard6stroke;
+    ctx.strokeRect(Constant.unitCard6.x, Constant.unitCard6.y, Constant.unitCard6.width, Constant.unitCard6.height);
 
     ctx.fillStyle = 'pink';
-    ctx.fillRect(Constant.ucard7.x, Constant.ucard7.y, Constant.ucard7.width, Constant.ucard7.height);
-    ctx.strokeStyle = ucard7stroke;
-    ctx.strokeRect(Constant.ucard7.x, Constant.ucard7.y, Constant.ucard7.width, Constant.ucard7.height);
-
+    ctx.fillRect(Constant.unitCard7.x, Constant.unitCard7.y, Constant.unitCard7.width, Constant.unitCard7.height);
+    ctx.strokeStyle = unitCard7stroke;
+    ctx.strokeRect(Constant.unitCard7.x, Constant.unitCard7.y, Constant.unitCard7.width, Constant.unitCard7.height);
 }

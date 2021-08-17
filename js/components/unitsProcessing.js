@@ -8,19 +8,19 @@ import Unit3 from './../entity/units/Unit2.js';
 export function chooseUnit(ctx, mouse) {
     let chosenUnit = null;
 
-    if (collisiondetection(mouse, Constant.ucard1)) {
+    if (collisiondetection(mouse, Constant.unitCard1)) {
         chosenUnit = 1;
-    } else if (collisiondetection(mouse, Constant.ucard2)) {
+    } else if (collisiondetection(mouse, Constant.unitCard2)) {
         chosenUnit = 2;
-    } else if (collisiondetection(mouse, Constant.ucard3)) {
+    } else if (collisiondetection(mouse, Constant.unitCard3)) {
         chosenUnit = 3;
-    } else if (collisiondetection(mouse, Constant.ucard4)) {
+    } else if (collisiondetection(mouse, Constant.unitCard4)) {
         chosenUnit = 4;
-    } else if (collisiondetection(mouse, Constant.ucard5)) {
+    } else if (collisiondetection(mouse, Constant.unitCard5)) {
         chosenUnit = 5;
-    } else if (collisiondetection(mouse, Constant.ucard6)) {
+    } else if (collisiondetection(mouse, Constant.unitCard6)) {
         chosenUnit = 6;
-    } else if (collisiondetection(mouse, Constant.ucard7)) {
+    } else if (collisiondetection(mouse, Constant.unitCard7)) {
         chosenUnit = 7;
     }
 

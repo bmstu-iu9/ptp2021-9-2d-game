@@ -10,7 +10,7 @@ export default class Projectile4 {
         this.y = y;
         this.width = 10;
         this.height = 10;
-        this.speed = 3;
+        this.speed = Constant.cellSize * 3/100;
         this.damage = damage;
         this.level = level;
         this.hitt = false;

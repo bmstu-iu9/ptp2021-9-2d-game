@@ -61,7 +61,7 @@ class Game {
 
                 let chosenUnit = chooseUnit(game.ctx, game.mouse);
                 if (chosenUnit == game.chosenUnit) {
-                    game.chooseUnit = null;
+                    game.chosenUnit = null;
                 } else {
                     game.chosenUnit = chosenUnit;
                 }
@@ -99,7 +99,7 @@ class Game {
         this.ctx.fillText(10000, this.canvas.width - 100, 450);
 
         handleGameGrid(game);
-        handleControlBar(game.ctx, game.chosenTower, game.chooseUnit);
+        handleControlBar(game.ctx, game.chosenTower, game.chosenUnit);
         ProcessProjectiles(game);
         handleTowers(game);
         handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);

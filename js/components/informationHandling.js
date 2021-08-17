@@ -82,9 +82,16 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
     let card3stroke = 'black';
     let card4stroke = 'black';
     let card5stroke = 'black';
+    let card6stroke = 'black';
+    let card7stroke = 'black';
 
     let ucard1stroke = 'black';
     let ucard2stroke = 'black';
+    let ucard3stroke = 'black';
+    let ucard4stroke = 'black';
+    let ucard5stroke = 'black';
+    let ucard6stroke = 'black';
+    let ucard7stroke = 'black';
 
     switch (chosenTower) {
         case 1:
@@ -93,6 +100,8 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             card3stroke = 'black';
             card4stroke = 'black';
             card5stroke = 'black';
+            card6stroke = 'black';
+            card7stroke = 'black';
             break;
 
         case 2:
@@ -101,6 +110,8 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             card3stroke = 'black';
             card4stroke = 'black';
             card5stroke = 'black';
+            card6stroke = 'black';
+            card7stroke = 'black';
             break;
 
         case 3:
@@ -109,6 +120,8 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             card3stroke = 'gold';
             card4stroke = 'black';
             card5stroke = 'black';
+            card6stroke = 'black';
+            card7stroke = 'black';
             break;
 
         case 4:
@@ -117,6 +130,8 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             card3stroke = 'black';
             card4stroke = 'gold';
             card5stroke = 'black';
+            card6stroke = 'black';
+            card7stroke = 'black';
             break;
 
         case 5:
@@ -125,6 +140,28 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             card3stroke = 'black';
             card4stroke = 'black';
             card5stroke = 'gold';
+            card6stroke = 'black';
+            card7stroke = 'black';
+            break;
+
+        case 6:
+            card1stroke = 'black';
+            card2stroke = 'black';
+            card3stroke = 'black';
+            card4stroke = 'black';
+            card5stroke = 'black';
+            card6stroke = 'gold';
+            card7stroke = 'black';
+            break;
+
+        case 7:
+            card1stroke = 'black';
+            card2stroke = 'black';
+            card3stroke = 'black';
+            card4stroke = 'black';
+            card5stroke = 'black';
+            card6stroke = 'black';
+            card7stroke = 'gold';
             break;
 
         default:
@@ -133,22 +170,89 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             card3stroke = 'black';
             card4stroke = 'black';
             card5stroke = 'black';
+            card6stroke = 'black';
+            card7stroke = 'black';
     }
 
     switch (chosenUnit) {
         case 1:
             ucard1stroke = 'gold';
             ucard2stroke = 'black';
+            ucard3stroke = 'black';
+            ucard4stroke = 'black';
+            ucard5stroke = 'black';
+            ucard6stroke = 'black';
+            ucard7stroke = 'black';
             break;
 
         case 2:
             ucard1stroke = 'black';
             ucard2stroke = 'gold';
+            ucard3stroke = 'black';
+            ucard4stroke = 'black';
+            ucard5stroke = 'black';
+            ucard6stroke = 'black';
+            ucard7stroke = 'black';
+            break;
+
+        case 3:
+            ucard1stroke = 'black';
+            ucard2stroke = 'black';
+            ucard3stroke = 'gold';
+            ucard4stroke = 'black';
+            ucard5stroke = 'black';
+            ucard6stroke = 'black';
+            ucard7stroke = 'black';
+            break;
+
+        case 4:
+            ucard1stroke = 'black';
+            ucard2stroke = 'black';
+            ucard3stroke = 'black';
+            ucard4stroke = 'gold';
+            ucard5stroke = 'black';
+            ucard6stroke = 'black';
+            ucard7stroke = 'black';
+            break;
+
+        case 5:
+            ucard1stroke = 'black';
+            ucard2stroke = 'black';
+            ucard3stroke = 'black';
+            ucard4stroke = 'black';
+            ucard5stroke = 'gold';
+            ucard6stroke = 'black';
+            ucard7stroke = 'black';
+            break;
+
+        case 6:
+            ucard1stroke = 'black';
+            ucard2stroke = 'black';
+            ucard3stroke = 'black';
+            ucard4stroke = 'black';
+            ucard5stroke = 'black';
+            ucard6stroke = 'gold';
+            ucard7stroke = 'black';
+            break;
+
+        case 7:
+            ucard1stroke = 'black';
+            ucard2stroke = 'black';
+            ucard3stroke = 'black';
+            ucard4stroke = 'black';
+            ucard5stroke = 'black';
+            ucard6stroke = 'black';
+            ucard7stroke = 'gold';
             break;
 
         default:
             ucard1stroke = 'black';
             ucard2stroke = 'black';
+            ucard3stroke = 'black';
+            ucard4stroke = 'black';
+            ucard5stroke = 'black';
+            ucard6stroke = 'black';
+            ucard7stroke = 'black';
     }
 
     ctx.lineWidth = 10;
@@ -178,8 +282,18 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
     ctx.strokeStyle = card5stroke;
     ctx.strokeRect(Constant.card5.x, Constant.card5.y, Constant.card5.width, Constant.card5.height);
 
+    ctx.fillStyle = 'orange';
+    ctx.fillRect(Constant.card6.x, Constant.card6.y, Constant.card6.width, Constant.card6.height);
+    ctx.strokeStyle = card6stroke;
+    ctx.strokeRect(Constant.card6.x, Constant.card6.y, Constant.card6.width, Constant.card6.height);
 
-/*
+    ctx.fillStyle = 'pink';
+    ctx.fillRect(Constant.card7.x, Constant.card7.y, Constant.card7.width, Constant.card7.height);
+    ctx.strokeStyle = card7stroke;
+    ctx.strokeRect(Constant.card7.x, Constant.card7.y, Constant.card7.width, Constant.card7.height);
+
+    // кнопки юнитов
+
     ctx.fillStyle = 'green';
     ctx.fillRect(Constant.ucard1.x, Constant.ucard1.y, Constant.ucard1.width, Constant.ucard1.height);
     ctx.strokeStyle = ucard1stroke;
@@ -189,5 +303,30 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
     ctx.fillRect(Constant.ucard2.x, Constant.ucard2.y, Constant.ucard2.width, Constant.ucard2.height);
     ctx.strokeStyle = ucard2stroke;
     ctx.strokeRect(Constant.ucard2.x, Constant.ucard2.y, Constant.ucard2.width, Constant.ucard2.height);
-*/
+
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(Constant.ucard3.x, Constant.ucard3.y, Constant.ucard3.width, Constant.ucard3.height);
+    ctx.strokeStyle = ucard3stroke;
+    ctx.strokeRect(Constant.ucard3.x, Constant.ucard3.y, Constant.ucard3.width, Constant.ucard3.height);
+
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(Constant.ucard4.x, Constant.ucard4.y, Constant.ucard4.width, Constant.ucard4.height);
+    ctx.strokeStyle = ucard4stroke;
+    ctx.strokeRect(Constant.ucard4.x, Constant.ucard4.y, Constant.ucard4.width, Constant.ucard4.height);
+
+    ctx.fillStyle = 'orange';
+    ctx.fillRect(Constant.ucard5.x, Constant.ucard5.y, Constant.ucard5.width, Constant.ucard5.height);
+    ctx.strokeStyle = ucard5stroke;
+    ctx.strokeRect(Constant.ucard5.x, Constant.ucard5.y, Constant.ucard5.width, Constant.ucard5.height);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(Constant.ucard6.x, Constant.ucard6.y, Constant.ucard6.width, Constant.ucard6.height);
+    ctx.strokeStyle = ucard6stroke;
+    ctx.strokeRect(Constant.ucard6.x, Constant.ucard6.y, Constant.ucard6.width, Constant.ucard6.height);
+
+    ctx.fillStyle = 'pink';
+    ctx.fillRect(Constant.ucard7.x, Constant.ucard7.y, Constant.ucard7.width, Constant.ucard7.height);
+    ctx.strokeStyle = ucard7stroke;
+    ctx.strokeRect(Constant.ucard7.x, Constant.ucard7.y, Constant.ucard7.width, Constant.ucard7.height);
+
 }

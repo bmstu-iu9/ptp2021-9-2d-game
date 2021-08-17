@@ -20,6 +20,10 @@ export function chooseTower(ctx, mouse) {
         chosenTower = 4;
     } else if (collisiondetection(mouse, Constant.card5)) {
         chosenTower = 5;
+    } else if (collisiondetection(mouse, Constant.card6)) {
+        chosenTower = 6;
+    } else if (collisiondetection(mouse, Constant.card7)) {
+        chosenTower = 7;
     }
 
     return chosenTower;
@@ -41,43 +45,59 @@ export function putTower(game) {
 
     switch(chosenTower) {
         case 1:
-            if (game.resources >= 100) {
-                let currentTower = new Tower1(game, positionX, positionY);
-                game.towers.push(currentTower);
-                game.resources -= currentTower.cost;
-            }
+              if (100 <= game.resources) {
+                  let currentTower = new Tower1(game, positionX, positionY);
+                  game.towers.push(currentTower);
+                  game.resources -= currentTower.cost;
+              }
             break;
 
         case 2:
-            if (game.resources >= 100) {
-                let currentTower = new Tower2(game, positionX, positionY);
-                game.towers.push(currentTower);
-                game.resources -= currentTower.cost;
-            }
+              if (100 <= game.resources) {
+                  let currentTower = new Tower2(game, positionX, positionY);
+                  game.towers.push(currentTower);
+                  game.resources -= currentTower.cost;
+              }
             break;
 
         case 3:
-            if (game.resources >= 100) {
-                let currentTower = new Tower3(game, positionX, positionY);
-                game.towers.push(currentTower);
-                game.resources -= currentTower.cost;
-            }
+              if (100 <= game.resources) {
+                  let currentTower = new Tower3(game, positionX, positionY);
+                  game.towers.push(currentTower);
+                  game.resources -= currentTower.cost;
+              }
             break;
 
         case 4:
-            if (game.resources >= 100) {
-                let currentTower = new Tower4(game, positionX, positionY);
-                game.towers.push(currentTower);
-                game.resources -= currentTower.cost;
-            }
+              if (100 <= game.resources) {
+                  let currentTower = new Tower4(game, positionX, positionY);
+                  game.towers.push(currentTower);
+                  game.resources -= currentTower.cost;
+              }
             break;
 
         case 5:
-            if (game.resources >= 100) {
-                let currentTower = new Tower5(game, positionX, positionY);
-                game.towers.push(currentTower);
-                game.resources -= currentTower.cost;
-            }
+              if (100 <= game.resources) {
+                  let currentTower = new Tower5(game, positionX, positionY);
+                  game.towers.push(currentTower);
+                  game.resources -= currentTower.cost;
+              }
+            break;
+
+        case 6:
+              if (100 <= game.resources) {
+                  let currentTower = new Tower1(game, positionX, positionY);
+                  game.towers.push(currentTower);
+                  game.resources -= currentTower.cost;
+              }
+            break;
+
+        case 7:
+              if (100 <= game.resources) {
+                  let currentTower = new Tower2(game, positionX, positionY);
+                  game.towers.push(currentTower);
+                  game.resources -= currentTower.cost;
+              }
             break;
         }
 

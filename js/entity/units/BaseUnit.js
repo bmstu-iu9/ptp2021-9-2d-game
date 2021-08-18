@@ -1,12 +1,13 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constants from './../../constants.js';
 
 export default class BaseUnit {
     constructor(game, x, y) {
         this.ctx = game.ctx;
         this.x = x;
         this.y = y;
-        this.width = 50;
-        this.height = 50;
+        this.width = Constants.cellSize / 2;
+        this.height = Constants.cellSize / 2;
         this.direction = 0;
 
         this.projectiles = game.projectiles;

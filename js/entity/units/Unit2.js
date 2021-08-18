@@ -6,7 +6,8 @@ export default class Unit2 extends BaseUnit {
         super(game, x, y);
         this.range = 500;
         this.cost = 100;
-        this.health = 100;
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
         this.damage = 10;
         this.timer = 1;
     }
@@ -28,7 +29,7 @@ export default class Unit2 extends BaseUnit {
     draw() {
         let ctx = this.ctx;
 
-        ctx.fillStyle = 'blue';
+        ctx.fillStyle = 'red';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
         ctx.font = '30px Orbitron';

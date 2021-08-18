@@ -50,7 +50,7 @@ export default class Unit5 extends BaseUnit {
         ctx.fillStyle = 'orange';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
-        ctx.font = Constant.fontSize + 'px Orbitron';
+        ctx.font = Constants.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
     }
 }

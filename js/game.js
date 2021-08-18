@@ -3,18 +3,18 @@ import Tower1 from './entity/towers/Tower1.js';
 import Tower2 from './entity/towers/Tower2.js';
 import Tower3 from './entity/towers/Tower3.js';
 import Tower4 from './entity/towers/Tower4.js';
-import ProcessProjectiles from './components/ProjectilesProcessing.js';
 import Enemies from './entity/enemies/enemies.js';
 
 import * as Constant from './constants.js';
-import { chooseTower, putTower } from './components/towersProcessing.js';
-import { chooseUnit, putUnit } from './components/unitsProcessing.js';
+import { chooseTower, putTower, processTowers } from './components/towersProcessing.js';
+import { chooseUnit, putUnit, processUnits } from './components/unitsProcessing.js';
+import { processProjectiles } from './components/projectilesProcessing.js';
 import Mouse from './components/mouse.js';
 import PlayerBase from './entity/bases/playerBase.js';
 import EnemyBase from './entity/bases/enemyBase.js';
 import Cell from './components/cell.js';
-import { handleTowers, handleInformation, handleGameGrid,
-         handleEnemies, handleControlBar, detectClickLocation } from  './components/informationHandling.js';
+import { handleInformation, handleGameGrid, handleEnemies,
+         handleControlBar, detectClickLocation } from  './components/informationHandling.js';
 
 class Game {
     constructor() {
@@ -88,13 +88,15 @@ class Game {
         this.playerBase.draw(this.ctx);
         this.enemyBase.draw(this.ctx);
 
-        handleGameGrid(game);
-        handleControlBar(game.ctx, game.chosenTower, game.chosenUnit);
-        ProcessProjectiles(game);
-        handleTowers(game);
-        handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
         handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
-        chooseTower(this.ctx, this.mouse, this.chosenTower);
+        handleControlBar(game.ctx, game.chosenTower, game.chosenUnit);
+        handleGameGrid(game);
+
+        processTowers(game);
+        processUnits(game);
+        processProjectiles(game);
+
+        handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
 
         this.frame++;
 

@@ -1,3 +1,5 @@
+import { calculateDistance } from './../../utils/utils.js';
+
 export default class BaseUnit {
     constructor(game, x, y) {
         this.ctx = game.ctx;
@@ -35,7 +37,7 @@ export default class BaseUnit {
     }
 
     move() {
-        if (isSlowed) {
+        if (this.isSlowed) {
             this.x += this.speed * this.slowingCoeff;
 
             if (new Date - this.lastSlowingShotTime >= this.slowingInterval) {

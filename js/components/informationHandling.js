@@ -1,12 +1,6 @@
 import Enemies from './../entity/enemies/enemies.js';
 import * as Constant from './../constants.js';
 
-export function handleTowers(game) {
-    for (let i = 0; i < game.towers.length; i++) {
-        game.towers[i].draw();
-    }
-}
-
 export function handleInformation(ctx, gameover, resources, mybase) {
     let fontSize = Constant.cellSize * 3 / 5;
     ctx.fillStyle = 'black';
@@ -156,6 +150,8 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
     }
 
     ctx.lineWidth = Constant.cellSize / 20;
+
+    // кнопки башен
 
     ctx.fillStyle = 'green';
     ctx.fillRect(Constant.towerCard1.x, Constant.towerCard1.y, Constant.towerCard1.width, Constant.towerCard1.height);

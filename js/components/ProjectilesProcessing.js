@@ -1,4 +1,4 @@
-export default function ProcessProjectiles(game) {
+export function processProjectiles(game) {
     let projectiles = game.projectiles;
     let enemies = game.enemies;
 

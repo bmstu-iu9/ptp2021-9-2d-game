@@ -1,4 +1,5 @@
 import BaseTower from './BaseTower.js';
+import Projectile4 from '../projectiles/Projectile4.js';
 import { calculateDistance } from './../../utils/utils.js';
 import * as Constant from './../../constants.js';
 
@@ -12,10 +13,11 @@ export default class Tower6 extends BaseTower {
         this.range = Constant.cellSize * 5; //поменять радиус
         this.lastShotTime = new Date();
         this.shootInterval = 1000; //поменять интервал; наверное, нужно вообще 1 раз стрелять
+        //this.targetsAmount = 4;
         this.level = 1;
-        this.damageUpgrage = 10; //для улучшения урона юнита
-        this.speedUpgrade = 5; //для улучшения скорости юнита
-        this.shootUpgrade = 10; //для улучшения скорости атаки юнита
+        //this.damageUpgrage = 10; //для улучшения урона юнита
+        //this.speedUpgrade = 5; //для улучшения скорости юнита
+        //this.shootUpgrade = 10; //для улучшения скорости атаки юнита
     }
 
     findTargets(n) {
@@ -69,12 +71,12 @@ export default class Tower6 extends BaseTower {
             target,
             this.x + Constant.cellSize / 2,
             this.y + Constant.cellSize / 2,
-            this.damage,
-            this.level
+            this.level,
+            this.damage
         ));
-        target.damage += this.damageUpgrage;
-        target.speed += this.speedUpgrade;
-        target.shootInterval += this.shootUpgrade;
+        target.damage += 10; //this.damageUpgrage;
+        target.speed += 5; //this.speedUpgrade;
+        target.shootInterval += 10; //this.shootUpgrade;
     }
 
     draw() {
@@ -97,8 +99,8 @@ export default class Tower6 extends BaseTower {
 
     upgrade() {
         this.level += 1;
-        this.damageUpgrage += 10;
-        this.speedUpgrade += 5;
-        this.shootUpgrade += 10;
+        //this.damageUpgrage += 10;
+        //this.speedUpgrade += 5;
+        //this.shootUpgrade += 10;
     }
 }

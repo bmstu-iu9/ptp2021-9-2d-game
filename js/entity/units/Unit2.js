@@ -18,8 +18,8 @@ export default class Unit2 extends BaseUnit {
                     this.targets[i],
                     this.x + this.width/2,
                     this.y + this.height/2,
-                    this.damage));
-                    //this.level);
+                    this.damage,
+                    1));
             }
             this.lastShotTime = new Date();
         }

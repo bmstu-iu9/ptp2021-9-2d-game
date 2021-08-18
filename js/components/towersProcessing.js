@@ -6,7 +6,8 @@ import Tower2 from './../entity/towers/Tower2.js';
 import Tower3 from './../entity/towers/Tower3.js';
 import Tower4 from './../entity/towers/Tower4.js';
 import Tower5 from './../entity/towers/Tower5.js';
-import Tower6 from './../entity/towers/Tower6.js';
+//import Tower6 from './../entity/towers/Tower6.js';
+//import Tower7 from './../entity/towers/Tower7.js';
 
 export function chooseTower(ctx, mouse) {
     let chosenTower = null;

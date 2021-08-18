@@ -103,6 +103,9 @@ export function processUnits(game) {
         let unit = units[i];
 
         unit.update();
+
+        if (!unit) return;
+
         unit.shoot();
         unit.draw();
     }

@@ -6,7 +6,8 @@ export default class Unit1 extends BaseUnit {
         super(game, x, y);
         this.range = 100;
         this.cost = 100;
-        this.health = 100;
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
         this.damage = 10;
     }
 

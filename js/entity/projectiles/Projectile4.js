@@ -13,11 +13,11 @@ export default class Projectile4 {
         this.speed = Constant.cellSize * 3/100;
         this.damage = damage;
         this.level = level;
-        this.hitt = false;
+        this.complete = false;
     }
 
     update() {
-        if (this.hitt) return;
+        if (this.complete) return;
 
         if (this.target) {
             this.targetX = this.target.x;
@@ -31,15 +31,15 @@ export default class Projectile4 {
     }
 
     hit(enemies) {
-        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > Constant.cellSize / 2 || this.hitt) {
+        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > Constant.cellSize / 2 || this.complete) {
             return;
         }
 
-        this.hitt = true;
+        this.complete = true;
 
         if (this.level == 1) {
             this.target.health -= this.damage;
-            this.target.movement *= 0.95;
+            this.target.speed *= 0.95;
         } else {
             epicenterX = this.target.x;
             epicenterY = this.target.y;
@@ -48,7 +48,7 @@ export default class Projectile4 {
                 if (calculateDistance(epicenterX, epicenterY,
                                       enemy.x, enemy.y) < 3) {
                     enemy.health -= this.damage;
-                    enemy.movement *= 0.95;
+                    enemy.speed *= 0.95;
                 }
             }
         }
@@ -57,8 +57,7 @@ export default class Projectile4 {
     }
 
     draw(game) {
-        if (this.hitt) {
-            this.complete = true;
+        if (this.complete) {
             // Здесь будет обработка анимации взрыва
         } else {
             game.ctx.beginPath();

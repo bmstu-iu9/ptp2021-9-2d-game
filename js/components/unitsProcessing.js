@@ -54,7 +54,7 @@ export function putUnit(game) {
 
         case 3:
             if (game.resources >= 100) {
-                let currentUnit = new Unit3(game, Constant.cellSize, positionY);
+                let currentUnit = new Unit3(game, Constant.cellSize, positionY, true);
                 game.units.push(currentUnit);
                 game.resources -= currentUnit.cost;
             }
@@ -78,7 +78,7 @@ export function putUnit(game) {
 
         case 6:
             if (game.resources >= 100) {
-                let currentUnit = new Unit3(game, Constant.cellSize, positionY);
+                let currentUnit = new Unit3(game, Constant.cellSize, positionY, true);
                 game.units.push(currentUnit);
                 game.resources -= currentUnit.cost;
             }
@@ -103,6 +103,9 @@ export function processUnits(game) {
         let unit = units[i];
 
         unit.update();
+
+        if (!unit) return;
+
         unit.shoot();
         unit.draw();
     }

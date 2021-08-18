@@ -10,6 +10,7 @@ export default class BaseUnit {
         this.height = Constants.cellSize / 2;
         this.direction = 0;
 
+        this.units = game.units;
         this.projectiles = game.projectiles;
         this.enemies = game.enemies;
 
@@ -30,6 +31,15 @@ export default class BaseUnit {
     }
 
     update() {
+        if (this.health == 0) {
+            for (let i = 0, n = this.units.length; i < n; i++) {
+                if (this == this.units[i]) {
+                    this.units.splice(i, 1);
+                    return;
+                }
+            }
+        }
+
         this.step();
 
         if (this.targets.length == 0) {

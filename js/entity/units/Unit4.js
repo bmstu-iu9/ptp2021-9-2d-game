@@ -1,4 +1,3 @@
-import BaseUnit from './BaseUnit.js';
 import HealingProjectile from '../projectiles/HealingProjectile.js';
 import * as Constants from './../../constants.js';
 import { calculateDistance } from './../../utils/utils.js';
@@ -6,9 +5,9 @@ import { calculateDistance } from './../../utils/utils.js';
 export default class Unit4 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
-        this.units = game.units;
         this.range = 5 * Constants.cellSize;
         this.cost = 100;
+
         this.maxHealth = 100;
         this.health = this.maxHealth;
         this.healing = 10;
@@ -100,9 +99,9 @@ export default class Unit4 extends BaseUnit {
         ctx.beginPath();
         ctx.save();
         ctx.translate(this.x, this.y);
-        ctx.arc(0, 0, 1000, 0, Math.PI*2);
+        ctx.arc(0, 0, this.range, 0, Math.PI*2);
         ctx.globalAlpha = 0.3;
-        ctx.fillstyle = 'red';
+        ctx.fillstyle = 'aquamarine';
         ctx.fill();
         ctx.restore();
         ctx.strokeStyle = 'aquamarine';
@@ -117,7 +116,7 @@ export default class Unit4 extends BaseUnit {
         ctx.fillStyle = 'purple';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
-        ctx.font = '30px Orbitron';
+        ctx.font = Constants.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
     }
 }

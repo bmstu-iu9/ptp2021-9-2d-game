@@ -7,13 +7,15 @@ export default class Unit5 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
         this.units = game.units;
-        this.range = 6 * Constants.cellSize;
+        this.range = 10 * Constants.cellSize;
         this.cost = 100;
         this.maxHealth = 25;
         this.health = this.maxHealth;
         this.damage = 25;
         this.shootInterval *= 2;
         this.totalDamage = 0;
+
+        this.speed = Constants.cellSize * 5 / 100
 
     }
 

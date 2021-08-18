@@ -24,14 +24,15 @@ export default class Tower4 extends BaseTower {
         if (new Date - this.lastShotTime >= this.shootInterval){
             this.units.push(new Unit1(
                 game,
-                this.x + Constant.cellSize, //на соседнюю клетку
-                this.y + Constant.cellSize //на соседнюю клетку
+                Constant.cellSize, //нужно выпускть с базы как-то
+                this.y
             ));
             this.lastShotTime = new Date();
         }
     }
 
     shoot(target) {
+        unitGenerator(); //возможно это должно вызываться тут
         if(this.health == 0){
             //взрыв?
             this.projectiles.push(new Projectile4(
@@ -67,14 +68,13 @@ export default class Tower4 extends BaseTower {
         if (this.timer % 3 == 0){
             this.units.push(new Unit2(
                 game,
-                this.x + Constant.cellSize, //на соседнюю клетку
-                this.y + Constant.cellSize //на соседнюю клетку
+                Constant.cellSize, //нужно выпускть с базы как-то
+                this.y
             ));
         }
-        /*for (let i = 0, n = this.units.length; i < n; i++){
-            if (i != 4){ //каждый 4 это юнит
-
-            }
-        }*/
+        for (let i = 0, n = this.units.length; i < n; i++){
+            this.units[i].damage += 10;
+            this.units[i].health += 10;
+        }
     }
 }

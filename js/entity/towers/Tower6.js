@@ -12,7 +12,7 @@ export default class Tower6 extends BaseTower {
         this.upgradecost = 200;
         this.range = Constant.cellSize * 5; //поменять радиус
         this.lastShotTime = new Date();
-        this.shootInterval = 1000; //поменять интервал; наверное, нужно вообще 1 раз стрелять
+        this.shootInterval = 1000; //поменять интервал
         //this.targetsAmount = 4;
         this.level = 1;
         //this.damageUpgrage = 10; //для улучшения урона юнита
@@ -67,16 +67,19 @@ export default class Tower6 extends BaseTower {
     }
 
     shoot(target) {
-        this.projectiles.push(new Projectile4(
+        this.projectiles.push(new Projectile4( //поменять на специальные пульки
             target,
             this.x + Constant.cellSize / 2,
             this.y + Constant.cellSize / 2,
             this.level,
             this.damage
+            //this.damageUpgrage, //передавать в пульку
+            //this.speedUpgrade,
+            //this.shootUpgrade
         ));
-        target.damage += 10; //this.damageUpgrage;
-        target.speed += 5; //this.speedUpgrade;
-        target.shootInterval += 10; //this.shootUpgrade;
+        /*target.damage += 10;
+        target.speed += 5;
+        target.shootInterval += 10;*/
     }
 
     draw() {

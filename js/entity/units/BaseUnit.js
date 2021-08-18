@@ -87,7 +87,6 @@ export default class BaseUnit {
                 this.targets.splice(i, 1);
             }
         }
-
     }
 
     findTarget() {

@@ -1,3 +1,4 @@
+import BaseUnit from './BaseUnit.js';
 import HealingProjectile from '../projectiles/HealingProjectile.js';
 import * as Constants from './../../constants.js';
 import { calculateDistance } from './../../utils/utils.js';

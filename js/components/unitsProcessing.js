@@ -6,6 +6,7 @@ import Unit2 from './../entity/units/Unit2.js';
 import Unit3 from './../entity/units/Unit3.js';
 import Unit4 from './../entity/units/Unit4.js';
 import Unit5 from './../entity/units/Unit5.js';
+import Unit6 from './../entity/units/Unit6.js';
 
 export function chooseUnit(ctx, mouse) {
     let chosenUnit = null;
@@ -78,7 +79,7 @@ export function putUnit(game) {
 
         case 6:
             if (game.resources >= 100) {
-                let currentUnit = new Unit3(game, Constant.cellSize, positionY, true);
+                let currentUnit = new Unit6(game, Constant.cellSize, positionY);
                 game.units.push(currentUnit);
                 game.resources -= currentUnit.cost;
             }

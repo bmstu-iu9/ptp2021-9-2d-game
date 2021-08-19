@@ -8,7 +8,7 @@ import Enemies from './entity/enemies/enemies.js';
 import * as Constant from './constants.js';
 import { chooseTower, putTower, processTowers } from './components/towersProcessing.js';
 import { chooseUnit, putUnit, processUnits } from './components/unitsProcessing.js';
-import { processProjectiles } from './components/projectilesProcessing.js';
+import { processProjectiles } from './components/ProjectilesProcessing.js';
 import Mouse from './components/mouse.js';
 import PlayerBase from './entity/bases/playerBase.js';
 import EnemyBase from './entity/bases/enemyBase.js';

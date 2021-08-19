@@ -7,6 +7,7 @@ import Unit3 from './../entity/units/Unit3.js';
 import Unit4 from './../entity/units/Unit4.js';
 import Unit5 from './../entity/units/Unit5.js';
 import Unit6 from './../entity/units/Unit6.js';
+import Unit7 from './../entity/units/Unit7.js';
 
 export function chooseUnit(ctx, mouse) {
     let chosenUnit = null;

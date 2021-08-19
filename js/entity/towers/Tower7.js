@@ -2,9 +2,9 @@ import BaseTower from './BaseTower.js';
 import Projectile4 from '../projectiles/Projectile4.js';
 import { calculateDistance } from './../../utils/utils.js';
 import * as Constant from './../../constants.js';
-import BaseUnit from './../entity/units/BaseUnit.js';
-import Unit1 from './../entity/units/Unit1.js';
-import Unit1 from './../entity/units/Unit2.js';
+import BaseUnit from './../units/BaseUnit.js';
+import Unit1 from './../units/Unit1.js';
+import Unit2 from './../units/Unit2.js';
 
 export default class Tower7 extends BaseTower {
     constructor(game, x, y) {
@@ -18,12 +18,14 @@ export default class Tower7 extends BaseTower {
         this.shootInterval = 3000; //поменять интервал
         this.level = 1;
         this.timer = 1;
+        this.units = game.units;
+        this.game = game;
     }
 
     unitGenerator(){
         if (new Date - this.lastShotTime >= this.shootInterval){
             this.units.push(new Unit1(
-                game,
+                this.game,
                 Constant.cellSize, //нужно выпускть с базы как-то
                 this.y
             ));
@@ -32,7 +34,7 @@ export default class Tower7 extends BaseTower {
     }
 
     shoot(target) {
-        unitGenerator(); //возможно это должно вызываться тут
+        this.unitGenerator(); //возможно это должно вызываться тут
         if(this.health == 0){
             //взрыв?
             this.projectiles.push(new Projectile4(

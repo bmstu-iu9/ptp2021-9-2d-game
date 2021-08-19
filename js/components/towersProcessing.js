@@ -6,8 +6,8 @@ import Tower2 from './../entity/towers/Tower2.js';
 import Tower3 from './../entity/towers/Tower3.js';
 import Tower4 from './../entity/towers/Tower4.js';
 import Tower5 from './../entity/towers/Tower5.js';
-//import Tower6 from './../entity/towers/Tower6.js';
-//import Tower7 from './../entity/towers/Tower7.js';
+import Tower6 from './../entity/towers/Tower6.js';
+import Tower7 from './../entity/towers/Tower7.js';
 
 export function chooseTower(ctx, mouse) {
     let chosenTower = null;
@@ -86,7 +86,7 @@ export function putTower(game) {
 
         case 6:
               if (100 <= game.resources) {
-                  let currentTower = new Tower1(game, positionX, positionY);
+                  let currentTower = new Tower6(game, positionX, positionY);
                   game.towers.push(currentTower);
                   game.resources -= currentTower.cost;
               }
@@ -94,7 +94,7 @@ export function putTower(game) {
 
         case 7:
               if (100 <= game.resources) {
-                  let currentTower = new Tower2(game, positionX, positionY);
+                  let currentTower = new Tower7(game, positionX, positionY);
                   game.towers.push(currentTower);
                   game.resources -= currentTower.cost;
               }

@@ -88,7 +88,7 @@ export function putUnit(game) {
 
         case 7:
             if (game.resources >= 100) {
-                let currentUnit = new Unit1(game, Constant.cellSize, positionY);
+                let currentUnit = new Unit7(game, Constant.cellSize, positionY);
                 game.units.push(currentUnit);
                 game.resources -= currentUnit.cost;
             }

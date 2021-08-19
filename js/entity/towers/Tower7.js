@@ -11,31 +11,28 @@ export default class Tower7 extends BaseTower {
         super(game, x, y);
         this.cost = 100;
         this.health = 100;
-        this.damage = 20; //урон при взрыве
+        this.damage = 20; 
         this.upgradecost = 200;
-        this.range = 6 * Constant.cellSize; //поменять радиус
+        this.range = 6 * Constant.cellSize;
         this.lastShotTime = new Date();
-        this.shootInterval = 3000; //поменять интервал
+        this.shootInterval = 3000;
         this.level = 1;
-        this.timer = 1;
+        this.timer = 0;
         this.units = game.units;
         this.game = game;
     }
 
-    unitGenerator(){
-        if (new Date - this.lastShotTime >= this.shootInterval){
+    shoot(target) {
+        if (new Date - this.lastShotTime >= this.shootInterval) {
             this.units.push(new Unit1(
                 this.game,
-                Constant.cellSize, //нужно выпускть с базы как-то
+                this.x + Constant.cellSize,
                 this.y
             ));
+            this.timer += 1;
             this.lastShotTime = new Date();
         }
-    }
-
-    shoot(target) {
-        this.unitGenerator(); //возможно это должно вызываться тут
-        if(this.health == 0){
+        if (this.health == 0) {
             //взрыв?
             this.projectiles.push(new Projectile4(
                 target,
@@ -44,6 +41,19 @@ export default class Tower7 extends BaseTower {
                 this.level,
                 this.damage
             ));
+        }
+        if (this.timer == 3) {
+            this.units.push(new Unit2(
+                this.game,
+                this.x + Constant.cellSize,
+                this.y
+            ));
+            for (let i = 0, n = this.units.length; i < n; i++) {
+                let unit = this.units[i];
+                unit.damage += 10;
+                unit.health += 10;
+            }
+            this.timer = 0;
         }
     }
 
@@ -62,21 +72,6 @@ export default class Tower7 extends BaseTower {
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
-        }
-    }
-
-    upgrade() {
-        this.level += 1;
-        if (this.timer % 3 == 0){
-            this.units.push(new Unit2(
-                game,
-                Constant.cellSize, //нужно выпускть с базы как-то
-                this.y
-            ));
-        }
-        for (let i = 0, n = this.units.length; i < n; i++){
-            this.units[i].damage += 10;
-            this.units[i].health += 10;
         }
     }
 }

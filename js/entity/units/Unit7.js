@@ -1,5 +1,5 @@
 import BaseUnit from './BaseUnit.js';
-import Projectile3 from '../projectiles/Projectile1.js';
+import Projectile2 from '../projectiles/Projectile2.js';
 import * as Constants from './../../constants.js';
 import { calculateDistance } from './../../utils/utils.js';
 
@@ -11,31 +11,30 @@ export default class Unit7 extends BaseUnit {
         this.cost = 100;
         this.maxHealth = 100;
         this.health = this.maxHealth;
-        this.damage = 25;
-        this.shootInterval *= 2;
-        this.times = 0;
-        this.speed = Constants.cellSize * 5 / 100
-
+        this.baseDamage = 25;
+        this.damage = this.baseDamage;
+        this.shootInterval *= 10;
+        this.shots = 0;
+        this.speed = Constants.cellSize * 5 / 100;
     }
 
     shoot() {
         if (new Date - this.lastShotTime >= this.shootInterval) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
-                this.projectiles.push(new Projectile3(
+                this.projectiles.push(new Projectile2(
                     this.targets[i],
                     this.x + this.width/2,
                     this.y + this.height/2,
                     this.damage,
-                    1));
+                    0));
 
-                this.times += 1;
-
+                this.shots += 1;
             }
             this.lastShotTime = new Date();
         }
 
-        if (this.times == 10) {
-            this.times = 0;
+        if (this.shots == 10) {
+            this.shots = 0;
             this.useAbility();
         }
     }
@@ -43,10 +42,9 @@ export default class Unit7 extends BaseUnit {
     useAbility() {
         if (this.health - 5 > 0) {
             this.health -= 5;
-            this.damage += 5;
+            this.baseDamage += 5;
         }
     }
-
 
     draw() {
         let ctx = this.ctx;

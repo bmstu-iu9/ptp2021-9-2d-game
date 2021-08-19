@@ -75,6 +75,7 @@ export default class Projectile2 {
 
         let damage_delta = this.damage;
 
+
         if (this.upgrade > 0) {
             damage_delta /= list_target.length;
         }

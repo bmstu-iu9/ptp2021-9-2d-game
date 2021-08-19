@@ -60,7 +60,6 @@ export default class Unit1 extends BaseUnit {
     }
 
     update() {
-        this.health -= 1;
         if (this.health == 0) {
             for (let i = 0, n = this.units.length; i < n; i++) {
                 if (this == this.units[i]) {

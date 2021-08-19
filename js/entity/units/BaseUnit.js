@@ -20,7 +20,7 @@ export default class BaseUnit {
         this.lastShotTime = new Date();
 
         this.baseDamage = 10;
-        this.baseSpeed = Constants.cellSize / 2;
+        this.baseSpeed = Constants.cellSize / 20;
         this.baseShootInterval = 300;
 
         this.damage = this.baseDamage;
@@ -52,9 +52,9 @@ export default class BaseUnit {
         }
 
         if (this.buffed) {
-            this.damage += this.damageBuff;
-            this.speed += this.speedBuff;
-            this.shootInterval -= this.shootIntervalBuff;
+            this.damage = this.baseDamage + this.damageBuff;
+            this.speed = this.baseSpeed + this.speedBuff;
+            this.shootInterval = this.baseShootInterval - this.shootIntervalBuff;
         } else {
             this.damage = this.baseDamage;
             this.speed = this.baseSpeed;

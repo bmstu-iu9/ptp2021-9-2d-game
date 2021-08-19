@@ -10,10 +10,9 @@ export default class Tower6 extends BaseTower {
         this.health = 100;
         this.damage = 0;
         this.upgradecost = 200;
-        this.range = Constant.cellSize * 5; //поменять радиус
+        this.range = Constant.cellSize * 5;
         this.lastShotTime = new Date();
-        this.shootInterval = 1000; //поменять интервал
-        //this.targetsAmount = 4;
+        this.shootInterval = 1000;
         this.level = 1;
         //this.damageUpgrage = 10; //для улучшения урона юнита
         //this.speedUpgrade = 5; //для улучшения скорости юнита
@@ -35,7 +34,6 @@ export default class Tower6 extends BaseTower {
                 this.targets.splice(i, 1);
             }
         }
-
     }
 
     findTarget() {
@@ -67,19 +65,16 @@ export default class Tower6 extends BaseTower {
     }
 
     shoot(target) {
-        this.projectiles.push(new Projectile4( //поменять на специальные пульки
+        /*this.projectiles.push(new Projectile4(
             target,
             this.x + Constant.cellSize / 2,
             this.y + Constant.cellSize / 2,
             this.level,
             this.damage
-            //this.damageUpgrage, //передавать в пульку
-            //this.speedUpgrade,
-            //this.shootUpgrade
-        ));
-        /*target.damage += 10;
+        ));*/
+        target.damage += 10;
         target.speed += 5;
-        target.shootInterval += 10;*/
+        target.shootInterval += 10;
     }
 
     draw() {
@@ -102,8 +97,5 @@ export default class Tower6 extends BaseTower {
 
     upgrade() {
         this.level += 1;
-        //this.damageUpgrage += 10;
-        //this.speedUpgrade += 5;
-        //this.shootUpgrade += 10;
     }
 }

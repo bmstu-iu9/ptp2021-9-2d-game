@@ -1,5 +1,6 @@
 import BaseUnit from './BaseUnit.js';
 import Projectile1 from '../projectiles/Projectile1.js';
+import * as Constant from './../../constants.js';
 
 export default class Unit2 extends BaseUnit {
     constructor(game, x, y) {
@@ -9,7 +10,7 @@ export default class Unit2 extends BaseUnit {
         this.maxHealth = 100;
         this.health = this.maxHealth;
         this.damage = 10;
-        this.timer = 1;
+        this.shots = 0;
     }
 
     shoot() {
@@ -22,6 +23,11 @@ export default class Unit2 extends BaseUnit {
                     this.damage,
                     1));
             }
+            this.shots += 1;
+            if (this.shots == 10) {
+                this.range += 0.1 * Constant.cellSize;
+                this.shots = 0;
+            }
             this.lastShotTime = new Date();
         }
     }
@@ -32,13 +38,8 @@ export default class Unit2 extends BaseUnit {
         ctx.fillStyle = 'red';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
-        ctx.font = '30px Orbitron';
+        ctx.font = Constant.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
     }
 
-    upgrade(){
-        if (this.timer % 10 == 0){
-            this.range += 10;
-        }
-    }
 }

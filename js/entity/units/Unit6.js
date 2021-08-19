@@ -101,7 +101,7 @@ export default class Unit6 extends BaseUnit {
         ctx.fillStyle = 'grey';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
-        ctx.font = '30px Orbitron';
+        ctx.font = Constants.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
     }
 }

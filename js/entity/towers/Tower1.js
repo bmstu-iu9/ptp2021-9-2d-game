@@ -9,7 +9,7 @@ export default class Tower1 extends BaseTower {
         this.health = 100;
         this.damage = 10;
         this.upgradecost = 200;
-        this.range = Constant.cellSize * 5;
+        this.range = Constant.cellSize * 10;
         this.lastShotTime = new Date();
         this.shootInterval = 300;
         this.level = 1;
@@ -18,8 +18,8 @@ export default class Tower1 extends BaseTower {
     shoot(target) {
         this.projectiles.push(new Projectile1(
             target,
-            this.x + Constant.cellSize / 2,
-            this.y + Constant.cellSize / 2,
+            this.x,
+            this.y,
             this.damage,
             this.level
         ))
@@ -30,7 +30,7 @@ export default class Tower1 extends BaseTower {
         let ctx = this.ctx;
         if (this.level == 1) {
             ctx.fillStyle = 'green';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);

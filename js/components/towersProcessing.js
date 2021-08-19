@@ -107,5 +107,9 @@ export function putTower(game) {
 export function processTowers(game) {
     for (let i = 0; i < game.towers.length; i++) {
         game.towers[i].draw();
+        if (game.towers[i].health <= 0) {
+            game.towers.splice(i, 1);
+            i--;
+        }
     }
 }

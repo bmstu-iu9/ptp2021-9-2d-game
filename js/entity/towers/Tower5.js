@@ -18,8 +18,8 @@ export default class Tower5 extends BaseTower {
     shoot(target) {
         this.projectiles.push(new Projectile1(
             target,
-            this.x + Constant.cellSize / 2,
-            this.y + Constant.cellSize / 2,
+            this.x,
+            this.y,
             this.damage,
             this.level
         ))
@@ -30,7 +30,7 @@ export default class Tower5 extends BaseTower {
         let ctx = this.ctx;
         if (this.level == 1) {
             ctx.fillStyle = 'Purple';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);

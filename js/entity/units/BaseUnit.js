@@ -1,8 +1,10 @@
 import { calculateDistance } from './../../utils/utils.js';
 import * as Constants from './../../constants.js';
+import BaseTarget from './../bases/BaseTarget.js';
 
 export default class BaseUnit {
     constructor(game, x, y) {
+        this.game = game;
         this.ctx = game.ctx;
         this.x = x;
         this.y = y;
@@ -131,6 +133,10 @@ export default class BaseUnit {
                     minDistance = distance;
                 }
             }
+        }
+
+        if (calculateDistance(this.x, 0, Constants.canvasWidth - Constants.cellSize / 2, 0) < minDistance) {
+            return new BaseTarget(Constants.canvasWidth - Constants.cellSize / 2, this.y, this.game.enemyBase);
         }
 
         if (nearestEnemyIndex != -1) {

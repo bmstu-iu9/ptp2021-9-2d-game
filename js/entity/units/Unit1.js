@@ -1,12 +1,13 @@
 import BaseUnit from './BaseUnit.js';
 import Projectile1 from '../projectiles/Projectile1.js';
-import * as Constant from './../../constants.js';
+import * as Constants from './../../constants.js';
 import { calculateDistance } from './../../utils/utils.js';
+import BaseTarget from './../bases/BaseTarget.js';
 
 export default class Unit1 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
-        this.range = Constant.cellSize;
+        this.range = Constants.cellSize;
         this.cost = 100;
         this.maxHealth = 500;
         this.health = this.maxHealth;
@@ -40,7 +41,7 @@ export default class Unit1 extends BaseUnit {
             let enemy = this.enemies[i];
             let distance = Math.abs(enemy.x - this.x);
 
-            if (distance < minDistance && (enemy.y > this.y && this.y + Constant.cellSize > enemy.y )) {
+            if (distance < minDistance && (enemy.y > this.y && this.y + Constants.cellSize > enemy.y )) {
                 let isTargetAlready = false;
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (enemy == this.targets[j]) {
@@ -52,6 +53,10 @@ export default class Unit1 extends BaseUnit {
                     minDistance = distance;
                 }
             }
+        }
+
+        if (calculateDistance(this.x, 0, Constants.canvasWidth - Constants.cellSize / 2, 0) < minDistance) {
+            return new BaseTarget(Constants.canvasWidth - Constants.cellSize / 2, this.y, this.game.enemyBase);
         }
 
         if (nearestEnemyIndex != -1) {
@@ -149,7 +154,7 @@ export default class Unit1 extends BaseUnit {
         ctx.fillStyle = 'green';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
-        ctx.font = Constant.fontSize + 'px Orbitron';
+        ctx.font = Constants.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
     }
 }

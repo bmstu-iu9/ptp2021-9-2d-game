@@ -1,7 +1,10 @@
-import Enemies from './../entity/enemies/enemies.js';
+import Enemy1 from './../entity/enemies/Enemy1.js';
+import Enemy2 from './../entity/enemies/Enemy2.js';
+import Enemy3 from './../entity/enemies/Enemy3.js';
+import Enemy4 from './../entity/enemies/Enemy4.js';
 import * as Constant from './../constants.js';
 
-export function handleInformation(ctx, gameover, resources, mybase) {
+export function handleInformation(ctx, gameover, resources, mybase, enemybase, game) {
     let fontSize = Constant.cellSize * 3 / 5;
     ctx.fillStyle = 'black';
     ctx.font = fontSize + 'px Orbitron';
@@ -16,16 +19,18 @@ export function handleInformation(ctx, gameover, resources, mybase) {
     ctx.font = fontSize + 'px Orbitron';
     ctx.fillText('Units', Constant.canvasWidth / 2 + (Constant.canvasWidth / 2 - Constant.cellSize) / 2, Constant.cellSize * 3 / 5);
 
-    if (gameover && mybase.health <= 0) {
+    if ( mybase.health.data <= 0) {
         ctx.fillStyle = 'red';
         ctx.font = '60px Orbitron';
-        ctx.fillText('YOU LOSE', 250, 330);
+        ctx.fillText('YOU LOSE',Constant.canvasWidth / 2, Constant.canvasHeight / 2);
+        game.gameOver = true;
     }
 
-    if (gameover && enemybase.health <= 0) {
+    if ( enemybase.health.data <= 0) {
         ctx.fillStyle = 'green';
         ctx.font = '60px Orbitron';
-        ctx.fillText('YOU WIN', 250, 330);
+        ctx.fillText('YOU WIN', Constant.canvasWidth / 2, Constant.canvasHeight / 2);
+        game.gameOver = true;
     }
 }
 
@@ -37,10 +42,21 @@ export function handleGameGrid(game) {
     }
 }
 
-export function handleEnemies(enemies, resources, ctx, frame, enemydamage, interval) {
+export function handleEnemies(game) {
+
+    let enemies = game.enemies;
+    let resources = game.resources;
+    let ctx = game.ctx;
+    let frame = game.frame;
+    let enemydamage = game.enemydamage;
+    let interval = Constant.interval;
 
     for (let i = 0; i < enemies.length; i++) {
         enemies[i].update();
+
+        if (!enemies[i]) return;
+
+        enemies[i].shoot();
         enemies[i].draw();
 
         if (enemies[i].health <= 0) {
@@ -52,7 +68,24 @@ export function handleEnemies(enemies, resources, ctx, frame, enemydamage, inter
 
     if (frame % interval === 0) {
         let verticalPosition = Math.floor(Math.random() * 13 + 2) * Constant.cellSize;
-        enemies.push(new Enemies(verticalPosition, ctx));
+
+        switch(Math.floor(Math.random() * 4 + 1)) {
+            case 1:
+                enemies.push(new Enemy1(game, verticalPosition, ctx));
+                break;
+
+            case 2:
+                enemies.push(new Enemy2(game, verticalPosition, ctx));
+                break;
+
+            case 3:
+                enemies.push(new Enemy3(game, verticalPosition, ctx));
+                break;
+
+            case 4:
+                enemies.push(new Enemy4(game, verticalPosition, ctx));
+                break;
+            }
 
         if (interval > 120) {
             interval -= 50;

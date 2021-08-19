@@ -2,7 +2,7 @@ import * as Constants from './../../constants.js';
 
 export default class PlayerBase {
     constructor() {
-        this.health = 10000;
+        this.health = { data: 1000};
     }
 
     draw(ctx) {
@@ -13,6 +13,6 @@ export default class PlayerBase {
                      Constants.canvasHeight - Constants.controlBarHeight);
         ctx.fillStyle = 'white';
         ctx.font =  Constants.fontSize + 'px Orbitron';
-        ctx.fillText(10000, 2, Constants.cellSize);
+        ctx.fillText(Math.floor(this.health.data), 2, Constants.cellSize);
     }
 }

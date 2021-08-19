@@ -62,7 +62,6 @@ export default class Projectile1 {
     }
 
     hit(targets) {
-        let list_target = [];
 
         if (calculateDistance(this.targetX, this.targetY, this.x, this.y) > this.radius || !this.health) {
             return;
@@ -71,10 +70,18 @@ export default class Projectile1 {
         this.health = false;
 
         if (this.target != null) {
-            if (this.target.health - this.damage < 0) {
-                this.target.health = 0;
+            if (typeof(this.target.health) == 'object') {
+                if (this.target.health.data - this.damage < 0) {
+                    this.target.health.data = 0;
+                } else {
+                    this.target.health.data -= this.damage;
+                }
             } else {
-                this.target.health -= this.damage;
+                if (this.target.health - this.damage < 0) {
+                    this.target.health = 0;
+                } else {
+                    this.target.health -= this.damage;
+                }
             }
         }
     }

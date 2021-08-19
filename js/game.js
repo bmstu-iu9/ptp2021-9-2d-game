@@ -3,7 +3,7 @@ import Tower1 from './entity/towers/Tower1.js';
 import Tower2 from './entity/towers/Tower2.js';
 import Tower3 from './entity/towers/Tower3.js';
 import Tower4 from './entity/towers/Tower4.js';
-import Enemies from './entity/enemies/enemies.js';
+//import Enemies from './entity/enemies/enemies.js';
 
 import * as Constant from './constants.js';
 import { chooseTower, putTower, processTowers } from './components/towersProcessing.js';
@@ -85,10 +85,11 @@ class Game {
         }
 
         this.ctx.fillRect(0, 0, Constant.controlBarWidth, Constant.controlBarHeight);
+
         this.playerBase.draw(this.ctx);
         this.enemyBase.draw(this.ctx);
 
-        handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase);
+        handleInformation(this.ctx, this.gameOver, this.resources, this.playerBase, this.enemyBase, game);
         handleControlBar(game.ctx, game.chosenTower, game.chosenUnit);
         handleGameGrid(game);
 
@@ -96,7 +97,7 @@ class Game {
         processUnits(game);
         processProjectiles(game);
 
-        handleEnemies(this.enemies, this.resources, this.ctx, this.frame, this.enemydamage, Constant.interval);
+        handleEnemies(game);
 
         this.frame++;
 

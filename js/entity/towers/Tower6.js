@@ -14,67 +14,35 @@ export default class Tower6 extends BaseTower {
         this.lastShotTime = new Date();
         this.shootInterval = 1000;
         this.level = 1;
+        this.units = game.units;
         //this.damageUpgrage = 10; //для улучшения урона юнита
         //this.speedUpgrade = 5; //для улучшения скорости юнита
         //this.shootUpgrade = 10; //для улучшения скорости атаки юнита
+
     }
 
-    findTargets(n) {
-        for (let i = this.targets.length; i < n; i++) {
-            let target = this.findTarget()
-            if (target) {
-                this.targets.push(target)
-            }
-        }
+    step() {
 
-        for (let i = 0; i < this.targets.length; i++) {
-            let unit = this.targets[i];
-            if (calculateDistance(this.x, this.y, unit.x, unit.y) > this.range ||
-               (unit.health <= 0)) {
-                this.targets.splice(i, 1);
-            }
-        }
-    }
-
-    findTarget() {
-        let nearestUnitIndex = -1;
-        let minDistance = this.range;
-
-        for (let i = 0, m = this.units.length; i < m; i++) {
-
+        for (let i = 0; i < this.units.length; i++) {
             let unit = this.units[i];
-            let distance = calculateDistance(this.x, this.y, unit.x, unit.y);
+            if (calculateDistance(this.x, this.y, unit.x, unit.y) < this.range) {
+                unit.buffed = true;
+            } else {
+                unit.buffed = false;
+            }
+        }
 
-            if (distance < minDistance) {
-                let isTargetAlready = false;
-                for (let j = 0, k = this.targets.length; j < k; j++) {
-                    if (unit == this.targets[j]) {
-                        isTargetAlready = true;
-                    }
-                }
-                if (!isTargetAlready) {
-                    nearestUnitIndex = i;
-                    minDistance = distance;
+        if (this.level > 1) {
+            for (let i = 0; i < this.enemies.length; i++) {
+                let enemy = this.enemies[i];
+                if (calculateDistance(this.x, this.y, enemy.x, enemy.y) < this.range) {
+                    enemy.buffed = true;
+                } else {
+                    enemy.buffed = false;
                 }
             }
         }
 
-        if (nearestUnitIndex != -1) {
-            return this.units[nearestUnitIndex];
-        }
-    }
-
-    shoot(target) {
-        /*this.projectiles.push(new Projectile4(
-            target,
-            this.x + Constant.cellSize / 2,
-            this.y + Constant.cellSize / 2,
-            this.level,
-            this.damage
-        ));*/
-        target.damage += 10;
-        target.speed += 5;
-        target.shootInterval += 10;
     }
 
     draw() {
@@ -82,7 +50,7 @@ export default class Tower6 extends BaseTower {
         let ctx = this.ctx;
         if (this.level == 1) {
             ctx.fillStyle = 'orange';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);

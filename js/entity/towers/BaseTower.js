@@ -4,8 +4,8 @@ import * as Constant from './../../constants.js';
 export default class BaseTower {
     constructor(game, x, y) {
         this.ctx = game.ctx;
-        this.x = x;
-        this.y = y;
+        this.x = x + Constant.cellSize / 2;
+        this.y = y + Constant.cellSize / 2;
         this.width = Constant.cellSize;
         this.height = Constant.cellSize;
         this.projectiles = game.projectiles;

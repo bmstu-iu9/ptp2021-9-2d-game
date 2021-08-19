@@ -82,11 +82,18 @@ export default class Projectile2 {
 
         for (let i = 0; i < list_target.length; i++) {
             let target = list_target[i];
-
-            if (target.health - damage_delta < 0) {
-                target.health = 0;
+            if (typeof(this.target.health) == 'object') {
+                if (this.target.health.data - this.damage < 0) {
+                    this.target.health.data = 0;
+                } else {
+                    this.target.health.data -= this.damage;
+                }
             } else {
-                target.health -= damage_delta;
+                if (target.health - damage_delta < 0) {
+                    target.health = 0;
+                } else {
+                    target.health -= damage_delta;
+                }
             }
         }
     }

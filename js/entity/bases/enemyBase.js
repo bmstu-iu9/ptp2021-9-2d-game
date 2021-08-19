@@ -2,7 +2,7 @@ import * as Constants from './../../constants.js';
 
 export default class EnemyBase {
     constructor() {
-        this.health = 10000;
+        this.health = { data: 1000};
     }
 
     draw(ctx) {
@@ -14,6 +14,6 @@ export default class EnemyBase {
 
         ctx.fillStyle = 'white';
         ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(10000, Constants.canvasWidth - 5 * Constants.cellSize / 3, Constants.cellSize );
+        ctx.fillText(Math.floor(this.health.data), Constants.canvasWidth - 5 * Constants.cellSize / 3, Constants.cellSize );
     }
 }

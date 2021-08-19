@@ -17,10 +17,21 @@ export default class BaseUnit {
         this.targetsAmount = 1;
         this.targets = [];
 
-        this.speed = 5;
-
         this.lastShotTime = new Date();
-        this.shootInterval = 300;
+
+        this.baseDamage = 10;
+        this.baseSpeed = Constants.cellSize / 2;
+        this.baseShootInterval = 300;
+
+        this.damage = this.baseDamage;
+        this.speed = this.baseSpeed;
+        this.shootInterval = this.baseShootInterval;
+
+        this.damageBuff = 10;
+        this.speedBuff = Constants.cellSize / 2;
+        this.shootIntervalBuff = 100;
+
+        this.buffed = false;
 
         this.lastSlowingShotTime = null;
         this.slowingInterval = 300;
@@ -38,6 +49,16 @@ export default class BaseUnit {
                     return;
                 }
             }
+        }
+
+        if (this.buffed) {
+            this.damage += this.damageBuff;
+            this.speed += this.speedBuff;
+            this.shootInterval -= this.shootIntervalBuff;
+        } else {
+            this.damage = this.baseDamage;
+            this.speed = this.baseSpeed;
+            this.shootInterval = this.baseShootInterval;
         }
 
         this.step();

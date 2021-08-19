@@ -6,7 +6,7 @@ import BaseUnit from './../entity/units/BaseUnit.js';
 import Unit1 from './../entity/units/Unit1.js';
 import Unit1 from './../entity/units/Unit2.js';
 
-export default class Tower4 extends BaseTower {
+export default class Tower7 extends BaseTower {
     constructor(game, x, y) {
         super(game, x, y);
         this.cost = 100;

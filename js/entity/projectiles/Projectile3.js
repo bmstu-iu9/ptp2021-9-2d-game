@@ -1,4 +1,5 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constant from './../../constants.js';
 
 export default class Projectile3 {
     constructor(target, x, y, damage, upgrade) {
@@ -6,14 +7,14 @@ export default class Projectile3 {
         this.towery = y;
         this.targetX = target.x;
         this.targetY = target.y;
-        this.x = x + 50;
-        this.y = y + 50;
+        this.x = x;
+        this.y = y;
         this.width = 30;
         this.height = 20;
-        this.speed = 1;
+        this.speed = Constant.cellSize / 100;
         this.health = true;
         this.damage = damage;
-        this.radius = 650;
+        this.radius = 6 * Constant.cellSize + Constant.cellSize / 2;
         this.target = target;
         this.angle = 0;
         this.delta_update_damage = 50;
@@ -66,9 +67,10 @@ export default class Projectile3 {
 
         for (let i = 0; i < enemies.length; i++) {
             let enemy = enemies[i];
-            if (calculateDistance(enemy.x, enemy.y, this.x, this.y) < 50.01 &&
-               (this.y - 50 == enemy.y)) {
-                enemy.health -= this.damage;
+
+            if (calculateDistance(enemy.x, 0, this.x, 0) < 0.8 &&
+               (this.y == enemy.y)) {
+                   enemy.health -= this.damage;
             }
         }
     }

@@ -1,4 +1,5 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constant from './../../constants.js';
 
 export default class Projectile2 {
     constructor(target, x, y, damage, upgrade) {
@@ -10,10 +11,10 @@ export default class Projectile2 {
         this.y = y;
         this.width = 10;
         this.height = 5;
-        this.speed = 5;
+        this.speed = Constant.cellSize * 5/100;
         this.health = true;
         this.damage = damage;
-        this.radius = 75;
+        this.radius = Constant.cellSize / 2;
         this.target = target;
         this.angle = 0;
         this.delta_update_damage = 50;
@@ -28,8 +29,8 @@ export default class Projectile2 {
             this.targetY = this.target.y;
         }
 
-        this.angle = Math.atan2(this.targetY + 50 - this.y,
-                               this.targetX + 50 - this.x);
+        this.angle = Math.atan2(this.targetY - this.y,
+                               this.targetX - this.x);
         this.x += this.speed * Math.cos(this.angle);
         this.y += this.speed * Math.sin(this.angle);
     }
@@ -74,17 +75,25 @@ export default class Projectile2 {
 
         let damage_delta = this.damage;
 
+
         if (this.upgrade > 0) {
             damage_delta /= list_target.length;
         }
 
         for (let i = 0; i < list_target.length; i++) {
             let target = list_target[i];
-
-            if (target.health - damage_delta < 0) {
-                target.health = 0;
+            if (typeof(this.target.health) == 'object') {
+                if (this.target.health.data - this.damage < 0) {
+                    this.target.health.data = 0;
+                } else {
+                    this.target.health.data -= this.damage;
+                }
             } else {
-                target.health -= damage_delta;
+                if (target.health - damage_delta < 0) {
+                    target.health = 0;
+                } else {
+                    target.health -= damage_delta;
+                }
             }
         }
     }

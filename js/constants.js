@@ -1,47 +1,69 @@
 export const
-    canvasWidth = 3000,
-    canvasHeight = 800,
-    controlsBarWidth = 3000,
-    controlsBarHeight = 100;
+    canvasWidth = document.documentElement.scrollWidth,
+    canvasHeight = document.documentElement.scrollHeight,
+    controlBarWidth = canvasWidth,
+    cellSize = canvasHeight / 15,
+    controlBarHeight = cellSize * 2,
+    fontSize = cellSize * 2 / 5 ;
+
 
 export const
     left = 0,
     frame = 0,
     interval = 600,
-    resources = 300,
-    cellSize = 100;
+    resources = 300;
 
-export const card1 = {
-    x: 170,
-    y: 10,
-    width: 70,
-    height: 85,
+
+function createCoords() {
+    let cards = [];
+    let x = cellSize + (canvasWidth / 2 - 10 * cellSize - 6 * cellSize / 2) / 2;
+    let y = cellSize - cellSize / 5;
+
+    for (var i = 0; i < 7; i++) {
+        const card = {
+            x: x,
+            y: y,
+            width: cellSize,
+            height: cellSize
+        };
+        cards.push(card);
+        x += cellSize + cellSize / 2;
+    }
+
+    x += (canvasWidth / 2 + cellSize / 2 - x) * 2 - cellSize / 2;
+
+    for (var i = 0; i < 7; i++) {
+        const card = {
+            x: x,
+            y: y,
+            width: cellSize,
+            height: cellSize
+        };
+        cards.push(card);
+        x += cellSize + cellSize / 2 ;
+    }
+
+    return cards;
 }
 
-export const card2 = {
-    x: 250,
-    y: 10,
-    width: 70,
-    height: 85,
-}
+const cards = createCoords();
 
-export const card3 = {
-    x: 330,
-    y: 10,
-    width: 70,
-    height: 85,
-}
 
-export const card4 = {
-    x: 410,
-    y: 10,
-    width: 70,
-    height: 85,
-}
+export const
+    towerCard1 = cards[0],
+    towerCard2 = cards[1],
+    towerCard3 = cards[2],
+    towerCard4 = cards[3],
+    towerCard5 = cards[4],
+    towerCard6 = cards[5],
+    towerCard7 = cards[6];
 
-export const card5 = {
-    x: 490,
-    y: 10,
-    width: 70,
-    height: 85,
-}
+
+export const
+    unitCard1 = cards[7],
+    unitCard2 = cards[8],
+    unitCard3 = cards[9],
+    unitCard4 = cards[10],
+    unitCard5 = cards[11],
+    unitCard6 = cards[12],
+    unitCard7 = cards[13];

@@ -1,4 +1,5 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constant from './../../constants.js';
 
 export default class Projectile1 {
     constructor(target, x, y, damage, upgrade) {
@@ -8,12 +9,12 @@ export default class Projectile1 {
         this.targetY = target.y;
         this.x = x;
         this.y = y;
-        this.width = 10;
-        this.height = 5;
-        this.speed = 3;
+        this.width = Constant.cellSize * 10/100;
+        this.height = Constant.cellSize * 5/100;
+        this.speed = Constant.cellSize * 3/100;
         this.health = true;
         this.damage = damage;
-        this.radius = 100;
+        this.radius = Constant.cellSize / 2;
         this.target = target;
         this.angle = 0;
         this.delta_update_damage = 50;
@@ -28,8 +29,8 @@ export default class Projectile1 {
             this.targetY = this.target.y;
         }
 
-        this.angle = Math.atan2(this.targetY + 50 - this.y,
-                                this.targetX + 50 - this.x);
+        this.angle = Math.atan2(this.targetY  - this.y,
+                                this.targetX  - this.x);
         this.x += this.speed * Math.cos(this.angle);
         this.y += this.speed * Math.sin(this.angle);
     }
@@ -61,19 +62,26 @@ export default class Projectile1 {
     }
 
     hit(targets) {
-        let list_target = [];
 
         if (calculateDistance(this.targetX, this.targetY, this.x, this.y) > this.radius || !this.health) {
             return;
         }
-        console.log(targets.length);
+
         this.health = false;
 
         if (this.target != null) {
-            if (this.target.health - this.damage < 0) {
-                this.target.health = 0;
+            if (typeof(this.target.health) == 'object') {
+                if (this.target.health.data - this.damage < 0) {
+                    this.target.health.data = 0;
+                } else {
+                    this.target.health.data -= this.damage;
+                }
             } else {
-                this.target.health -= this.damage;
+                if (this.target.health - this.damage < 0) {
+                    this.target.health = 0;
+                } else {
+                    this.target.health -= this.damage;
+                }
             }
         }
     }

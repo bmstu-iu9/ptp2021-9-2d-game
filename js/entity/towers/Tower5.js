@@ -1,23 +1,22 @@
 import BaseTower from './BaseTower.js';
-import Projectile2 from '../projectiles/Projectile2.js';
-import { calculateDistance } from './../../utils/utils.js';
+import Projectile1 from '../projectiles/Projectile1.js';
 import * as Constant from './../../constants.js';
 
-export default class Tower2 extends BaseTower {
+export default class Tower5 extends BaseTower {
     constructor(game, x, y) {
         super(game, x, y);
         this.cost = 100;
         this.health = 100;
-        this.damage = 10;
+        this.damage = 40;
         this.upgradecost = 200;
-        this.range = Constant.cellSize * 5;
+        this.range = Constant.cellSize * 3 + Constant.cellSize / 2;
         this.lastShotTime = new Date();
-        this.shootInterval = 300;
-        this.level = 0;
+        this.shootInterval = 1200;
+        this.level = 1;
     }
 
     shoot(target) {
-        this.projectiles.push(new Projectile2(
+        this.projectiles.push(new Projectile1(
             target,
             this.x,
             this.y,
@@ -29,14 +28,14 @@ export default class Tower2 extends BaseTower {
     draw() {
         this.step();
         let ctx = this.ctx;
-        if (this.level == 0) {
-            ctx.fillStyle = 'red';
+        if (this.level == 1) {
+            ctx.fillStyle = 'Purple';
             ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         } else {
-            ctx.fillStyle = 'blue';
+            ctx.fillStyle = 'Purple';
             ctx.fillRect(this.x, this.y, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
@@ -46,7 +45,8 @@ export default class Tower2 extends BaseTower {
 
     upgrade() {
         this.level += 1;
-        this.damage += 20;
-        this.shootInterval -= 50;
+        this.damage = 30;
+        this.targetsAmount = 3;
+        this.range = 550;
     }
 }

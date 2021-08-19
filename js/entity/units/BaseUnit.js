@@ -1,19 +1,85 @@
 import { calculateDistance } from './../../utils/utils.js';
-import * as Constant from './../../constants.js';
+import * as Constants from './../../constants.js';
+import BaseTarget from './../bases/BaseTarget.js';
 
-export default class BaseTower {
+export default class BaseUnit {
     constructor(game, x, y) {
+        this.game = game;
         this.ctx = game.ctx;
-        this.x = x + Constant.cellSize / 2;
-        this.y = y + Constant.cellSize / 2;
-        this.width = Constant.cellSize;
-        this.height = Constant.cellSize;
+        this.x = x;
+        this.y = y;
+        this.width = Constants.cellSize / 2;
+        this.height = Constants.cellSize / 2;
+        this.direction = 0;
+
+        this.units = game.units;
         this.projectiles = game.projectiles;
         this.enemies = game.enemies;
-        this.direction = 0;
+
         this.targetsAmount = 1;
         this.targets = [];
-        this.range = 300;
+
+        this.lastShotTime = new Date();
+
+        this.baseDamage = 10;
+        this.baseSpeed = Constants.cellSize / 20;
+        this.baseShootInterval = 300;
+
+        this.damage = this.baseDamage;
+        this.speed = this.baseSpeed;
+        this.shootInterval = this.baseShootInterval;
+
+        this.damageBuff = 10;
+        this.speedBuff = Constants.cellSize / 2;
+        this.shootIntervalBuff = 100;
+
+        this.buffed = false;
+
+        this.lastSlowingShotTime = null;
+        this.slowingInterval = 300;
+        this.isSlowed = false;
+        this.slowingCoeff = 0.6;
+
+        this.level = 1;
+    }
+
+    update() {
+        if (this.health == 0) {
+            for (let i = 0, n = this.units.length; i < n; i++) {
+                if (this == this.units[i]) {
+                    this.units.splice(i, 1);
+                    return;
+                }
+            }
+        }
+
+        if (this.buffed) {
+            this.damage = this.baseDamage + this.damageBuff;
+            this.speed = this.baseSpeed + this.speedBuff;
+            this.shootInterval = this.baseShootInterval - this.shootIntervalBuff;
+        } else {
+            this.damage = this.baseDamage;
+            this.speed = this.baseSpeed;
+            this.shootInterval = this.baseShootInterval;
+        }
+
+        this.step();
+
+        if (this.targets.length == 0) {
+            this.move();
+        }
+    }
+
+    move() {
+        if (this.isSlowed) {
+            this.x += this.speed * this.slowingCoeff;
+
+            if (new Date - this.lastSlowingShotTime >= this.slowingInterval) {
+                this.isSlowed = false;
+            }
+        } else {
+            this.x += this.speed;
+        }
     }
 
     step() {
@@ -24,16 +90,9 @@ export default class BaseTower {
         let directionTarget = this.targets[0];
         let newDirection = Math.atan2(directionTarget.y - this.y,
                                       directionTarget.x - this.x);
-        //newDirection = newDirection * (180 / Math.PI);
+        newDirection = newDirection * (180 / Math.PI);
         //drawRotated(this.ctx, image, newDirection - this.direction);
         this.direction = newDirection;
-
-        if (new Date - this.lastShotTime >= this.shootInterval) {
-            for (let i = 0, n = this.targets.length; i < n; i++) {
-                this.shoot(this.targets[i]);
-            }
-            this.lastShotTime = new Date();
-        }
     }
 
     findTargets(n) {
@@ -51,7 +110,6 @@ export default class BaseTower {
                 this.targets.splice(i, 1);
             }
         }
-
     }
 
     findTarget() {
@@ -75,6 +133,10 @@ export default class BaseTower {
                     minDistance = distance;
                 }
             }
+        }
+
+        if (calculateDistance(this.x, 0, Constants.canvasWidth - Constants.cellSize / 2, 0) < minDistance) {
+            return new BaseTarget(Constants.canvasWidth - Constants.cellSize / 2, this.y, this.game.enemyBase);
         }
 
         if (nearestEnemyIndex != -1) {

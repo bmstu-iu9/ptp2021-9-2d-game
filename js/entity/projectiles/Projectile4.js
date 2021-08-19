@@ -1,4 +1,5 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constant from './../../constants.js';
 
 export default class Projectile4 {
     constructor(target, x, y, level, damage) {
@@ -9,45 +10,45 @@ export default class Projectile4 {
         this.y = y;
         this.width = 10;
         this.height = 10;
-        this.speed = 3;
+        this.speed = Constant.cellSize * 3/100;
         this.damage = damage;
         this.level = level;
-        this.hitt = false;
+        this.complete = false;
     }
 
     update() {
-        if (this.hitt) return;
+        if (this.complete) return;
 
         if (this.target) {
             this.targetX = this.target.x;
             this.targetY = this.target.y;
         }
 
-        let angle = Math.atan2(this.targetY + 50 - this.y,
-                               this.targetX + 50 - this.x);
+        let angle = Math.atan2(this.targetY - this.y,
+                               this.targetX - this.x);
         this.x += this.speed * Math.cos(angle);
         this.y += this.speed * Math.sin(angle);
     }
 
     hit(enemies) {
-        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > 71 || this.hitt) {
+        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > Constant.cellSize / 2 || this.complete) {
             return;
         }
 
-        this.hitt = true;
+        this.complete = true;
 
         if (this.level == 1) {
             this.target.health -= this.damage;
-            this.target.movement *= 0.95;
+            this.target.speed *= 0.95;
         } else {
             epicenterX = this.target.x;
             epicenterY = this.target.y;
             for (let i = 0, n = enemies.length; i < n; i++) {
                 let enemy = enemies[i];
                 if (calculateDistance(epicenterX, epicenterY,
-                                      enemy.x, enemy.y) < 50) {
+                                      enemy.x, enemy.y) < 3) {
                     enemy.health -= this.damage;
-                    enemy.movement *= 0.95;
+                    enemy.speed *= 0.95;
                 }
             }
         }
@@ -56,8 +57,7 @@ export default class Projectile4 {
     }
 
     draw(game) {
-        if (this.hitt) {
-            this.complete = true;
+        if (this.complete) {
             // Здесь будет обработка анимации взрыва
         } else {
             game.ctx.beginPath();

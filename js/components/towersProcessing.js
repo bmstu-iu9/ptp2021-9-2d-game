@@ -104,9 +104,18 @@ export function putTower(game) {
     game.chosenTower = null;
 }
 
+export function upgradeOpportunity(tower, game) {
+    game.ctx.beginPath();
+    game.ctx.strokeStyle = 'gray'   // надо адекватный цвет придумать...
+    game.ctx.strokeRect(tower.x - Constant.cellSize / 2 - 1, tower.y - Constant.cellSize / 2 - 1, tower.width + 2, tower.height + 2);
+}
+
 export function processTowers(game) {
     for (let i = 0; i < game.towers.length; i++) {
         game.towers[i].draw();
+        if (game.resources >= game.towers[i].upgradecost) {
+            upgradeOpportunity(game.towers[i], game)
+        }
         if (game.towers[i].health <= 0) {
             game.towers.splice(i, 1);
             i--;

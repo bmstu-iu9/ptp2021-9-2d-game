@@ -69,6 +69,25 @@ class Game {
             }
         });
 
+        game.canvas.addEventListener('dblclick', function () {
+              let clickLocation = detectClickLocation(game);
+              console.log("----")
+              if (clickLocation == "Control Bar") {
+                  return
+              } else if (clickLocation == "Game Grid") {
+                  for (let i = 0; i < game.towers.length; i++) {
+                      if (Math.floor(game.towers[i].x / Constant.cellSize) == Math.floor(game.mouse.x / Constant.cellSize)
+                          && Math.floor(game.towers[i].y / Constant.cellSize) == Math.floor(game.mouse.y / Constant.cellSize)
+                          && game.resources >= game.towers[i].upgradecost) {
+                            game.towers[i].upgrade();
+                            game.resources -= game.towers[i].upgradecost;
+                      }
+                  }
+              }
+
+
+        });
+
         for (let y = Constant.cellSize; y < this.canvas.height; y += Constant.cellSize) {
             for (let x = 0; x < this.canvas.width; x += Constant.cellSize) {
                 this.gameGrid.push(new Cell(x, y));

@@ -38,9 +38,9 @@ export default class BaseEnemy {
         this.buffed = false;
 
         this.lastSlowingShotTime = null;
-        this.slowingInterval = 300;
+        this.slowingInterval = null;
         this.isSlowed = false;
-        this.slowingCoeff = 0.6;
+        this.slowingCoeff = null;
 
     }
 
@@ -73,7 +73,7 @@ export default class BaseEnemy {
 
     move() {
         if (this.isSlowed) {
-            this.x -= this.speed * this.slowingCoeff;
+            this.x -= this.speed * (1 - this.slowingCoeff);
 
             if (new Date - this.lastSlowingShotTime >= this.slowingInterval) {
                 this.isSlowed = false;

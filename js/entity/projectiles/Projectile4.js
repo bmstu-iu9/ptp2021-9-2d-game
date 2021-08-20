@@ -10,9 +10,11 @@ export default class Projectile4 {
         this.y = y;
         this.width = 10;
         this.height = 10;
-        this.speed = Constant.cellSize * 3/100;
+        this.speed = Constant.cellSize * 15/100;
         this.damage = damage;
         this.level = level;
+        this.slowingInterval = 3000;
+        this.slowingCoeff = 0.6;
         this.complete = false;
     }
 
@@ -38,22 +40,31 @@ export default class Projectile4 {
         this.complete = true;
 
         if (this.level == 1) {
-            this.target.health -= this.damage;
-            this.target.speed *= 0.95;
+            let target = this.target;
+
+            target.isSlowed = true;
+            target.slowingInterval = 3000;
+            target.slowingCoeff = 0.6;
+            target.lastSlowingShotTime = new Date();
+
+            target.health -= this.damage;
         } else {
-            epicenterX = this.target.x;
-            epicenterY = this.target.y;
+            let epicenterX = this.target.x;
+            let epicenterY = this.target.y;
             for (let i = 0, n = enemies.length; i < n; i++) {
                 let enemy = enemies[i];
                 if (calculateDistance(epicenterX, epicenterY,
-                                      enemy.x, enemy.y) < 3) {
+                                      enemy.x, enemy.y) < 2 * Constant.cellSize) {
+
+                    enemy.isSlowed = true;
+                    enemy.slowingInterval = 3000;
+                    enemy.slowingCoeff = 0.6;
+                    enemy.lastSlowingShotTime = new Date();
+
                     enemy.health -= this.damage;
-                    enemy.speed *= 0.95;
                 }
             }
         }
-        // У врагов нужно создать поле для проверки на то, находится ли он
-        // под действием замедления. Если нет, то восстановить скорость
     }
 
     draw(game) {

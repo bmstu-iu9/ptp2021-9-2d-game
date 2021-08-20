@@ -13,7 +13,7 @@ export default class Tower4 extends BaseTower {
         this.range = 6 * Constant.cellSize;
         this.lastShotTime = new Date();
         this.shootInterval = 1000;
-        this.targetsAmount = 4;
+        this.targetsAmount = 1;
         this.complete = false;
         this.level = 1;
     }
@@ -49,5 +49,6 @@ export default class Tower4 extends BaseTower {
     upgrade() {
         this.level += 1;
         this.damage += 20;
+        this.targetsAmount = 3;
     }
 }

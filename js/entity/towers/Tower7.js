@@ -70,8 +70,8 @@ export default class Tower7 extends BaseTower {
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         } else {
-            ctx.fillStyle = 'pink';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = 'fuchsia';
+            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);

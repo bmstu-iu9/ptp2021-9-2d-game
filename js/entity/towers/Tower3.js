@@ -82,8 +82,8 @@ export default class Tower3 extends BaseTower {
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         } else {
-            ctx.fillStyle = 'blue';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = 'indigo';
+            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);

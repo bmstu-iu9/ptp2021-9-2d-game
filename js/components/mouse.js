@@ -45,23 +45,19 @@ export default class Mouse {
             }
         });
 
-        game.canvas.addEventListener('dblclick', function () {
-              let clickLocation = detectClickLocation(game);
-              console.log("----")
-              if (clickLocation == "Control Bar") {
-                  return
-              } else if (clickLocation == "Game Grid") {
-                  for (let i = 0; i < game.towers.length; i++) {
-                      if (Math.floor(game.towers[i].x / Constant.cellSize) == Math.floor(game.mouse.x / Constant.cellSize)
-                          && Math.floor(game.towers[i].y / Constant.cellSize) == Math.floor(game.mouse.y / Constant.cellSize)
-                          && game.resources >= game.towers[i].upgradecost) {
-                            game.towers[i].upgrade();
-                            game.resources -= game.towers[i].upgradecost;
-                      }
+        this.canvas.addEventListener('dblclick', function () {
+            let clickLocation = game.mouse.detectClickLocation(game);
+
+            if (clickLocation == "Game Grid") {
+              for (let i = 0; i < game.towers.length; i++) {
+                  if (Math.floor(game.towers[i].x / Constants.cellSize) == Math.floor(game.mouse.x / Constants.cellSize)
+                      && Math.floor(game.towers[i].y / Constants.cellSize) == Math.floor(game.mouse.y / Constants.cellSize)
+                      && game.resources >= game.towers[i].upgradecost) {
+                        game.towers[i].upgrade();
+                        game.resources -= game.towers[i].upgradecost;
                   }
               }
-
-
+            }
         });
     }
 

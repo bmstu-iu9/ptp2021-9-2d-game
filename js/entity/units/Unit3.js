@@ -16,7 +16,6 @@ export default class Unit3 extends BaseUnit {
     }
 
     update() {
-        this.health -= 0.5;
         if (this.health == 0) {
 
             if (this.hasAbility) {
@@ -24,12 +23,8 @@ export default class Unit3 extends BaseUnit {
                 this.units.push(new Unit3(this.game, this.x, this.y, false));
             }
 
-            for (let i = 0, n = this.units.length; i < n; i++) {
-                if (this == this.units[i]) {
-                    this.units.splice(i, 1);
-                    return;
-                }
-            }
+            this.died = true;
+            return;
         }
 
         this.step();

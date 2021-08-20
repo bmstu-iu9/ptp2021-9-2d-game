@@ -42,16 +42,13 @@ export default class BaseEnemy {
         this.isSlowed = false;
         this.slowingCoeff = null;
 
+        this.died = false;
     }
 
     update() {
         if (this.health == 0) {
-            for (let i = 0, n = this.enemies.length; i < n; i++) {
-                if (this == this.enemies[i]) {
-                    this.enemies.splice(i, 1);
-                    return;
-                }
-            }
+            this.died = true;
+            return;
         }
 
         if (this.buffed) {

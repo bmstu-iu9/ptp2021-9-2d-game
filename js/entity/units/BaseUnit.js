@@ -41,16 +41,14 @@ export default class BaseUnit {
         this.slowingCoeff = 0.6;
 
         this.level = 1;
+
+        this.died = false;
     }
 
     update() {
         if (this.health == 0) {
-            for (let i = 0, n = this.units.length; i < n; i++) {
-                if (this == this.units[i]) {
-                    this.units.splice(i, 1);
-                    return;
-                }
-            }
+            this.died = true;
+            return;
         }
 
         if (this.buffed) {

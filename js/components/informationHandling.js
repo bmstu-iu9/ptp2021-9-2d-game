@@ -45,25 +45,25 @@ export function handleGameGrid(game) {
 export function handleEnemies(game) {
 
     let enemies = game.enemies;
-    let resources = game.resources;
     let ctx = game.ctx;
     let frame = game.frame;
     let enemydamage = game.enemydamage;
     let interval = Constant.interval;
 
     for (let i = 0; i < enemies.length; i++) {
-        enemies[i].update();
+        let enemy = enemies[i];
 
-        if (!enemies[i]) return;
+        enemy.update();
 
-        enemies[i].shoot();
-        enemies[i].draw();
-
-        if (enemies[i].health <= 0) {
-            resources += enemies[i].maxHealth / 10;
+        if (enemy.died) {
+            game.resources += enemy.maxHealth / 10;
             enemies.splice(i, 1);
             i--;
+            continue;
         }
+
+        enemy.shoot();
+        enemy.draw();
     }
 
     if (frame % interval === 0) {

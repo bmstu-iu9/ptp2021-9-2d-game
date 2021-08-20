@@ -106,7 +106,11 @@ export function processUnits(game) {
 
         unit.update();
 
-        if (!unit) return;
+        if (unit.died) {
+            units.splice(i, 1);
+            i--;
+            continue;
+        }
 
         unit.shoot();
         unit.draw();

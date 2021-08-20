@@ -23,12 +23,8 @@ export default class Unit6 extends BaseUnit {
 
     update() {
         if (this.health == 0) {
-            for (let i = 0, n = this.units.length; i < n; i++) {
-                if (this == this.units[i]) {
-                    this.units.splice(i, 1);
-                    return;
-                }
-            }
+            this.died = true;
+            return;
         }
 
         this.step();

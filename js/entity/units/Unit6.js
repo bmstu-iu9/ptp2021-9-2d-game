@@ -71,6 +71,16 @@ export default class Unit6 extends BaseUnit {
         this.shootInterval -= 2 * this.currentSpeed;
         this.currentSpeed = this.baseSpeed;
 
+        for (let i = 0, n = this.enemies.length; i < n; i++) {
+
+            let enemy = this.enemies[i];
+            let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
+
+            if (distance < this.range) {
+                enemy.health -= Math.floor(this.damage * enemy.health / 250);
+            }
+        }
+
         this.hasAbility = false;
     }
 

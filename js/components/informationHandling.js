@@ -1,38 +1,26 @@
-import Enemy1 from './../entity/enemies/Enemy1.js';
-import Enemy2 from './../entity/enemies/Enemy2.js';
-import Enemy3 from './../entity/enemies/Enemy3.js';
-import Enemy4 from './../entity/enemies/Enemy4.js';
-import * as Constant from './../constants.js';
+import * as Constants from './../constants.js';
 
-export function handleInformation(ctx, gameover, resources, mybase, enemybase, game) {
-    let fontSize = Constant.cellSize * 3 / 5;
-    ctx.fillStyle = 'black';
-    ctx.font = fontSize + 'px Orbitron';
-    let delta = Constant.cellSize + (Constant.canvasWidth / 2 - 10 * Constant.cellSize - 6 * Constant.cellSize / 2) / 2;
-    ctx.fillText('Resources: ' + resources, Constant.canvasWidth / 2 - delta * 7 / 6, Constant.cellSize * 2 / 3);
+export function handleBases(game) {
+    let ctx = game.ctx;
 
-    ctx.fillStyle = 'black';
-    ctx.font = fontSize + 'px Orbitron';
-    ctx.fillText('Towers', (Constant.canvasWidth / 2 - delta - Constant.cellSize) / 2, Constant.cellSize * 3 / 5);
-
-    ctx.fillStyle = 'black';
-    ctx.font = fontSize + 'px Orbitron';
-    ctx.fillText('Units', Constant.canvasWidth / 2 + (Constant.canvasWidth / 2 - Constant.cellSize) / 2, Constant.cellSize * 3 / 5);
-
-    if ( mybase.health.data <= 0) {
+    if (game.playerBase.health.data <= 0) {
         ctx.fillStyle = 'red';
         ctx.font = '60px Orbitron';
-        ctx.fillText('YOU LOSE',Constant.canvasWidth / 2, Constant.canvasHeight / 2);
+        ctx.fillText('YOU LOSE',Constants.canvasWidth / 2, Constants.canvasHeight / 2);
         game.gameOver = true;
     }
 
-    if ( enemybase.health.data <= 0) {
+    if (game.enemyBase.health.data <= 0) {
         ctx.fillStyle = 'green';
         ctx.font = '60px Orbitron';
-        ctx.fillText('YOU WIN', Constant.canvasWidth / 2, Constant.canvasHeight / 2);
+        ctx.fillText('YOU WIN', Constants.canvasWidth / 2, Constants.canvasHeight / 2);
         game.gameOver = true;
     }
+
+    game.playerBase.draw(ctx);
+    game.enemyBase.draw(ctx);
 }
+
 
 export function handleGameGrid(game) {
     let gameGrid = game.gameGrid;
@@ -42,87 +30,49 @@ export function handleGameGrid(game) {
     }
 }
 
-export function handleEnemies(game) {
 
-    let enemies = game.enemies;
+export function handleControlBar(game) {
     let ctx = game.ctx;
-    let frame = game.frame;
-    let enemydamage = game.enemydamage;
-    let interval = Constant.interval;
 
-    for (let i = 0; i < enemies.length; i++) {
-        let enemy = enemies[i];
+    ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, 0, Constants.controlBarWidth, Constants.controlBarHeight);
 
-        enemy.update();
-
-        if (enemy.died) {
-            game.resources += enemy.maxHealth / 10;
-            enemies.splice(i, 1);
-            i--;
-            continue;
-        }
-
-        enemy.shoot();
-        enemy.draw();
+    if (game.frame % 100 === 0) {
+        game.resources += 10;
     }
 
-    if (frame % interval === 0) {
-        let verticalPosition = Math.floor(Math.random() * 13 + 2) * Constant.cellSize;
+    let fontSize = Constants.cellSize * 3 / 5;
+    ctx.fillStyle = 'black';
+    ctx.font = fontSize + 'px Orbitron';
+    let delta = Constants.cellSize + (Constants.canvasWidth / 2 - 10 * Constants.cellSize - 6 * Constants.cellSize / 2) / 2;
+    ctx.fillText('Resources: ' + game.resources, Constants.canvasWidth / 2 - delta * 7 / 6, Constants.cellSize * 2 / 3);
 
-        switch(Math.floor(Math.random() * 4 + 1)) {
-            case 1:
-                enemies.push(new Enemy1(game, verticalPosition, ctx));
-                break;
+    ctx.fillStyle = 'black';
+    ctx.font = fontSize + 'px Orbitron';
+    ctx.fillText('Towers', (Constants.canvasWidth / 2 - delta - Constants.cellSize) / 2, Constants.cellSize * 3 / 5);
 
-            case 2:
-                enemies.push(new Enemy2(game, verticalPosition, ctx));
-                break;
+    ctx.fillStyle = 'black';
+    ctx.font = fontSize + 'px Orbitron';
+    ctx.fillText('Units', Constants.canvasWidth / 2 + (Constants.canvasWidth / 2 - Constants.cellSize) / 2, Constants.cellSize * 3 / 5);
 
-            case 3:
-                enemies.push(new Enemy3(game, verticalPosition, ctx));
-                break;
+    let towerCard1stroke = 'black',
+        towerCard2stroke = 'black',
+        towerCard3stroke = 'black',
+        towerCard4stroke = 'black',
+        towerCard5stroke = 'black',
+        towerCard6stroke = 'black',
+        towerCard7stroke = 'black';
 
-            case 4:
-                enemies.push(new Enemy4(game, verticalPosition, ctx));
-                break;
-            }
+    let unitCard1stroke = 'black',
+        unitCard2stroke = 'black',
+        unitCard3stroke = 'black',
+        unitCard4stroke = 'black',
+        unitCard5stroke = 'black',
+        unitCard6stroke = 'black',
+        unitCard7stroke = 'black';
 
-        if (interval > 120) {
-            interval -= 50;
-        }
-    }
-
-    if (frame % 2000 === 0 && frame > 0) {
-        enemydamage += (frame / 1000);
-    }
-}
-
-export function detectClickLocation(game) {
-    if (game.mouse.y <= Constant.controlBarHeight) {
-        return "Control Bar";
-    } else {
-        return "Game Grid";
-    }
-}
-
-export function handleControlBar(ctx, chosenTower, chosenUnit) {
-    let towerCard1stroke = 'black';
-    let towerCard2stroke = 'black';
-    let towerCard3stroke = 'black';
-    let towerCard4stroke = 'black';
-    let towerCard5stroke = 'black';
-    let towerCard6stroke = 'black';
-    let towerCard7stroke = 'black';
-
-    let unitCard1stroke = 'black';
-    let unitCard2stroke = 'black';
-    let unitCard3stroke = 'black';
-    let unitCard4stroke = 'black';
-    let unitCard5stroke = 'black';
-    let unitCard6stroke = 'black';
-    let unitCard7stroke = 'black';
-
-    switch (chosenTower) {
+    switch (game.chosenTower) {
         case 1:
             towerCard1stroke = 'gold';
             break;
@@ -152,7 +102,7 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             break;
     }
 
-    switch (chosenUnit) {
+    switch (game.chosenUnit) {
         case 1:
             unitCard1stroke = 'gold';
             break;
@@ -182,79 +132,79 @@ export function handleControlBar(ctx, chosenTower, chosenUnit) {
             break;
     }
 
-    ctx.lineWidth = Constant.cellSize / 20;
+    ctx.lineWidth = Constants.cellSize / 20;
 
     // кнопки башен
 
     ctx.fillStyle = 'green';
-    ctx.fillRect(Constant.towerCard1.x, Constant.towerCard1.y, Constant.towerCard1.width, Constant.towerCard1.height);
+    ctx.fillRect(Constants.towerCard1.x, Constants.towerCard1.y, Constants.towerCard1.width, Constants.towerCard1.height);
     ctx.strokeStyle = towerCard1stroke;
-    ctx.strokeRect(Constant.towerCard1.x, Constant.towerCard1.y, Constant.towerCard1.width, Constant.towerCard1.height);
+    ctx.strokeRect(Constants.towerCard1.x, Constants.towerCard1.y, Constants.towerCard1.width, Constants.towerCard1.height);
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(Constant.towerCard2.x, Constant.towerCard2.y, Constant.towerCard2.width, Constant.towerCard2.height);
+    ctx.fillRect(Constants.towerCard2.x, Constants.towerCard2.y, Constants.towerCard2.width, Constants.towerCard2.height);
     ctx.strokeStyle = towerCard2stroke;
-    ctx.strokeRect(Constant.towerCard2.x, Constant.towerCard2.y, Constant.towerCard2.width, Constant.towerCard2.height);
+    ctx.strokeRect(Constants.towerCard2.x, Constants.towerCard2.y, Constants.towerCard2.width, Constants.towerCard2.height);
 
     ctx.fillStyle = 'blue';
-    ctx.fillRect(Constant.towerCard3.x, Constant.towerCard3.y, Constant.towerCard3.width, Constant.towerCard3.height);
+    ctx.fillRect(Constants.towerCard3.x, Constants.towerCard3.y, Constants.towerCard3.width, Constants.towerCard3.height);
     ctx.strokeStyle = towerCard3stroke;
-    ctx.strokeRect(Constant.towerCard3.x, Constant.towerCard3.y, Constant.towerCard3.width, Constant.towerCard3.height);
+    ctx.strokeRect(Constants.towerCard3.x, Constants.towerCard3.y, Constants.towerCard3.width, Constants.towerCard3.height);
 
     ctx.fillStyle = 'black';
-    ctx.fillRect(Constant.towerCard4.x, Constant.towerCard4.y, Constant.towerCard4.width, Constant.towerCard4.height);
+    ctx.fillRect(Constants.towerCard4.x, Constants.towerCard4.y, Constants.towerCard4.width, Constants.towerCard4.height);
     ctx.strokeStyle = towerCard4stroke;
-    ctx.strokeRect(Constant.towerCard4.x, Constant.towerCard4.y, Constant.towerCard4.width, Constant.towerCard4.height);
+    ctx.strokeRect(Constants.towerCard4.x, Constants.towerCard4.y, Constants.towerCard4.width, Constants.towerCard4.height);
 
     ctx.fillStyle = 'purple';
-    ctx.fillRect(Constant.towerCard5.x, Constant.towerCard5.y, Constant.towerCard5.width, Constant.towerCard5.height);
+    ctx.fillRect(Constants.towerCard5.x, Constants.towerCard5.y, Constants.towerCard5.width, Constants.towerCard5.height);
     ctx.strokeStyle = towerCard5stroke;
-    ctx.strokeRect(Constant.towerCard5.x, Constant.towerCard5.y, Constant.towerCard5.width, Constant.towerCard5.height);
+    ctx.strokeRect(Constants.towerCard5.x, Constants.towerCard5.y, Constants.towerCard5.width, Constants.towerCard5.height);
 
     ctx.fillStyle = 'orange';
-    ctx.fillRect(Constant.towerCard6.x, Constant.towerCard6.y, Constant.towerCard6.width, Constant.towerCard6.height);
+    ctx.fillRect(Constants.towerCard6.x, Constants.towerCard6.y, Constants.towerCard6.width, Constants.towerCard6.height);
     ctx.strokeStyle = towerCard6stroke;
-    ctx.strokeRect(Constant.towerCard6.x, Constant.towerCard6.y, Constant.towerCard6.width, Constant.towerCard6.height);
+    ctx.strokeRect(Constants.towerCard6.x, Constants.towerCard6.y, Constants.towerCard6.width, Constants.towerCard6.height);
 
     ctx.fillStyle = 'pink';
-    ctx.fillRect(Constant.towerCard7.x, Constant.towerCard7.y, Constant.towerCard7.width, Constant.towerCard7.height);
+    ctx.fillRect(Constants.towerCard7.x, Constants.towerCard7.y, Constants.towerCard7.width, Constants.towerCard7.height);
     ctx.strokeStyle = towerCard7stroke;
-    ctx.strokeRect(Constant.towerCard7.x, Constant.towerCard7.y, Constant.towerCard7.width, Constant.towerCard7.height);
+    ctx.strokeRect(Constants.towerCard7.x, Constants.towerCard7.y, Constants.towerCard7.width, Constants.towerCard7.height);
 
     // кнопки юнитов
 
     ctx.fillStyle = 'green';
-    ctx.fillRect(Constant.unitCard1.x, Constant.unitCard1.y, Constant.unitCard1.width, Constant.unitCard1.height);
+    ctx.fillRect(Constants.unitCard1.x, Constants.unitCard1.y, Constants.unitCard1.width, Constants.unitCard1.height);
     ctx.strokeStyle = unitCard1stroke;
-    ctx.strokeRect(Constant.unitCard1.x, Constant.unitCard1.y, Constant.unitCard1.width, Constant.unitCard1.height);
+    ctx.strokeRect(Constants.unitCard1.x, Constants.unitCard1.y, Constants.unitCard1.width, Constants.unitCard1.height);
 
     ctx.fillStyle = 'red';
-    ctx.fillRect(Constant.unitCard2.x, Constant.unitCard2.y, Constant.unitCard2.width, Constant.unitCard2.height);
+    ctx.fillRect(Constants.unitCard2.x, Constants.unitCard2.y, Constants.unitCard2.width, Constants.unitCard2.height);
     ctx.strokeStyle = unitCard2stroke;
-    ctx.strokeRect(Constant.unitCard2.x, Constant.unitCard2.y, Constant.unitCard2.width, Constant.unitCard2.height);
+    ctx.strokeRect(Constants.unitCard2.x, Constants.unitCard2.y, Constants.unitCard2.width, Constants.unitCard2.height);
 
     ctx.fillStyle = 'blue';
-    ctx.fillRect(Constant.unitCard3.x, Constant.unitCard3.y, Constant.unitCard3.width, Constant.unitCard3.height);
+    ctx.fillRect(Constants.unitCard3.x, Constants.unitCard3.y, Constants.unitCard3.width, Constants.unitCard3.height);
     ctx.strokeStyle = unitCard3stroke;
-    ctx.strokeRect(Constant.unitCard3.x, Constant.unitCard3.y, Constant.unitCard3.width, Constant.unitCard3.height);
+    ctx.strokeRect(Constants.unitCard3.x, Constants.unitCard3.y, Constants.unitCard3.width, Constants.unitCard3.height);
 
     ctx.fillStyle = 'purple';
-    ctx.fillRect(Constant.unitCard4.x, Constant.unitCard4.y, Constant.unitCard4.width, Constant.unitCard4.height);
+    ctx.fillRect(Constants.unitCard4.x, Constants.unitCard4.y, Constants.unitCard4.width, Constants.unitCard4.height);
     ctx.strokeStyle = unitCard4stroke;
-    ctx.strokeRect(Constant.unitCard4.x, Constant.unitCard4.y, Constant.unitCard4.width, Constant.unitCard4.height);
+    ctx.strokeRect(Constants.unitCard4.x, Constants.unitCard4.y, Constants.unitCard4.width, Constants.unitCard4.height);
 
     ctx.fillStyle = 'orange';
-    ctx.fillRect(Constant.unitCard5.x, Constant.unitCard5.y, Constant.unitCard5.width, Constant.unitCard5.height);
+    ctx.fillRect(Constants.unitCard5.x, Constants.unitCard5.y, Constants.unitCard5.width, Constants.unitCard5.height);
     ctx.strokeStyle = unitCard5stroke;
-    ctx.strokeRect(Constant.unitCard5.x, Constant.unitCard5.y, Constant.unitCard5.width, Constant.unitCard5.height);
+    ctx.strokeRect(Constants.unitCard5.x, Constants.unitCard5.y, Constants.unitCard5.width, Constants.unitCard5.height);
 
     ctx.fillStyle = 'black';
-    ctx.fillRect(Constant.unitCard6.x, Constant.unitCard6.y, Constant.unitCard6.width, Constant.unitCard6.height);
+    ctx.fillRect(Constants.unitCard6.x, Constants.unitCard6.y, Constants.unitCard6.width, Constants.unitCard6.height);
     ctx.strokeStyle = unitCard6stroke;
-    ctx.strokeRect(Constant.unitCard6.x, Constant.unitCard6.y, Constant.unitCard6.width, Constant.unitCard6.height);
+    ctx.strokeRect(Constants.unitCard6.x, Constants.unitCard6.y, Constants.unitCard6.width, Constants.unitCard6.height);
 
     ctx.fillStyle = 'pink';
-    ctx.fillRect(Constant.unitCard7.x, Constant.unitCard7.y, Constant.unitCard7.width, Constant.unitCard7.height);
+    ctx.fillRect(Constants.unitCard7.x, Constants.unitCard7.y, Constants.unitCard7.width, Constants.unitCard7.height);
     ctx.strokeStyle = unitCard7stroke;
-    ctx.strokeRect(Constant.unitCard7.x, Constant.unitCard7.y, Constant.unitCard7.width, Constant.unitCard7.height);
+    ctx.strokeRect(Constants.unitCard7.x, Constants.unitCard7.y, Constants.unitCard7.width, Constants.unitCard7.height);
 }

@@ -28,6 +28,7 @@ class Game {
         this.enemies = [];
         this.projectiles = [];
         this.gameOver = false;
+        this.gameRunning = false;
         this.resources = 300;
         this.enemydamage = 10;
         this.frame = 0;
@@ -40,12 +41,14 @@ class Game {
         this.menuBG = 'green';
         this.menuColor = 'white';
         this.menuFotsize = '15px';
+        this.refresh;
     }
 
 
 
 
     gameFunc(){
+      gameRunning = true;
       this.ctx.fillStyle = menuBG;
       this.ctx.fillRect(1500, 20, 50, 25 );
 
@@ -62,9 +65,7 @@ class Game {
       }
     }
 
-    showMenu(){
-      clearInterval(refresh);
-    }
+
 
     init() {
         this.mouse = new Mouse(game);
@@ -124,5 +125,25 @@ function play() {
 
     if (!game.gameOver) requestAnimationFrame(play);
 }
-var refresh = setInterval(play, 1000/60);
+
+  startGame(){
+    gameRunning = true;
+    refresh = setInterval(game, 1000/60);
+  }
+
+
+showMenu(){
+  if(gameRunning == true){
+    clearInterval(refresh);
+    gameRunning = false;
+  } else {
+    gameRunning = true;
+    startGame();
+    }
+
+    ctx.fillStyle = menuBG;
+    ctx.fillRect()
+  }
+}
+startGame()
 play()

@@ -15,6 +15,7 @@ import EnemyBase from './entity/bases/enemyBase.js';
 import Cell from './components/cell.js';
 import { handleTowers, handleInformation, handleGameGrid, handleEnemies } from  './components/informationHandling.js';
 
+
 class Game {
     constructor() {
         this.canvas = document.getElementById('canvas1');
@@ -34,6 +35,35 @@ class Game {
         this.enemyBase = new EnemyBase();
         this.mouse = null;
         this.chosenTower = 0;
+        this.menuHeight = 25;
+        this.menuWidth = game.width;
+        this.menuBG = 'green';
+        this.menuColor = 'white';
+        this.menuFotsize = '15px';
+    }
+
+
+
+
+    gameFunc(){
+      this.ctx.fillStyle = menuBG;
+      this.ctx.fillRect(1500, 20, 50, 25 );
+
+      this.ctx.font = 'bold 15px Times new Roman';
+      this.ctx.fillStyle = menuColor;
+      this.ctx.fillText('menu', 1500, 18);
+    }
+
+    document.onmousedown = checkClick;
+    checkClick(e){
+      if(e.clientX > 1500 && e.clientX < 1560 && e.clientY > 15 && e.clientY < 25  ){
+        console.log('clicked menu');
+        showMenu();
+      }
+    }
+
+    showMenu(){
+      clearInterval(refresh);
     }
 
     init() {
@@ -86,9 +116,13 @@ class Game {
 
 let game = new Game();
 game.init();
+game.gameFunc();
+
 
 function play() {
     game.animate()
+
     if (!game.gameOver) requestAnimationFrame(play);
 }
+var refresh = setInterval(play, 1000/60);
 play()

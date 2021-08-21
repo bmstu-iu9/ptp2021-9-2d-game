@@ -18,14 +18,19 @@ export default class Tower4 extends BaseTower {
         this.level = 1;
     }
 
-    shoot(target) {
-        this.projectiles.push(new Projectile4(
-            target,
-            this.x,
-            this.y,
-            this.level,
-            this.damage
-        ))
+    shoot() {
+        if (new Date - this.lastShotTime >= this.shootInterval) {
+            for (let i = 0, n = this.targets.length; i < n; i++) {
+                this.projectiles.push(new Projectile4(
+                    this.targets[i],
+                    this.x,
+                    this.y,
+                    this.level,
+                    this.damage
+                ))
+            }
+            this.lastShotTime = new Date();
+        }
     }
 
     draw() {
@@ -39,7 +44,7 @@ export default class Tower4 extends BaseTower {
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         } else {
             ctx.fillStyle = 'blue';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);

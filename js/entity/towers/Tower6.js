@@ -45,6 +45,8 @@ export default class Tower6 extends BaseTower {
 
     }
 
+    shoot() {}
+
     draw() {
         this.step();
         let ctx = this.ctx;
@@ -55,8 +57,8 @@ export default class Tower6 extends BaseTower {
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         } else {
-            ctx.fillStyle = 'orange';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = 'cyan';
+            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);

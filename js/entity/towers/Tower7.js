@@ -23,19 +23,7 @@ export default class Tower7 extends BaseTower {
 
     }
 
-    shoot(target) {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
-            this.units.push(new Unit1(
-                this.game,
-                this.x + Constant.cellSize,
-                this.y - 0.25 * Constant.cellSize
-            ));
-            if (this.level > 1) {
-                this.timer += 1;
-            }
-            this.lastShotTime = new Date();
-        }
-
+    update() {
         if (this.health == 0) {
             for (let i = 0; i < this.enemies.length; i++) {
                 let enemy = this.enemies[i];
@@ -47,6 +35,23 @@ export default class Tower7 extends BaseTower {
                     }
                 }
             }
+
+            this.died = true;
+            return;
+        }
+    }
+
+    shoot() {
+        if (new Date - this.lastShotTime >= this.shootInterval) {
+            this.units.push(new Unit1(
+                this.game,
+                this.x + Constant.cellSize,
+                this.y - 0.25 * Constant.cellSize
+            ));
+            if (this.level > 1) {
+                this.timer += 1;
+            }
+            this.lastShotTime = new Date();
         }
 
         if (this.timer == 3 && this.level > 1) {
@@ -70,8 +75,8 @@ export default class Tower7 extends BaseTower {
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
         } else {
-            ctx.fillStyle = 'pink';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillStyle = 'fuchsia';
+            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
             ctx.font = Constant.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);

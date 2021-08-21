@@ -24,7 +24,7 @@ export function processEnemies(game) {
         enemy.draw();
     }
 
-    if (new Date - game.lastEnemySummoningTime > game.enemySummoningInterval) {
+    if (new Date - game.last_enemy_summoning_time > game.enemy_summoning_interval) {
         let verticalPosition = Math.floor(Math.random() * 13 + 2) * Constants.cellSize;
 
         switch(Math.floor(Math.random() * 4 + 1)) {
@@ -45,6 +45,6 @@ export function processEnemies(game) {
                 break;
             }
 
-        game.lastEnemySummoningTime = new Date();
+        game.last_enemy_summoning_time = new Date();
     }
 }

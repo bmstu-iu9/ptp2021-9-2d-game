@@ -1,4 +1,4 @@
-import { collisiondetection } from './../utils/utils.js';
+import { detectCollision } from './../utils/utils.js';
 import * as Constants from './../constants.js';
 
 class Cell {
@@ -13,7 +13,9 @@ class Cell {
         let mouse = game.mouse;
         let ctx = game.ctx;
 
-        if (mouse.x && mouse.y && collisiondetection(this, mouse) && mouse.y >= Constants.controlBarHeight) {
+        if (mouse.x && mouse.y && detectCollision(this, mouse) &&
+            mouse.y >= Constants.controlBarHeight) {
+
             ctx.strokeStyle = 'black';
             ctx.strokeRect(this.x, this.y, this.width, this.height);
         }

@@ -24,8 +24,7 @@ class Game {
 
         this.gameOver = false;
 
-        this.resources = 300;
-        this.frame = 0;
+        this.resources = 3000;
 
         this.playerBase = new PlayerBase();
         this.enemyBase = new EnemyBase();
@@ -33,8 +32,11 @@ class Game {
         this.chosenTower = null;
         this.chosenUnit = null;
 
-        this.enemySummoningInterval = 5000;
-        this.lastEnemySummoningTime = new Date();
+        this.obtaining_resources_interval = 1000;
+        this.last_obtaining_resources_time = new Date();
+
+        this.enemy_summoning_interval = 5000;
+        this.last_enemy_summoning_time = new Date();
     }
 
     init() {
@@ -54,8 +56,6 @@ class Game {
         processUnits(game);
         processProjectiles(game);
         processEnemies(game);
-
-        this.frame++;
 
         let ms = 1000/60;
         ms += new Date().getTime();

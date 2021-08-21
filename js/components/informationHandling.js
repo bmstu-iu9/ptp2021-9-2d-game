@@ -3,14 +3,14 @@ import * as Constants from './../constants.js';
 export function handleBases(game) {
     let ctx = game.ctx;
 
-    if (game.playerBase.health.data <= 0) {
+    if (game.playerBase.health.data == 0) {
         ctx.fillStyle = 'red';
         ctx.font = '60px Orbitron';
-        ctx.fillText('YOU LOSE',Constants.canvasWidth / 2, Constants.canvasHeight / 2);
+        ctx.fillText('YOU LOSE', Constants.canvasWidth / 2, Constants.canvasHeight / 2);
         game.gameOver = true;
     }
 
-    if (game.enemyBase.health.data <= 0) {
+    if (game.enemyBase.health.data == 0) {
         ctx.fillStyle = 'green';
         ctx.font = '60px Orbitron';
         ctx.fillText('YOU WIN', Constants.canvasWidth / 2, Constants.canvasHeight / 2);
@@ -25,7 +25,7 @@ export function handleBases(game) {
 export function handleGameGrid(game) {
     let gameGrid = game.gameGrid;
 
-    for (let i = 0; i < gameGrid.length; i++) {
+    for (let i = 0, n = gameGrid.length; i < n; i++) {
         gameGrid[i].draw(game);
     }
 }
@@ -38,8 +38,9 @@ export function handleControlBar(game) {
     ctx.fillStyle = 'grey';
     ctx.fillRect(0, 0, Constants.controlBarWidth, Constants.controlBarHeight);
 
-    if (game.frame % 100 === 0) {
+    if (new Date - game.last_obtaining_resources_time > game.obtaining_resources_interval) {
         game.resources += 10;
+        game.last_obtaining_resources_time = new Date();
     }
 
     let fontSize = Constants.cellSize * 3 / 5;

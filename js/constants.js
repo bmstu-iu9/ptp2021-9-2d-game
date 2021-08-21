@@ -7,13 +7,6 @@ export const
     fontSize = cellSize * 2 / 5 ;
 
 
-export const
-    left = 0,
-    frame = 0,
-    interval = 600,
-    resources = 300;
-
-
 function createCoords() {
     let cards = [];
     let x = cellSize + (canvasWidth / 2 - 10 * cellSize - 6 * cellSize / 2) / 2;
@@ -58,7 +51,6 @@ export const
     towerCard6 = cards[5],
     towerCard7 = cards[6];
 
-
 export const
     unitCard1 = cards[7],
     unitCard2 = cards[8],
@@ -67,3 +59,22 @@ export const
     unitCard5 = cards[11],
     unitCard6 = cards[12],
     unitCard7 = cards[13];
+
+
+export const
+    tower1Cost = 100,
+    tower2Cost = 100,
+    tower3Cost = 100,
+    tower4Cost = 100,
+    tower5Cost = 100,
+    tower6Cost = 100,
+    tower7Cost = 100;
+
+export const
+    unit1Cost = 100,
+    unit2Cost = 100,
+    unit3Cost = 100,
+    unit4Cost = 100,
+    unit5Cost = 100,
+    unit6Cost = 100,
+    unit7Cost = 100;

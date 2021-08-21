@@ -1,5 +1,5 @@
-import { collisiondetection } from './../utils/utils.js';
-import * as Constant from './../constants.js';
+import { detectCollision } from './../utils/utils.js';
+import * as Constants from './../constants.js';
 import BaseUnit from './../entity/units/BaseUnit.js';
 import Unit1 from './../entity/units/Unit1.js';
 import Unit2 from './../entity/units/Unit2.js';
@@ -9,94 +9,87 @@ import Unit5 from './../entity/units/Unit5.js';
 import Unit6 from './../entity/units/Unit6.js';
 import Unit7 from './../entity/units/Unit7.js';
 
+
 export function chooseUnit(ctx, mouse) {
     let chosenUnit = null;
 
-    if (collisiondetection(mouse, Constant.unitCard1)) {
+    if (detectCollision(mouse, Constants.unitCard1)) {
         chosenUnit = 1;
-    } else if (collisiondetection(mouse, Constant.unitCard2)) {
+    } else if (detectCollision(mouse, Constants.unitCard2)) {
         chosenUnit = 2;
-    } else if (collisiondetection(mouse, Constant.unitCard3)) {
+    } else if (detectCollision(mouse, Constants.unitCard3)) {
         chosenUnit = 3;
-    } else if (collisiondetection(mouse, Constant.unitCard4)) {
+    } else if (detectCollision(mouse, Constants.unitCard4)) {
         chosenUnit = 4;
-    } else if (collisiondetection(mouse, Constant.unitCard5)) {
+    } else if (detectCollision(mouse, Constants.unitCard5)) {
         chosenUnit = 5;
-    } else if (collisiondetection(mouse, Constant.unitCard6)) {
+    } else if (detectCollision(mouse, Constants.unitCard6)) {
         chosenUnit = 6;
-    } else if (collisiondetection(mouse, Constant.unitCard7)) {
+    } else if (detectCollision(mouse, Constants.unitCard7)) {
         chosenUnit = 7;
     }
 
     return chosenUnit;
 }
 
+
 export function putUnit(game) {
-    let chosenUnit = game.chosenUnit;
+    let positionY = game.mouse.y - (game.mouse.y % Constants.cellSize);
 
-    //const positionX = game.mouse.x - (game.mouse.x % Constant.cellSize);
-    const positionY = game.mouse.y - (game.mouse.y % Constant.cellSize);
-
-    switch(chosenUnit) {
+    switch(game.chosenUnit) {
         case 1:
-            if (game.resources >= 100) {
-                let currentUnit = new Unit1(game, Constant.cellSize, positionY);
-                game.units.push(currentUnit);
-                game.resources -= currentUnit.cost;
+            if (game.resources >= Constants.unit1Cost) {
+                game.units.push(new Unit1(game, Constants.cellSize, positionY));
+                game.resources -= Constants.unit1Cost;
             }
             break;
 
         case 2:
-            if (game.resources >= 100) {
-                let currentUnit = new Unit2(game, Constant.cellSize, positionY);
-                game.units.push(currentUnit);
-                game.resources -= currentUnit.cost;
+            if (game.resources >= Constants.unit2Cost) {
+                game.units.push(new Unit2(game, Constants.cellSize, positionY));
+                game.resources -= Constants.unit2Cost;
             }
             break;
 
         case 3:
-            if (game.resources >= 100) {
-                let currentUnit = new Unit3(game, Constant.cellSize, positionY, true);
-                game.units.push(currentUnit);
-                game.resources -= currentUnit.cost;
+            if (game.resources >= Constants.unit3Cost) {
+                game.units.push(new Unit3(game, Constants.cellSize, positionY));
+                game.resources -= Constants.unit3Cost;
             }
             break;
 
         case 4:
-            if (game.resources >= 100) {
-                let currentUnit = new Unit4(game, Constant.cellSize, positionY);
-                game.units.push(currentUnit);
-                game.resources -= currentUnit.cost;
+            if (game.resources >= Constants.unit4Cost) {
+                game.units.push(new Unit4(game, Constants.cellSize, positionY));
+                game.resources -= Constants.unit4Cost;
             }
             break;
 
         case 5:
-            if (game.resources >= 100) {
-                let currentUnit = new Unit5(game, Constant.cellSize, positionY + Constant.cellSize * 1/4);
-                game.units.push(currentUnit);
-                game.resources -= currentUnit.cost;
+            if (game.resources >= Constants.unit5Cost) {
+                game.units.push(new Unit5(game, Constants.cellSize, positionY));
+                game.resources -= Constants.unit5Cost;
             }
             break;
 
         case 6:
-            if (game.resources >= 100) {
-                let currentUnit = new Unit6(game, Constant.cellSize, positionY);
-                game.units.push(currentUnit);
-                game.resources -= currentUnit.cost;
+            if (game.resources >= Constants.unit6Cost) {
+                game.units.push(new Unit6(game, Constants.cellSize, positionY));
+                game.resources -= Constants.unit6Cost;
             }
             break;
 
         case 7:
-            if (game.resources >= 100) {
-                let currentUnit = new Unit7(game, Constant.cellSize, positionY);
-                game.units.push(currentUnit);
-                game.resources -= currentUnit.cost;
+            if (game.resources >= Constants.unit7Cost) {
+                game.units.push(new Unit7(game, Constants.cellSize, positionY));
+                game.resources -= Constants.unit7Cost;
             }
             break;
         }
 
     game.chosenUnit = null;
 }
+
 
 export function processUnits(game) {
     let units = game.units;

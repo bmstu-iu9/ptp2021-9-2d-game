@@ -113,13 +113,16 @@ export function upgradeOpportunity(tower, game) {
 
 export function processTowers(game) {
     for (let i = 0; i < game.towers.length; i++) {
-        game.towers[i].draw();
+        game.towers[i].update();
         if (game.resources >= game.towers[i].upgradecost) {
             upgradeOpportunity(game.towers[i], game)
         }
-        if (game.towers[i].health <= 0) {
+        if (game.towers[i].died) {
             game.towers.splice(i, 1);
             i--;
+            continue;
         }
+        game.towers[i].shoot();
+        game.towers[i].draw();
     }
 }

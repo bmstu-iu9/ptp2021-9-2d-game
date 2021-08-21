@@ -14,6 +14,16 @@ export default class BaseTower {
         this.targetsAmount = 1;
         this.targets = [];
         this.range = 300;
+        this.died = false;
+    }
+
+    update() {
+        if (this.health == 0) {
+            this.died = true;
+            return;
+        }
+
+        this.step();
     }
 
     step() {
@@ -24,16 +34,9 @@ export default class BaseTower {
         let directionTarget = this.targets[0];
         let newDirection = Math.atan2(directionTarget.y - this.y,
                                       directionTarget.x - this.x);
-        //newDirection = newDirection * (180 / Math.PI);
+        newDirection = newDirection * (180 / Math.PI);
         //drawRotated(this.ctx, image, newDirection - this.direction);
         this.direction = newDirection;
-
-        if (new Date - this.lastShotTime >= this.shootInterval) {
-            for (let i = 0, n = this.targets.length; i < n; i++) {
-                this.shoot(this.targets[i]);
-            }
-            this.lastShotTime = new Date();
-        }
     }
 
     findTargets(n) {

@@ -43,7 +43,7 @@ export default class Tower3 extends BaseTower {
             let enemy = this.enemies[i];
             let distance = enemy.x - this.x;
 
-            if (this.y + Constant.cellSize / 2 == enemy.y && distance < minDistance && distance > 0) {
+            if (this.y == enemy.y && distance < minDistance && distance > 0) {
                 let isTargetAlready = false;
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (enemy == this.targets[j]) {
@@ -62,14 +62,19 @@ export default class Tower3 extends BaseTower {
         }
     }
 
-    shoot(target) {
-        this.projectiles.push(new Projectile3(
-            target,
-            this.x,
-            this.y,
-            this.damage,
-            this.level
-        ))
+    shoot() {
+        if (new Date - this.lastShotTime >= this.shootInterval) {
+            for (let i = 0, n = this.targets.length; i < n; i++) {
+                this.projectiles.push(new Projectile3(
+                    this.targets[i],
+                    this.x,
+                    this.y,
+                    this.damage,
+                    this.level
+                ))
+            }
+            this.lastShotTime = new Date();
+        }
     }
 
     draw() {

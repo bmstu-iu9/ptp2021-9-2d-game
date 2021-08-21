@@ -18,14 +18,19 @@ export default class Tower4 extends BaseTower {
         this.level = 1;
     }
 
-    shoot(target) {
-        this.projectiles.push(new Projectile4(
-            target,
-            this.x,
-            this.y,
-            this.level,
-            this.damage
-        ))
+    shoot() {
+        if (new Date - this.lastShotTime >= this.shootInterval) {
+            for (let i = 0, n = this.targets.length; i < n; i++) {
+                this.projectiles.push(new Projectile4(
+                    this.targets[i],
+                    this.x,
+                    this.y,
+                    this.level,
+                    this.damage
+                ))
+            }
+            this.lastShotTime = new Date();
+        }
     }
 
     draw() {

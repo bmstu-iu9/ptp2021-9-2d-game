@@ -45,6 +45,8 @@ export default class Tower6 extends BaseTower {
 
     }
 
+    shoot() {}
+
     draw() {
         this.step();
         let ctx = this.ctx;

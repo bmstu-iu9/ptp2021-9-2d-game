@@ -41,7 +41,9 @@ class Game {
         this.menuBG = 'green';
         this.menuColor = 'white';
         this.menuFotsize = '15px';
+        this.gameHeight = game.height - menuHeight;
         this.refresh;
+        this.menuShown = fale;
     }
 
 
@@ -54,16 +56,31 @@ class Game {
 
       this.ctx.font = 'bold 15px Times new Roman';
       this.ctx.fillStyle = menuColor;
-      this.ctx.fillText('menu', 1500, 18);
+      this.ctx.fillText('options', 1500, 18);
     }
 
     document.onmousedown = checkClick;
     checkClick(e){
-      if(e.clientX > 1500 && e.clientX < 1560 && e.clientY > 15 && e.clientY < 25  ){
+      if(e.clientX > 1500 && e.clientX < 1560 && e.clientY > 15 && e.clientY < 25 ){
         console.log('clicked menu');
         showMenu();
       }
+      if(menuShown == true){
+        if(e.clientX >(game.width/4)+15 && e.clientX <((game.width/4) + 85 && e.clientY > (gameHeight / 4) +75 && e.clientY < (gameHeight / 4) +75 + 20){
+          //resume clicked
+          console.log('resume clicked');
+          showMenu();
+        }
+      }
     }
+    /*
+
+
+
+    ctx.fillText('Meny', game.width/4+15, gameHeight/4 + 25 )
+
+    ctx.fillText("Resume", (game.width/4)+15 , (gameHeight / 4) +75);
+    */
 
 
 
@@ -136,13 +153,28 @@ showMenu(){
   if(gameRunning == true){
     clearInterval(refresh);
     gameRunning = false;
+    menuShown = true;
   } else {
     gameRunning = true;
+    menuShown = false;
     startGame();
     }
 
+    ctx.fillStyle = 'white';
+    ctx.fillRect(game.width/4, gameHeight/4, game.width/2, gameHeight/2);
+
     ctx.fillStyle = menuBG;
-    ctx.fillRect()
+    ctx.fillRect(game.width/4, gameHeight/4, game.width/2, gameHeight/10);
+
+
+
+    ctx.font = 'bold 15px Arial';
+    ctx.fillStyle = 'white';
+    ctx.fillText('Meny', game.width/4+15, gameHeight/4 + 25 )
+    ctx.fillStyle = 'black';
+    ctx.fillText("Resume", (game.width/4)+15 , (gameHeight / 4) +75);
+
+
   }
 }
 startGame()

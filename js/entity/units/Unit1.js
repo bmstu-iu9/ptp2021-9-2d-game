@@ -13,6 +13,9 @@ export default class Unit1 extends BaseUnit {
         this.health = this.maxHealth;
         this.damage = 10;
         this.hasAbility = true;
+        this.index = 0;
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     findTargets(n) {
@@ -146,11 +149,28 @@ export default class Unit1 extends BaseUnit {
 
     draw() {
         let ctx = this.ctx;
-
+        /*
         ctx.fillStyle = 'green';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
         ctx.font = Constants.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+        */
+        var img = new Image();
+
+
+        img.src = "./../../../images/unit1/" + this.index + ".png";
+
+
+        ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.index = (this.index + 1) % 2;
+            this.lastAnimationTime = new Date;
+        }
+
+
+        // Загружаем файл изображения
+
     }
 }

@@ -38,7 +38,8 @@ export function putTower(game) {
     const positionY = game.mouse.y - (game.mouse.y % Constant.cellSize);
 
     for (let i = 0; i < game.towers.length; i++) {
-        if (game.towers[i].x === positionX && game.towers[i].y === positionY) {
+        if (Math.floor(game.towers[i].x / Constant.cellSize) === Math.floor(game.mouse.x / Constant.cellSize)
+            && Math.floor(game.towers[i].y / Constant.cellSize) === Math.floor(game.mouse.y / Constant.cellSize)) {
             return;
         }
     }

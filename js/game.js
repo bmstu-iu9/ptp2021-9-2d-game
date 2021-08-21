@@ -77,7 +77,7 @@ class Game {
 
 
 
-    ctx.fillText('Meny', game.width/4+15, gameHeight/4 + 25 )
+    ctx.fillText('Menu', game.width/4+15, gameHeight/4 + 25 )
 
     ctx.fillText("Resume", (game.width/4)+15 , (gameHeight / 4) +75);
     */

@@ -49,14 +49,15 @@ export default class Mouse {
             let clickLocation = game.mouse.detectClickLocation(game);
 
             if (clickLocation == "Game Grid") {
-              for (let i = 0; i < game.towers.length; i++) {
-                  if (Math.floor(game.towers[i].x / Constants.cellSize) == Math.floor(game.mouse.x / Constants.cellSize)
-                      && Math.floor(game.towers[i].y / Constants.cellSize) == Math.floor(game.mouse.y / Constants.cellSize)
-                      && game.resources >= game.towers[i].upgradecost) {
+                for (let i = 0; i < game.towers.length; i++) {
+                    if (Math.floor(game.towers[i].x / Constants.cellSize) == Math.floor(game.mouse.x / Constants.cellSize)
+                        && Math.floor(game.towers[i].y / Constants.cellSize) == Math.floor(game.mouse.y / Constants.cellSize)
+                        && game.resources >= game.towers[i].upgradeCost) {
+
                         game.towers[i].upgrade();
-                        game.resources -= game.towers[i].upgradecost;
-                  }
-              }
+                        game.resources -= game.towers[i].upgradeCost;
+                    }
+                }
             }
         });
     }

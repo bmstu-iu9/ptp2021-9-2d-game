@@ -7,42 +7,48 @@ import BaseTarget from './../bases/BaseTarget.js';
 export default class Unit1 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
-        this.range = Constants.cellSize;
-        this.cost = 100;
+
         this.maxHealth = 500;
         this.health = this.maxHealth;
+        
+        this.range = Constants.cellSize;
         this.damage = 10;
+
         this.hasAbility = true;
+
         this.index = 0;
+
         this.lastAnimationTime = new Date();
         this.animationInterval = 200;
     }
 
-    findTargets(n) {
-        for (let i = this.targets.length; i < n; i++) {
-            let target = this.findTarget()
-            if (target) {
-                this.targets.push(target)
+    findTargets(targetsAmount) {
+        for (let i = 0; i < this.targets.length; i++) {
+            let target = this.targets[i];
+
+            if (target.x < this.x || target.died) {
+                this.targets.splice(i, 1);
+                i--;
             }
         }
 
-        for (let i = 0; i < this.targets.length; i++) {
-            let enemy = this.targets[i];
-            if (enemy.x < this.x ||
-               (enemy.health <= 0)) {
-                this.targets.splice(i, 1);
+        for (let i = this.targets.length; i < targetsAmount; i++) {
+            let target = this.findTarget();
+
+            if (target) {
+                this.targets.push(target)
             }
         }
     }
 
     findTarget() {
-        let nearestEnemyIndex = -1;
-        let minDistance = this.range;
+        let nearestEnemyIndex = -1,
+            minDistance = this.range;
 
         for (let i = 0, m = this.enemies.length; i < m; i++) {
 
-            let enemy = this.enemies[i];
-            let distance = Math.abs(enemy.x - this.x);
+            let enemy = this.enemies[i],
+                distance = Math.abs(enemy.x - this.x);
 
             if (distance < minDistance && (enemy.y > this.y && this.y + Constants.cellSize > enemy.y )) {
                 let isTargetAlready = false;
@@ -87,13 +93,13 @@ export default class Unit1 extends BaseUnit {
     }
 
     useAbility() {
-        let nearestEnemyIndex = -1;
-        let minDistance = this.range * 5;
+        let nearestEnemyIndex = -1,
+            minDistance = this.range * 5;
 
         for (let i = 0, m = this.enemies.length; i < m; i++) {
 
-            let enemy = this.enemies[i];
-            let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
+            let enemy = this.enemies[i],
+                distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 
             if (distance < minDistance) {
                 nearestEnemyIndex = i;
@@ -141,7 +147,7 @@ export default class Unit1 extends BaseUnit {
                     this.x + this.width/2,
                     this.y + this.height/2,
                     this.damage,
-                    1));
+                ));
             }
             this.lastShotTime = new Date();
         }

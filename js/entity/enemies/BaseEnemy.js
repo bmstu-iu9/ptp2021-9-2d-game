@@ -3,23 +3,24 @@ import * as Constants from './../../constants.js';
 import BaseTarget from './../bases/BaseTarget.js';
 
 export default class BaseEnemy {
-    constructor(game, verticalPosition, ctx) {
-        this.x = Constants.canvasWidth + Constants.cellSize / 2;
+    constructor(game, verticalPosition) {
+        this.game = game;
+        this.ctx = game.ctx;
+
+        this.x = Constants.canvasWidth - Constants.cellSize;
         this.y = verticalPosition + Constants.cellSize / 2;
         this.width = Constants.cellSize;
         this.height = Constants.cellSize;
-        this.speed = Constants.cellSize * 0.5/100;
-        this.health = 666;
-        this.firerate = 100;
-        this.maxHealth = this.health;
-        this.ctx = ctx;
-        this.target = null;
-        this.game = game;
+        this.direction = 0;
 
         this.units = game.units;
-        this.enemies = game.enemies;
         this.towers = game.towers;
         this.projectiles = game.projectiles;
+
+        this.target = null;
+
+        this.maxHealth = 500;
+        this.health = this.maxHealth;
 
         this.lastShotTime = new Date();
 
@@ -81,12 +82,18 @@ export default class BaseEnemy {
     }
 
     step() {
-        this.findTarget();
+        if (this.target && (calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range ||
+                           (this.target.died))) {
+
+            this.target = null;
+        }
+
+        if (!this.target) this.findTarget();
 
         if (!this.target) return;
 
-        let directionTarget = this.target;
-        let newDirection = Math.atan2(directionTarget.y - this.y,
+        let directionTarget = this.target,
+            newDirection = Math.atan2(directionTarget.y - this.y,
                                       directionTarget.x - this.x);
         newDirection = newDirection * (180 / Math.PI);
         //drawRotated(this.ctx, image, newDirection - this.direction);
@@ -94,43 +101,26 @@ export default class BaseEnemy {
     }
 
     findTarget() {
-        let nearestEnemyIndex = -1;
-        let minDistance = this.range;
-
-
-        if (this.target && (calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range ||
-           (this.target.health <= 0))) {
-            this.target = null;
-        }
-
-        if (this.target) {
-            return;
-        }
+        let nearestUnitIndex = -1,
+            nearestTowerIndex = -1,
+            minDistance = this.range;
 
         for (let i = 0, m = this.units.length; i < m; i++) {
-
-            let unit = this.units[i];
-            let distance = calculateDistance(this.x, this.y, unit.x, unit.y);
+            let unit = this.units[i],
+                distance = calculateDistance(this.x, this.y, unit.x, unit.y);
 
             if (distance < minDistance) {
-                nearestEnemyIndex = i;
+                nearestUnitIndex = i;
                 minDistance = distance;
             }
         }
 
-        let targetUnit;
-        if (nearestEnemyIndex != -1) {
-            targetUnit = this.units[nearestEnemyIndex];
-        }
-
-        nearestEnemyIndex = -1;
         for (let i = 0, m = this.towers.length; i < m; i++) {
-
-            let tower = this.towers[i];
-            let distance = calculateDistance(this.x, this.y, tower.x, tower.y);
+            let tower = this.towers[i],
+                distance = calculateDistance(this.x, this.y, tower.x, tower.y);
 
             if (distance < minDistance) {
-                nearestEnemyIndex = i;
+                nearestTowerIndex = i;
                 minDistance = distance;
             }
         }
@@ -140,10 +130,10 @@ export default class BaseEnemy {
             return;
         }
 
-        if (nearestEnemyIndex != -1) {
-            this.target = this.towers[nearestEnemyIndex];
-        } else if (targetUnit) {
-            this.target = targetUnit;
+        if (nearestTowerIndex != -1) {
+            this.target = this.towers[nearestTowerIndex];
+        } else if (nearestUnitIndex != -1) {
+            this.target = this.units[nearestUnitIndex];
         }
     }
 

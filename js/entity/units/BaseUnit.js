@@ -6,6 +6,7 @@ export default class BaseUnit {
     constructor(game, x, y) {
         this.game = game;
         this.ctx = game.ctx;
+
         this.x = x;
         this.y = y;
         this.width = Constants.cellSize / 2;
@@ -39,8 +40,6 @@ export default class BaseUnit {
         this.slowingInterval = 300;
         this.isSlowed = false;
         this.slowingCoeff = 0.6;
-
-        this.level = 1;
 
         this.died = false;
     }
@@ -85,47 +84,51 @@ export default class BaseUnit {
 
         if (this.targets.length == 0) return;
 
-        let directionTarget = this.targets[0];
-        let newDirection = Math.atan2(directionTarget.y - this.y,
+        let directionTarget = this.targets[0],
+            newDirection = Math.atan2(directionTarget.y - this.y,
                                       directionTarget.x - this.x);
         newDirection = newDirection * (180 / Math.PI);
         //drawRotated(this.ctx, image, newDirection - this.direction);
         this.direction = newDirection;
     }
 
-    findTargets(n) {
-        for (let i = this.targets.length; i < n; i++) {
-            let target = this.findTarget()
-            if (target) {
-                this.targets.push(target)
+    findTargets(targetsAmount) {
+        for (let i = 0; i < this.targets.length; i++) {
+            let target = this.targets[i];
+
+            if (calculateDistance(this.x, this.y, target.x, target.y) > this.range ||
+               (target.died)) {
+                this.targets.splice(i, 1);
+                i--;
             }
         }
 
-        for (let i = 0; i < this.targets.length; i++) {
-            let enemy = this.targets[i];
-            if (calculateDistance(this.x, this.y, enemy.x, enemy.y) > this.range ||
-               (enemy.health <= 0)) {
-                this.targets.splice(i, 1);
-            }
+        for (let i = this.targets.length; i < targetsAmount; i++) {
+            let target = this.findTarget();
+
+            if (target) {
+                this.targets.push(target);
+            } else break;
         }
     }
 
     findTarget() {
-        let nearestEnemyIndex = -1;
-        let minDistance = this.range;
+        let nearestEnemyIndex = -1,
+            minDistance = this.range;
 
         for (let i = 0, m = this.enemies.length; i < m; i++) {
-
-            let enemy = this.enemies[i];
-            let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
+            let enemy = this.enemies[i],
+                distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 
             if (distance < minDistance) {
                 let isTargetAlready = false;
+
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (enemy == this.targets[j]) {
                         isTargetAlready = true;
                     }
                 }
+
                 if (!isTargetAlready) {
                     nearestEnemyIndex = i;
                     minDistance = distance;
@@ -133,7 +136,7 @@ export default class BaseUnit {
             }
         }
 
-        if (calculateDistance(this.x, 0, Constants.canvasWidth - Constants.cellSize / 2, 0) < minDistance) {
+        if ((Constants.canvasWidth - Constants.cellSize / 2) - this.x < minDistance) {
             return new BaseTarget(Constants.canvasWidth - Constants.cellSize / 2, this.y, this.game.enemyBase);
         }
 

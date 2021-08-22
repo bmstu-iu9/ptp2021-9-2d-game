@@ -6,5 +6,4 @@ export default class BaseTarget {
         this.y = y;
         this.health = base.health;
     }
-
 }

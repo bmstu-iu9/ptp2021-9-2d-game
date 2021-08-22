@@ -6,12 +6,15 @@ import { calculateDistance } from './../../utils/utils.js';
 export default class Unit3 extends BaseUnit {
     constructor(game, x, y, hasAbility) {
         super(game, x, y);
+
         this.game = game;
-        this.range = Constants.cellSize;
-        this.cost = 100;
+
         this.maxHealth = 500;
         this.health = this.maxHealth;
+        
+        this.range = Constants.cellSize;
         this.damage = 10;
+
         this.hasAbility = hasAbility;
     }
 
@@ -42,8 +45,9 @@ export default class Unit3 extends BaseUnit {
                     this.x + this.width/2,
                     this.y + this.height/2,
                     this.damage,
-                    1)); // this.level
+                ));
             }
+
             this.lastShotTime = new Date();
         }
     }
@@ -53,8 +57,8 @@ export default class Unit3 extends BaseUnit {
 
         for (let i = 0, m = this.enemies.length; i < m; i++) {
 
-            let enemy = this.enemies[i];
-            let distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
+            let enemy = this.enemies[i],
+                distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
 
             if (distance < this.range) {
                 enemy.health -= Math.floor(enemy.health / 2);

@@ -6,12 +6,15 @@ export default class HealingProjectile {
         this.target = target;
         this.targetX = target.x;
         this.targetY = target.y;
+
         this.x = x;
         this.y = y;
         this.width = Constants.cellSize / 25;
         this.height = Constants.cellSize / 25;
+
         this.speed = Constants.cellSize / 15;
         this.healing = healing;
+
         this.complete = false;
     }
 
@@ -43,20 +46,20 @@ export default class HealingProjectile {
         }
     }
 
-    draw(game) {
+    draw(ctx) {
         if (this.complete) {
             // Здесь будет обработка анимации лечения
         } else {
-            game.ctx.beginPath();
-            game.ctx.save();
-            game.ctx.translate(this.x, this.y);
-            game.ctx.scale(1, this.height/this.width);
-            game.ctx.arc(0, 0, this.width, 0, Math.PI*2);
-            game.ctx.fill();
-            game.ctx.restore();
-            game.ctx.strokeStyle = 'green';
-            game.ctx.stroke();
-            game.ctx.closePath();
+            ctx.beginPath();
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.scale(1, this.height/this.width);
+            ctx.arc(0, 0, this.width, 0, Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+            ctx.strokeStyle = 'green';
+            ctx.stroke();
+            ctx.closePath();
         }
     }
 }

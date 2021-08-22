@@ -29,19 +29,19 @@ export function processEnemies(game) {
 
         switch(Math.floor(Math.random() * 4 + 1)) {
             case 1:
-                enemies.push(new Enemy1(game, verticalPosition, ctx));
+                enemies.push(new Enemy1(game, verticalPosition));
                 break;
 
             case 2:
-                enemies.push(new Enemy2(game, verticalPosition, ctx));
+                enemies.push(new Enemy2(game, verticalPosition));
                 break;
 
             case 3:
-                enemies.push(new Enemy3(game, verticalPosition, ctx));
+                enemies.push(new Enemy3(game, verticalPosition));
                 break;
 
             case 4:
-                enemies.push(new Enemy4(game, verticalPosition, ctx));
+                enemies.push(new Enemy4(game, verticalPosition));
                 break;
             }
 

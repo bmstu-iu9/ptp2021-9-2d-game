@@ -6,16 +6,21 @@ import { calculateDistance } from './../../utils/utils.js';
 export default class Unit7 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
+
         this.units = game.units;
-        this.range = 10 * Constants.cellSize;
-        this.cost = 100;
+
         this.maxHealth = 100;
         this.health = this.maxHealth;
+
+        this.speed = Constants.cellSize * 5 / 100;
+
+        this.range = 10 * Constants.cellSize;
+
         this.baseDamage = 25;
         this.damage = this.baseDamage;
         this.shootInterval *= 10;
+
         this.shots = 0;
-        this.speed = Constants.cellSize * 5 / 100;
     }
 
     shoot() {
@@ -26,7 +31,7 @@ export default class Unit7 extends BaseUnit {
                     this.x + this.width/2,
                     this.y + this.height/2,
                     this.damage,
-                    0));
+                    1));
 
                 this.shots += 1;
             }

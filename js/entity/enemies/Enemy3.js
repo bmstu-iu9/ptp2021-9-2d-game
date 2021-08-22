@@ -1,17 +1,16 @@
 import BaseEnemy from './BaseEnemy.js';
 import Projectile1 from '../projectiles/Projectile1.js';
 import * as Constants from './../../constants.js';
-import { calculateDistance } from './../../utils/utils.js';
 
 export default class Enemy3 extends BaseEnemy {
     constructor(game, x, y) {
         super(game, x, y);
         this.range = Constants.cellSize * 5;
-        this.cost = 100;
+
         this.maxHealth = 500;
         this.health = this.maxHealth;
-        this.damage = 25;
-        this.hasAbility = true;
+
+        this.baseDamage = 25;
     }
 
     shoot() {
@@ -21,7 +20,9 @@ export default class Enemy3 extends BaseEnemy {
                 this.x,
                 this.y,
                 this.damage,
-                1));
+                1,
+            ));
+            
             this.lastShotTime = new Date();
         }
     }

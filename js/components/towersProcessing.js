@@ -113,7 +113,7 @@ export function processTowers(game) {
             continue;
         }
 
-        if (tower.level == 1 && game.resources >= tower.upgradecost) {
+        if (tower.level == 1 && game.resources >= tower.upgradeCost) {
             drawUpgradeOpportunity(tower, game.ctx)
         }
 

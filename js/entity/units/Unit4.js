@@ -6,35 +6,38 @@ import { calculateDistance } from './../../utils/utils.js';
 export default class Unit4 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
-        this.range = 5 * Constants.cellSize;
-        this.cost = 100;
 
         this.maxHealth = 100;
         this.health = this.maxHealth;
+
+        this.range = 5 * Constants.cellSize;
+
         this.healing = 10;
         this.totalHealing = 0;
     }
 
-    findTargets(n) {
-        for (let i = this.targets.length; i < n; i++) {
-            let target = this.findTarget()
-            if (target) {
-                this.targets.push(target)
-            }
-        }
-
+    findTargets(targetsAmount) {
         for (let i = 0; i < this.targets.length; i++) {
             let ally = this.targets[i];
+
             if (calculateDistance(this.x, this.y, ally.x, ally.y) > this.range ||
                (ally.health == ally.maxHealth)) {
                    this.targets.splice(i, 1);
             }
         }
+
+        for (let i = this.targets.length; i < targetsAmount; i++) {
+            let target = this.findTarget();
+
+            if (target) {
+                this.targets.push(target)
+            }
+        }
     }
 
     findTarget() {
-        let lowestHealthAllyIndex = -1;
-        let lowestHealth = 1000;
+        let lowestHealthAllyIndex = -1,
+            lowestHealth = 10000;
 
         for (let i = 0, m = this.units.length; i < m; i++) {
             let ally = this.units[i];
@@ -43,13 +46,17 @@ export default class Unit4 extends BaseUnit {
 
             let distance = calculateDistance(this.x, this.y, ally.x, ally.y);
 
-            if (distance < this.range && ally.health < lowestHealth) {
+            if (distance < this.range && ally.health < lowestHealth &&
+                ally.health < ally.maxHealth) {
+                    
                 let isTargetAlready = false;
+
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (ally == this.targets[j]) {
                         isTargetAlready = true;
                     }
                 }
+
                 if (!isTargetAlready) {
                     lowestHealthAllyIndex = i;
                     lowestHealth = ally.health;
@@ -73,6 +80,7 @@ export default class Unit4 extends BaseUnit {
 
                 this.totalHealing += this.healing;
             }
+
             this.lastShotTime = new Date();
         }
 

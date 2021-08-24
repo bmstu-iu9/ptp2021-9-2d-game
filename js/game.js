@@ -36,53 +36,20 @@ class Game {
         this.enemyBase = new EnemyBase();
         this.mouse = null;
         this.chosenTower = 0;
-        this.menuHeight = 25;
-        this.menuWidth = game.width;
-        this.menuBG = 'green';
-        this.menuColor = 'white';
-        this.menuFotsize = '15px';
-        this.gameHeight = game.height - menuHeight;
-        this.refresh;
-        this.menuShown = fale;
+        this.menuHeight = 50;
+        this.menuWidth = 100;
+        this.menuBg = "green";
+        this.menuColor = "white";
+        this.menuFontSize = "15px";
+
     }
-
-
 
 
     gameFunc(){
-      gameRunning = true;
-      this.ctx.fillStyle = menuBG;
-      this.ctx.fillRect(1500, 20, 50, 25 );
+      this.ctx.fillStyle = game.menuBg;
+      this.ctx.fillRect(1500, 40, game.menuWidth, game.menuHeight);
 
-      this.ctx.font = 'bold 15px Times new Roman';
-      this.ctx.fillStyle = menuColor;
-      this.ctx.fillText('options', 1500, 18);
     }
-
-    document.onmousedown = checkClick;
-    checkClick(e){
-      if(e.clientX > 1500 && e.clientX < 1560 && e.clientY > 15 && e.clientY < 25 ){
-        console.log('clicked menu');
-        showMenu();
-      }
-      if(menuShown == true){
-        if(e.clientX >(game.width/4)+15 && e.clientX <((game.width/4) + 85 && e.clientY > (gameHeight / 4) +75 && e.clientY < (gameHeight / 4) +75 + 20){
-          //resume clicked
-          console.log('resume clicked');
-          showMenu();
-        }
-      }
-    }
-    /*
-
-
-
-    ctx.fillText('Menu', game.width/4+15, gameHeight/4 + 25 )
-
-    ctx.fillText("Resume", (game.width/4)+15 , (gameHeight / 4) +75);
-    */
-
-
 
     init() {
         this.mouse = new Mouse(game);
@@ -134,48 +101,17 @@ class Game {
 
 let game = new Game();
 game.init();
-game.gameFunc();
 
 
 function play() {
     game.animate()
-
+    game.gameFunc()
     if (!game.gameOver) requestAnimationFrame(play);
 }
 
-  startGame(){
-    gameRunning = true;
-    refresh = setInterval(game, 1000/60);
-  }
-
-
-showMenu(){
-  if(gameRunning == true){
-    clearInterval(refresh);
-    gameRunning = false;
-    menuShown = true;
-  } else {
-    gameRunning = true;
-    menuShown = false;
-    startGame();
-    }
-
-    ctx.fillStyle = 'white';
-    ctx.fillRect(game.width/4, gameHeight/4, game.width/2, gameHeight/2);
-
-    ctx.fillStyle = menuBG;
-    ctx.fillRect(game.width/4, gameHeight/4, game.width/2, gameHeight/10);
 
 
 
-    ctx.font = 'bold 15px Arial';
-    ctx.fillStyle = 'white';
-    ctx.fillText('Meny', game.width/4+15, gameHeight/4 + 25 )
-    ctx.fillStyle = 'black';
-    ctx.fillText("Resume", (game.width/4)+15 , (gameHeight / 4) +75);
 
 
-  }
-}
-startGame()
 play()

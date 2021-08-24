@@ -44,11 +44,7 @@ class Game {
         this.menuWidth = 100;
         this.menuBg = "green";
         this.menuColor = "white";
-<<<<<<< HEAD
         this.menuFontSize = "15px";
-=======
-
->>>>>>> 0c4245ebb507fdf122e37967d8ba9460ebb893a6
     }
 
 
@@ -58,8 +54,6 @@ class Game {
       this.ctx.font = "bold 25px Orbitron";
       this.ctx.fillStyle = game.menuColor;
       this.ctx.fillText("Menu", 1514, 72);
-      
-
     }
 
 

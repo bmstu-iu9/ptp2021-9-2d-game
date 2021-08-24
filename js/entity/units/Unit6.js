@@ -6,10 +6,10 @@ import { calculateDistance } from './../../utils/utils.js';
 export default class Unit6 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
-        this.range = Constants.cellSize;
-        this.cost = 100;
+
         this.maxHealth = 500;
         this.health = this.maxHealth;
+        this.range = Constants.cellSize;
 
         this.shootInterval = 500;
         this.damage = 5;
@@ -19,16 +19,17 @@ export default class Unit6 extends BaseUnit {
         this.acceleration = this.baseSpeed / 10;
 
         this.hasAbility = true;
+
+        this.index = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     update() {
         if (this.health == 0) {
-            for (let i = 0, n = this.units.length; i < n; i++) {
-                if (this == this.units[i]) {
-                    this.units.splice(i, 1);
-                    return;
-                }
-            }
+            this.died = true;
+            return;
         }
 
         this.step();
@@ -62,8 +63,9 @@ export default class Unit6 extends BaseUnit {
                     this.x + this.width/2,
                     this.y + this.height/2,
                     this.damage,
-                    1));
+                ));
             }
+
             this.lastShotTime = new Date();
         }
     }
@@ -74,6 +76,16 @@ export default class Unit6 extends BaseUnit {
         this.damage += 3 * this.currentSpeed;
         this.shootInterval -= 2 * this.currentSpeed;
         this.currentSpeed = this.baseSpeed;
+
+        for (let i = 0, n = this.enemies.length; i < n; i++) {
+
+            let enemy = this.enemies[i],
+                distance = calculateDistance(this.x, this.y, enemy.x, enemy.y);
+
+            if (distance < this.range) {
+                enemy.health -= Math.floor(this.damage * enemy.health / 250);
+            }
+        }
 
         this.hasAbility = false;
     }
@@ -98,10 +110,20 @@ export default class Unit6 extends BaseUnit {
     draw() {
         let ctx = this.ctx;
 
-        ctx.fillStyle = 'grey';
+        var img = new Image();
+        img.src = "./../../../images/unit6/" + this.index + ".png";
+
+        ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.index = (this.index + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
+
+        /*ctx.fillStyle = 'grey';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
         ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);*/
     }
 }

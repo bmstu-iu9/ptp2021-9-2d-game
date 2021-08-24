@@ -1,50 +1,58 @@
 import BaseTower from './BaseTower.js';
 import Projectile1 from '../projectiles/Projectile1.js';
-import * as Constant from './../../constants.js';
+import * as Constants from './../../constants.js';
 
 export default class Tower1 extends BaseTower {
     constructor(game, x, y) {
         super(game, x, y);
-        this.cost = 100;
+
         this.health = 100;
         this.damage = 10;
-        this.upgradecost = 200;
-        this.range = Constant.cellSize * 10;
+        this.range = Constants.cellSize * 10;
+
+        this.upgradeCost = 200;
+
         this.lastShotTime = new Date();
         this.shootInterval = 300;
+
         this.level = 1;
     }
 
-    shoot(target) {
-        this.projectiles.push(new Projectile1(
-            target,
-            this.x,
-            this.y,
-            this.damage,
-            this.level
-        ))
+    shoot() {
+        if (new Date - this.lastShotTime >= this.shootInterval) {
+            for (let i = 0, n = this.targets.length; i < n; i++) {
+                this.projectiles.push(new Projectile1(
+                    this.targets[i],
+                    this.x,
+                    this.y,
+                    this.damage,
+                ))
+            }
+
+            this.lastShotTime = new Date();
+        }
     }
 
     draw() {
-        this.step();
         let ctx = this.ctx;
+
         if (this.level == 1) {
             ctx.fillStyle = 'green';
-            ctx.fillRect(this.x - Constant.cellSize / 2, this.y - Constant.cellSize / 2, this.width, this.height);
+            ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
-            ctx.font = Constant.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
-        } else {
+            ctx.font = Constants.fontSize + 'px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
+        } else if (this.level == 2) {
             ctx.fillStyle = 'blue';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
-            ctx.font = Constant.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constant.cellSize / 20, this.y + Constant.cellSize / 3);
+            ctx.font = Constants.fontSize + 'px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
         }
     }
 
     upgrade() {
-        this.level += 1;
+        this.level = 2;
         this.damage += 20;
         this.shootInterval -= 50;
     }

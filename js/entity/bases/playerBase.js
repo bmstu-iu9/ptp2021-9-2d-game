@@ -2,7 +2,7 @@ import * as Constants from './../../constants.js';
 
 export default class PlayerBase {
     constructor() {
-        this.health = { data: 1000};
+        this.health = { data: 100000};
     }
 
     draw(ctx) {

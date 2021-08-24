@@ -44,15 +44,30 @@ class Game {
         this.menuWidth = 100;
         this.menuBg = "green";
         this.menuColor = "white";
+<<<<<<< HEAD
         this.menuFontSize = "15px";
+=======
+
+>>>>>>> 0c4245ebb507fdf122e37967d8ba9460ebb893a6
     }
 
 
     gameFunc(){
       this.ctx.fillStyle = game.menuBg;
       this.ctx.fillRect(1500, 40, game.menuWidth, game.menuHeight);
+      this.ctx.font = "bold 25px Orbitron";
+      this.ctx.fillStyle = game.menuColor;
+      this.ctx.fillText("Menu", 1514, 72);
+      
 
     }
+
+
+    checkClick(e){
+      console.log('hello',game.e.clientX, game.e.clientY);
+    }
+
+
 
     init() {
         this.mouse = new Mouse(game);
@@ -85,6 +100,7 @@ game.init();
 function play() {
     game.animate()
     game.gameFunc()
+    game.checkClick()
     if (!game.gameOver) requestAnimationFrame(play);
 }
 

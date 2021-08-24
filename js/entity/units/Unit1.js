@@ -10,7 +10,7 @@ export default class Unit1 extends BaseUnit {
 
         this.maxHealth = 500;
         this.health = this.maxHealth;
-        
+
         this.range = Constants.cellSize;
         this.damage = 10;
 
@@ -171,7 +171,7 @@ export default class Unit1 extends BaseUnit {
         ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.index = (this.index + 1) % 2;
+            this.index = (this.index + 1) % 4;
             this.lastAnimationTime = new Date;
         }
 

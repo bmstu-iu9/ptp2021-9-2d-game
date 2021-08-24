@@ -19,6 +19,11 @@ export default class Unit6 extends BaseUnit {
         this.acceleration = this.baseSpeed / 10;
 
         this.hasAbility = true;
+
+        this.index = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     update() {
@@ -105,10 +110,20 @@ export default class Unit6 extends BaseUnit {
     draw() {
         let ctx = this.ctx;
 
-        ctx.fillStyle = 'grey';
+        var img = new Image();
+        img.src = "./../../../images/unit6/" + this.index + ".png";
+
+        ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.index = (this.index + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
+
+        /*ctx.fillStyle = 'grey';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
         ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);*/
     }
 }

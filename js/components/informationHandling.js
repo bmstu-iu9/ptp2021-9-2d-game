@@ -1,61 +1,211 @@
-import Enemies from './../entity/enemies/enemies.js';
+import * as Constants from './../constants.js';
 
-export function handleTowers(game) {
-    for (let i = 0; i < game.towers.length; i++) {
-        game.towers[i].draw();
-    }
-}
+export function handleBases(game) {
+    let ctx = game.ctx;
 
-export function handleInformation(ctx, gameover, resources, mybase) {
-    ctx.fillStyle = 'black';
-    ctx.font = '35px Orbitron';
-    ctx.fillText('resources: ' + resources, 555, 60);
-
-    if (gameover && mybase.health <= 0) {
+    if (game.playerBase.health.data == 0) {
         ctx.fillStyle = 'red';
         ctx.font = '60px Orbitron';
-        ctx.fillText('YOU LOSE', 250, 330);
+        ctx.fillText('YOU LOSE', Constants.canvasWidth / 2, Constants.canvasHeight / 2);
+        game.gameOver = true;
     }
 
-    if (gameover && enemybase.health <= 0) {
+    if (game.enemyBase.health.data == 0) {
         ctx.fillStyle = 'green';
         ctx.font = '60px Orbitron';
-        ctx.fillText('YOU WIN', 250, 330);
+        ctx.fillText('YOU WIN', Constants.canvasWidth / 2, Constants.canvasHeight / 2);
+        game.gameOver = true;
     }
+
+    game.playerBase.draw(ctx);
+    game.enemyBase.draw(ctx);
 }
+
 
 export function handleGameGrid(game) {
     let gameGrid = game.gameGrid;
 
-    for (let i = 0; i < gameGrid.length; i++) {
+    for (let i = 0, n = gameGrid.length; i < n; i++) {
         gameGrid[i].draw(game);
     }
 }
 
-export function handleEnemies(enemies, resources, ctx, frame, enemydamage, interval) {
 
-    for (let i = 0; i < enemies.length; i++) {
-        enemies[i].update();
-        enemies[i].draw();
+export function handleControlBar(game) {
+    let ctx = game.ctx;
 
-        if (enemies[i].health <= 0) {
-            resources += enemies[i].maxHealth / 10;
-            enemies.splice(i, 1);
-            i--;
-        }
+    ctx.clearRect(0, 0, game.canvas.width, game.canvas.height);
+    ctx.fillStyle = 'grey';
+    ctx.fillRect(0, 0, Constants.controlBarWidth, Constants.controlBarHeight);
+
+    if (new Date - game.last_obtaining_resources_time > game.obtaining_resources_interval) {
+        game.resources += 10;
+        game.last_obtaining_resources_time = new Date();
     }
 
-    if (frame % interval === 0) {
-        let verticalPosition = Math.floor(Math.random() * 7 + 1) * 100;
-        enemies.push(new Enemies(verticalPosition, ctx));
+    let fontSize = Constants.cellSize * 3 / 5;
+    ctx.fillStyle = 'black';
+    ctx.font = fontSize + 'px Orbitron';
+    let delta = Constants.cellSize + (Constants.canvasWidth / 2 - 10 * Constants.cellSize - 6 * Constants.cellSize / 2) / 2;
+    ctx.fillText('Resources: ' + game.resources, Constants.canvasWidth / 2 - delta * 7 / 6, Constants.cellSize * 2 / 3);
 
-        if (interval > 120) {
-            interval -= 50;
-        }
+    ctx.fillStyle = 'black';
+    ctx.font = fontSize + 'px Orbitron';
+    ctx.fillText('Towers', (Constants.canvasWidth / 2 - delta - Constants.cellSize) / 2, Constants.cellSize * 3 / 5);
+
+    ctx.fillStyle = 'black';
+    ctx.font = fontSize + 'px Orbitron';
+    ctx.fillText('Units', Constants.canvasWidth / 2 + (Constants.canvasWidth / 2 - Constants.cellSize) / 2, Constants.cellSize * 3 / 5);
+
+    let towerCard1stroke = 'black',
+        towerCard2stroke = 'black',
+        towerCard3stroke = 'black',
+        towerCard4stroke = 'black',
+        towerCard5stroke = 'black',
+        towerCard6stroke = 'black',
+        towerCard7stroke = 'black';
+
+    let unitCard1stroke = 'black',
+        unitCard2stroke = 'black',
+        unitCard3stroke = 'black',
+        unitCard4stroke = 'black',
+        unitCard5stroke = 'black',
+        unitCard6stroke = 'black',
+        unitCard7stroke = 'black';
+
+    switch (game.chosenTower) {
+        case 1:
+            towerCard1stroke = 'gold';
+            break;
+
+        case 2:
+            towerCard2stroke = 'gold';
+            break;
+
+        case 3:
+            towerCard3stroke = 'gold';
+            break;
+
+        case 4:
+            towerCard4stroke = 'gold';
+            break;
+
+        case 5:
+            towerCard5stroke = 'gold';
+            break;
+
+        case 6:
+            towerCard6stroke = 'gold';
+            break;
+
+        case 7:
+            towerCard7stroke = 'gold';
+            break;
     }
 
-    if (frame % 2000 === 0 && frame > 0) {
-        enemydamage += (frame / 1000);
+    switch (game.chosenUnit) {
+        case 1:
+            unitCard1stroke = 'gold';
+            break;
+
+        case 2:
+            unitCard2stroke = 'gold';
+            break;
+
+        case 3:
+            unitCard3stroke = 'gold';
+            break;
+
+        case 4:
+            unitCard4stroke = 'gold';
+            break;
+
+        case 5:
+            unitCard5stroke = 'gold';
+            break;
+
+        case 6:
+            unitCard6stroke = 'gold';
+            break;
+
+        case 7:
+            unitCard7stroke = 'gold';
+            break;
     }
 
+    ctx.lineWidth = Constants.cellSize / 20;
+
+    // кнопки башен
+
+    ctx.fillStyle = 'green';
+    ctx.fillRect(Constants.towerCard1.x, Constants.towerCard1.y, Constants.towerCard1.width, Constants.towerCard1.height);
+    ctx.strokeStyle = towerCard1stroke;
+    ctx.strokeRect(Constants.towerCard1.x, Constants.towerCard1.y, Constants.towerCard1.width, Constants.towerCard1.height);
+
+    ctx.fillStyle = 'red';
+    ctx.fillRect(Constants.towerCard2.x, Constants.towerCard2.y, Constants.towerCard2.width, Constants.towerCard2.height);
+    ctx.strokeStyle = towerCard2stroke;
+    ctx.strokeRect(Constants.towerCard2.x, Constants.towerCard2.y, Constants.towerCard2.width, Constants.towerCard2.height);
+
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(Constants.towerCard3.x, Constants.towerCard3.y, Constants.towerCard3.width, Constants.towerCard3.height);
+    ctx.strokeStyle = towerCard3stroke;
+    ctx.strokeRect(Constants.towerCard3.x, Constants.towerCard3.y, Constants.towerCard3.width, Constants.towerCard3.height);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(Constants.towerCard4.x, Constants.towerCard4.y, Constants.towerCard4.width, Constants.towerCard4.height);
+    ctx.strokeStyle = towerCard4stroke;
+    ctx.strokeRect(Constants.towerCard4.x, Constants.towerCard4.y, Constants.towerCard4.width, Constants.towerCard4.height);
+
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(Constants.towerCard5.x, Constants.towerCard5.y, Constants.towerCard5.width, Constants.towerCard5.height);
+    ctx.strokeStyle = towerCard5stroke;
+    ctx.strokeRect(Constants.towerCard5.x, Constants.towerCard5.y, Constants.towerCard5.width, Constants.towerCard5.height);
+
+    ctx.fillStyle = 'orange';
+    ctx.fillRect(Constants.towerCard6.x, Constants.towerCard6.y, Constants.towerCard6.width, Constants.towerCard6.height);
+    ctx.strokeStyle = towerCard6stroke;
+    ctx.strokeRect(Constants.towerCard6.x, Constants.towerCard6.y, Constants.towerCard6.width, Constants.towerCard6.height);
+
+    ctx.fillStyle = 'pink';
+    ctx.fillRect(Constants.towerCard7.x, Constants.towerCard7.y, Constants.towerCard7.width, Constants.towerCard7.height);
+    ctx.strokeStyle = towerCard7stroke;
+    ctx.strokeRect(Constants.towerCard7.x, Constants.towerCard7.y, Constants.towerCard7.width, Constants.towerCard7.height);
+
+    // кнопки юнитов
+
+    ctx.fillStyle = 'green';
+    ctx.fillRect(Constants.unitCard1.x, Constants.unitCard1.y, Constants.unitCard1.width, Constants.unitCard1.height);
+    ctx.strokeStyle = unitCard1stroke;
+    ctx.strokeRect(Constants.unitCard1.x, Constants.unitCard1.y, Constants.unitCard1.width, Constants.unitCard1.height);
+
+    ctx.fillStyle = 'red';
+    ctx.fillRect(Constants.unitCard2.x, Constants.unitCard2.y, Constants.unitCard2.width, Constants.unitCard2.height);
+    ctx.strokeStyle = unitCard2stroke;
+    ctx.strokeRect(Constants.unitCard2.x, Constants.unitCard2.y, Constants.unitCard2.width, Constants.unitCard2.height);
+
+    ctx.fillStyle = 'blue';
+    ctx.fillRect(Constants.unitCard3.x, Constants.unitCard3.y, Constants.unitCard3.width, Constants.unitCard3.height);
+    ctx.strokeStyle = unitCard3stroke;
+    ctx.strokeRect(Constants.unitCard3.x, Constants.unitCard3.y, Constants.unitCard3.width, Constants.unitCard3.height);
+
+    ctx.fillStyle = 'purple';
+    ctx.fillRect(Constants.unitCard4.x, Constants.unitCard4.y, Constants.unitCard4.width, Constants.unitCard4.height);
+    ctx.strokeStyle = unitCard4stroke;
+    ctx.strokeRect(Constants.unitCard4.x, Constants.unitCard4.y, Constants.unitCard4.width, Constants.unitCard4.height);
+
+    ctx.fillStyle = 'orange';
+    ctx.fillRect(Constants.unitCard5.x, Constants.unitCard5.y, Constants.unitCard5.width, Constants.unitCard5.height);
+    ctx.strokeStyle = unitCard5stroke;
+    ctx.strokeRect(Constants.unitCard5.x, Constants.unitCard5.y, Constants.unitCard5.width, Constants.unitCard5.height);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(Constants.unitCard6.x, Constants.unitCard6.y, Constants.unitCard6.width, Constants.unitCard6.height);
+    ctx.strokeStyle = unitCard6stroke;
+    ctx.strokeRect(Constants.unitCard6.x, Constants.unitCard6.y, Constants.unitCard6.width, Constants.unitCard6.height);
+
+    ctx.fillStyle = 'pink';
+    ctx.fillRect(Constants.unitCard7.x, Constants.unitCard7.y, Constants.unitCard7.width, Constants.unitCard7.height);
+    ctx.strokeStyle = unitCard7stroke;
+    ctx.strokeRect(Constants.unitCard7.x, Constants.unitCard7.y, Constants.unitCard7.width, Constants.unitCard7.height);
 }

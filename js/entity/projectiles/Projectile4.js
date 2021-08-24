@@ -1,75 +1,91 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constants from './../../constants.js';
 
 export default class Projectile4 {
-    constructor(target, x, y, level, damage) {
+    constructor(target, x, y, damage, slowingInterval, slowingCoeff) {
         this.target = target;
         this.targetX = target.x;
         this.targetY = target.y;
+
         this.x = x;
         this.y = y;
-        this.width = 10;
-        this.height = 10;
-        this.speed = 3;
+        this.width = Constants.cellSize / 15;
+        this.height = Constants.cellSize / 15;
+
+        this.range = Constants.cellSize / 2;
+
+        this.speed = Constants.cellSize * 15/100;
         this.damage = damage;
-        this.level = level;
-        this.hitt = false;
+
+        this.slowingInterval = slowingInterval;
+        this.slowingCoeff = slowingCoeff;
+
+        this.explosionFrame = 0;
+        this.reached = false;
+        this.complete = false;
     }
 
     update() {
-        if (this.hitt) return;
+        if (this.reached) return;
 
         if (this.target) {
             this.targetX = this.target.x;
             this.targetY = this.target.y;
         }
 
-        let angle = Math.atan2(this.targetY + 50 - this.y,
-                               this.targetX + 50 - this.x);
+        let angle = Math.atan2(this.targetY - this.y,
+                               this.targetX - this.x);
+
         this.x += this.speed * Math.cos(angle);
         this.y += this.speed * Math.sin(angle);
     }
 
     hit(enemies) {
-        if (calculateDistance(this.x, this.y, this.targetX, this.targetY) > 71 || this.hitt) {
+        if (calculateDistance(this.x, this.y,
+                              this.targetX, this.targetY) > this.range ||
+            this.reached) {
+
             return;
         }
 
-        this.hitt = true;
+        this.reached = true;
 
-        if (this.level == 1) {
-            this.target.health -= this.damage;
-            this.target.movement *= 0.95;
-        } else {
-            epicenterX = this.target.x;
-            epicenterY = this.target.y;
-            for (let i = 0, n = enemies.length; i < n; i++) {
-                let enemy = enemies[i];
-                if (calculateDistance(epicenterX, epicenterY,
-                                      enemy.x, enemy.y) < 50) {
-                    enemy.health -= this.damage;
-                    enemy.movement *= 0.95;
-                }
+        let target = this.target;
+
+        if (target) {
+            target.isSlowed = true;
+            target.slowingInterval = this.slowingInterval;
+            target.slowingCoeff = this.slowingCoeff;
+            target.lastSlowingShotTime = new Date();
+
+            if (target.health - this.damage < 0) {
+                target.health = 0;
+            } else {
+                target.health -= this.damage;
             }
         }
-        // У врагов нужно создать поле для проверки на то, находится ли он
-        // под действием замедления. Если нет, то восстановить скорость
     }
 
-    draw(game) {
-        if (this.hitt) {
-            this.complete = true;
+    draw(ctx) {
+        if (this.reached) {
+            this.explosionFrame++;
+
             // Здесь будет обработка анимации взрыва
+
+            if (this.explosionFrame == 5) {
+                this.complete = true;
+            }
         } else {
-            game.ctx.beginPath();
-            game.ctx.save();
-            game.ctx.translate(this.x, this.y);
-            game.ctx.scale(1, this.height/this.width);
-            game.ctx.arc(0, 0, this.width, 0, Math.PI*2);
-            game.ctx.fill();
-            game.ctx.restore();
-            game.ctx.strokeStyle = 'red';
-            game.ctx.stroke();
-            game.ctx.closePath();
+            ctx.beginPath();
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.scale(1, this.height/this.width);
+            ctx.arc(0, 0, this.width, 0, Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+            ctx.closePath();
         }
     }
 }

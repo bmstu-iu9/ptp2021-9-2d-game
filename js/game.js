@@ -25,19 +25,26 @@ class Game {
 
         this.gameOver = false;
         this.gameRunning = false;
+
         this.resources = 300;
-        this.enemydamage = 10;
-        this.frame = 0;
+
         this.playerBase = new PlayerBase();
         this.enemyBase = new EnemyBase();
-        this.mouse = null;
-        this.chosenTower = 0;
+
+        this.chosenTower = null;
+        this.chosenUnit = null;
+
+        this.obtaining_resources_interval = 1000;
+        this.last_obtaining_resources_time = new Date();
+
+        this.enemy_summoning_interval = 5000;
+        this.last_enemy_summoning_time = new Date();
+
         this.menuHeight = 50;
         this.menuWidth = 100;
         this.menuBg = "green";
         this.menuColor = "white";
         this.menuFontSize = "15px";
-
     }
 
 
@@ -80,10 +87,5 @@ function play() {
     game.gameFunc()
     if (!game.gameOver) requestAnimationFrame(play);
 }
-
-
-
-
-
 
 play()

@@ -164,9 +164,11 @@ export default class Unit1 extends BaseUnit {
         */
         var img = new Image();
 
-
-        img.src = "./../../../images/unit1/" + this.index + ".png";
-
+        if (this.targets.length != 0) {
+            img.src = "./../../../images/unit1/hit/" + this.index + ".png";
+        } else {
+            img.src = "./../../../images/unit1/run/" + this.index + ".png";
+        }
 
         ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
 
@@ -175,6 +177,9 @@ export default class Unit1 extends BaseUnit {
             this.lastAnimationTime = new Date;
         }
 
+        ctx.fillStyle = 'black';
+        ctx.font = Constants.fontSize + 'px Orbitron';
+        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
 
         // Загружаем файл изображения
 

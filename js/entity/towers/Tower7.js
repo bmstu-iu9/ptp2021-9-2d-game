@@ -25,6 +25,11 @@ export default class Tower7 extends BaseTower {
         this.unitNumber = 0;
 
         this.level = 1;
+
+        this.index = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     update() {
@@ -74,7 +79,27 @@ export default class Tower7 extends BaseTower {
     draw() {
         let ctx = this.ctx;
 
+        var img = new Image();
+        img.src = "./../../../images/tower7/" + this.index + ".png";
+
+        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, Constants.cellSize, Constants.cellSize);
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.index = (this.index + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
+
         if (this.level == 1) {
+            ctx.fillStyle = 'black';
+            ctx.font = Constants.fontSize + 'px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
+        } else if (this.level == 2) {
+            ctx.fillStyle = 'gold';
+            ctx.font = Constants.fontSize + 'px Orbitron';
+            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
+        }
+
+        /*if (this.level == 1) {
             ctx.fillStyle = 'pink';
             ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
             ctx.fillStyle = 'gold';
@@ -86,7 +111,7 @@ export default class Tower7 extends BaseTower {
             ctx.fillStyle = 'gold';
             ctx.font = Constants.fontSize + 'px Orbitron';
             ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
-        }
+        }*/
     }
 
     upgrade() {

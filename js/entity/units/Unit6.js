@@ -111,7 +111,11 @@ export default class Unit6 extends BaseUnit {
         let ctx = this.ctx;
 
         var img = new Image();
-        img.src = "./../../../images/unit6/" + this.index + ".png";
+        if (this.targets.length != 0) {
+            img.src = "./../../../images/unit6/hit/" + this.index + ".png";
+        } else {
+            img.src = "./../../../images/unit6/run/" + this.index + ".png";
+        }
 
         ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
 
@@ -119,6 +123,10 @@ export default class Unit6 extends BaseUnit {
             this.index = (this.index + 1) % 4;
             this.lastAnimationTime = new Date;
         }
+
+        ctx.fillStyle = 'black';
+        ctx.font = Constants.fontSize + 'px Orbitron';
+        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
 
         /*ctx.fillStyle = 'grey';
         ctx.fillRect(this.x, this.y, this.width, this.height);

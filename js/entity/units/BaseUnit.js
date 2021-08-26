@@ -156,4 +156,30 @@ export default class BaseUnit {
         context.drawImage(image, -image.width/2, -image.height/2);
         context.restore();
     }
+
+    drawHP() {
+        let ctx = this.ctx;
+
+        ctx.beginPath();
+        ctx.rect(this.x + Constants.cellSize / 8,
+                 this.y + Constants.cellSize / 15,
+                 this.width,
+                 1);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 20;
+        ctx.stroke();
+
+        let width = this.width * this.health / this.maxHealth;
+
+        ctx.beginPath();
+        ctx.rect(this.x + Constants.cellSize / 8,
+                 this.y + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 20;
+        ctx.stroke();
+    }
 }

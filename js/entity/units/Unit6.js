@@ -117,16 +117,15 @@ export default class Unit6 extends BaseUnit {
             img.src = "./../../../images/unit6/run/" + this.index + ".png";
         }
 
-        ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
+        ctx.drawImage(img, this.x, this.y + Constants.cellSize * 15/100,
+                           Constants.cellSize, Constants.cellSize * 85/100);
+
+        this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
             this.index = (this.index + 1) % 4;
             this.lastAnimationTime = new Date;
         }
-
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
 
         /*ctx.fillStyle = 'grey';
         ctx.fillRect(this.x, this.y, this.width, this.height);

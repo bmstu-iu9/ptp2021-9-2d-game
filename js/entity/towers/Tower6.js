@@ -9,7 +9,8 @@ export default class Tower6 extends BaseTower {
 
         this.units = game.units;
 
-        this.health = 100;
+        this.maxHealth = 1000;
+        this.health = this.maxHealth;
         this.range = Constants.cellSize * 5;
 
         this.upgradeCost = 200;
@@ -58,36 +59,18 @@ export default class Tower6 extends BaseTower {
         var img = new Image();
         img.src = "./../../../images/tower6/" + this.index + ".png";
 
-        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, Constants.cellSize, Constants.cellSize);
+        ctx.drawImage(img,
+                      this.x - Constants.cellSize / 2,
+                      this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
+                      Constants.cellSize,
+                      Constants.cellSize * 90/100);
+
+        this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
             this.index = (this.index + 1) % 4;
             this.lastAnimationTime = new Date;
         }
-
-        if (this.level == 1) {
-            ctx.fillStyle = 'black';
-            ctx.font = Constants.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
-        } else if (this.level == 2) {
-            ctx.fillStyle = 'gold';
-            ctx.font = Constants.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
-        }
-
-        /*if (this.level == 1) {
-            ctx.fillStyle = 'orange';
-            ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
-            ctx.fillStyle = 'gold';
-            ctx.font = Constants.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
-        } else if (this.level == 2) {
-            ctx.fillStyle = 'cyan';
-            ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
-            ctx.fillStyle = 'gold';
-            ctx.font = Constants.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
-        }*/
     }
 
     upgrade() {

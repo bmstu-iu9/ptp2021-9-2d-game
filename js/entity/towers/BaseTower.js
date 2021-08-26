@@ -13,6 +13,9 @@ export default class BaseTower {
         this.width = Constants.cellSize;
         this.height = Constants.cellSize;
 
+        this.maxHealth = null;
+        this.health = this.maxHealth;
+
         this.direction = 0;
         this.range = 3 * Constants.cellSize;
 
@@ -106,5 +109,31 @@ export default class BaseTower {
         context.rotate(angle * (Math.PI / 180));
         context.drawImage(image, -image.width/2, -image.height/2);
         context.restore();
+    }
+
+    drawHP() {
+        let ctx = this.ctx;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 this.width * 3/4,
+                 1);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 20;
+        ctx.stroke();
+
+        let width = this.width * this.health / this.maxHealth;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width * 3/4,
+                 1);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = 20;
+        ctx.stroke();
     }
 }

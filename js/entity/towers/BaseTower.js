@@ -95,7 +95,7 @@ export default class BaseTower {
                  1);
         ctx.strokeStyle = 'black';
         ctx.lineJoin = 'round';
-        ctx.lineWidth = 20;
+        ctx.lineWidth = Constants.cellSize / 10;
         ctx.stroke();
 
         let width = this.width * this.health / this.maxHealth;
@@ -107,7 +107,7 @@ export default class BaseTower {
                  1);
         ctx.strokeStyle = 'green';
         ctx.lineJoin = 'round';
-        ctx.lineWidth = 20;
+        ctx.lineWidth = Constants.cellSize / 10;
         ctx.stroke();
     }
 }

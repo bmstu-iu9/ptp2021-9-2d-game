@@ -45,20 +45,19 @@ class Game {
 
 
     gameFunc(){
-      this.ctx.fillStyle = game.menuBg;
-      this.ctx.fillRect(1500, 40, game.menuWidth, game.menuHeight);
+      this.ctx.fillStyle = this.menuBg;
+      this.ctx.fillRect(1500, 40, this.menuWidth, this.menuHeight);
       this.ctx.font = "bold 25px Orbitron";
-      this.ctx.fillStyle = game.menuColor;
+      this.ctx.fillStyle = this.menuColor;
       this.ctx.fillText("Menu", 1514, 72);
-      
+
 
     }
 
 
     checkClick(e){
-      console.log('hello',game.e.clientX, game.e.clientY);
+      console.log('hello', e.clientX, e.clientY);
     }
-
 
 
     init() {
@@ -112,11 +111,13 @@ class Game {
 let game = new Game();
 game.init();
 
+document.onmousedown = game.checkClick;
+
+
 
 function play() {
     game.animate()
     game.gameFunc()
-    game.checkClick()
     if (!game.gameOver) requestAnimationFrame(play);
 }
 

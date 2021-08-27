@@ -60,7 +60,7 @@ export default class BaseUnit {
             this.shootInterval = this.baseShootInterval;
         }
 
-        this.step();
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) {
             this.move();
@@ -77,19 +77,6 @@ export default class BaseUnit {
         } else {
             this.x += this.speed;
         }
-    }
-
-    step() {
-        this.findTargets(this.targetsAmount);
-
-        if (this.targets.length == 0) return;
-
-        let directionTarget = this.targets[0],
-            newDirection = Math.atan2(directionTarget.y - this.y,
-                                      directionTarget.x - this.x);
-        newDirection = newDirection * (180 / Math.PI);
-        //drawRotated(this.ctx, image, newDirection - this.direction);
-        this.direction = newDirection;
     }
 
     findTargets(targetsAmount) {
@@ -143,18 +130,6 @@ export default class BaseUnit {
         if (nearestEnemyIndex != -1) {
             return this.enemies[nearestEnemyIndex];
         }
-    }
-
-    drawRotated(image, angle) {
-        let context = this.ctx;
-
-        if (!image) return;
-
-        context.save();
-        context.translate(this.x + image.width/2, this.y + image.height/2);
-        context.rotate(angle * (Math.PI / 180));
-        context.drawImage(image, -image.width/2, -image.height/2);
-        context.restore();
     }
 
     drawHP() {

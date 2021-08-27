@@ -32,7 +32,7 @@ export default class Unit6 extends BaseUnit {
             return;
         }
 
-        this.step();
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) {
             this.move();

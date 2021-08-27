@@ -62,7 +62,13 @@ export default class BaseEnemy {
             this.shootInterval = this.baseShootInterval;
         }
 
-        this.step();
+        if (this.target && (calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range ||
+                           (this.target.died))) {
+
+            this.target = null;
+        }
+
+        if (!this.target) this.findTarget();
 
         if (!this.target) {
             this.move();
@@ -79,25 +85,6 @@ export default class BaseEnemy {
         } else {
             this.x -= this.speed;
         }
-    }
-
-    step() {
-        if (this.target && (calculateDistance(this.x, this.y, this.target.x, this.target.y) > this.range ||
-                           (this.target.died))) {
-
-            this.target = null;
-        }
-
-        if (!this.target) this.findTarget();
-
-        if (!this.target) return;
-
-        let directionTarget = this.target,
-            newDirection = Math.atan2(directionTarget.y - this.y,
-                                      directionTarget.x - this.x);
-        newDirection = newDirection * (180 / Math.PI);
-        //drawRotated(this.ctx, image, newDirection - this.direction);
-        this.direction = newDirection;
     }
 
     findTarget() {
@@ -135,17 +122,5 @@ export default class BaseEnemy {
         } else if (nearestUnitIndex != -1) {
             this.target = this.units[nearestUnitIndex];
         }
-    }
-
-    drawRotated(image, angle) {
-        let context = this.ctx;
-
-        if (!image) return;
-
-        context.save();
-        context.translate(this.x + image.width/2, this.y + image.height/2);
-        context.rotate(angle * (Math.PI / 180));
-        context.drawImage(image, -image.width/2, -image.height/2);
-        context.restore();
     }
 }

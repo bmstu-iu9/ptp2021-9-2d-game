@@ -26,7 +26,12 @@ export default class Tower6 extends BaseTower {
         this.animationInterval = 200;
     }
 
-    step() {
+    update() {
+        if (this.health == 0) {
+            this.died = true;
+            return;
+        }
+
         for (let i = 0, n = this.units.length; i < n; i++) {
             let unit = this.units[i];
 
@@ -48,7 +53,6 @@ export default class Tower6 extends BaseTower {
                 }
             }
         }
-
     }
 
     shoot() {}

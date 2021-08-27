@@ -11,7 +11,7 @@ export default class Unit3 extends BaseUnit {
 
         this.maxHealth = 500;
         this.health = this.maxHealth;
-        
+
         this.range = Constants.cellSize;
         this.damage = 10;
 
@@ -30,7 +30,7 @@ export default class Unit3 extends BaseUnit {
             return;
         }
 
-        this.step();
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) {
             this.move();

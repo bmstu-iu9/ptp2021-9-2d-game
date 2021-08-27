@@ -85,7 +85,7 @@ export default class Unit1 extends BaseUnit {
             this.hasAbility = true;
         }
 
-        this.step();
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) {
             this.move();

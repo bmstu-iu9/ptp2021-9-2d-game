@@ -21,7 +21,7 @@ export default class Unit4 extends BaseUnit {
             let ally = this.targets[i];
 
             if (calculateDistance(this.x, this.y, ally.x, ally.y) > this.range ||
-               (ally.health == ally.maxHealth)) {
+               ally.health == ally.maxHealth || ally.died) {
                    this.targets.splice(i, 1);
             }
         }
@@ -48,7 +48,7 @@ export default class Unit4 extends BaseUnit {
 
             if (distance < this.range && ally.health < lowestHealth &&
                 ally.health < ally.maxHealth) {
-                    
+
                 let isTargetAlready = false;
 
                 for (let j = 0, k = this.targets.length; j < k; j++) {

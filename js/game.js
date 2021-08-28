@@ -9,7 +9,7 @@ import { processUnits } from './components/unitsProcessing.js';
 import { processProjectiles } from './components/ProjectilesProcessing.js';
 import { processEnemies } from './components/enemiesProcessing.js';
 
-var refresh = setTimeout(play, 100000/30);
+var refresh = setTimeout(enemiesProcessing.processEnemies, 100000/30);
 
 class Game {
     constructor() {
@@ -55,11 +55,6 @@ class Game {
       this.ctx.font = "bold 25px Orbitron";
       this.ctx.fillStyle = this.menuColor;
       this.ctx.fillText("Menu", 1514, 72);
-<<<<<<< HEAD
-
-
-=======
->>>>>>> b01f8c3f1c1f8b8415c5747fab72c6aed9dca4eb
     }
 
 
@@ -113,7 +108,6 @@ function play() {
     if (!game.gameOver) requestAnimationFrame(play);
 }
 
-<<<<<<< HEAD
 
 
 function showMenu(){
@@ -123,6 +117,4 @@ function showMenu(){
 
 
 
-=======
->>>>>>> b01f8c3f1c1f8b8415c5747fab72c6aed9dca4eb
 play()

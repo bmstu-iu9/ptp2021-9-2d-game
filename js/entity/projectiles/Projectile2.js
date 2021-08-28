@@ -1,24 +1,26 @@
 import { calculateDistance } from './../../utils/utils.js';
+import * as Constants from './../../constants.js';
 
 export default class Projectile2 {
-    constructor(target, x, y, damage, upgrade) {
-        this.towerx = x;
-        this.towery = y;
+    constructor(target, x, y, damage, level) {
+        this.target = target;
         this.targetX = target.x;
         this.targetY = target.y;
+
         this.x = x;
         this.y = y;
-        this.width = 10;
-        this.height = 5;
-        this.speed = 5;
-        this.health = true;
+        this.width = Constants.cellSize * 10/100;
+        this.height = Constants.cellSize * 5/100;
+
+        this.level = level;
+        this.direction = 0;
+        this.range = Constants.cellSize / 2;
+
+        this.speed = Constants.cellSize * 5/100;
         this.damage = damage;
-        this.radius = 75;
-        this.target = target;
-        this.angle = 0;
-        this.delta_update_damage = 50;
-        this.upgrade = upgrade;
-        this.explosion = 0;
+
+        this.explosionFrame = 0;
+        this.reached = false;
         this.complete = false;
     }
 
@@ -28,64 +30,74 @@ export default class Projectile2 {
             this.targetY = this.target.y;
         }
 
-        this.angle = Math.atan2(this.targetY + 50 - this.y,
-                               this.targetX + 50 - this.x);
-        this.x += this.speed * Math.cos(this.angle);
-        this.y += this.speed * Math.sin(this.angle);
+        this.direction = Math.atan2(this.targetY - this.y,
+                               this.targetX - this.x);
+        this.x += this.speed * Math.cos(this.direction);
+        this.y += this.speed * Math.sin(this.direction);
     }
 
-    draw(game) {
-    // Рисую овал для пули
-        if (this.health) {
-            game.ctx.beginPath();
-            game.ctx.save(); // сохраняем стейт контекста
-            game.ctx.translate(this.x, this.y); // перемещаем координаты в центр эллипса
-            game.ctx.rotate(this.angle);  // поворот на угол
-            game.ctx.scale(1, this.height/this.width); // сжимаем по вертикали
-            game.ctx.arc(0, 0, this.width, 0, Math.PI*2); // рисуем круг
-            game.ctx.fill();
-            game.ctx.restore(); // восстанавливает стейт, иначе обводка и заливка будут сплющенными и повёрнутыми
-            game.ctx.strokeStyle = 'red';
-            game.ctx.stroke(); // обводим
-            game.ctx.closePath();
-        } else {
-            this.explosion += 1;
-            if (this.explosion == 5) {
-                this.complete = true;
-            }
-        }
-    }
+    hit(enemies) {
+        if (calculateDistance(this.x, this.y,
+                              this.targetX, this.targetY) > this.range ||
+            this.reached) {
 
-    hit(targets) {
-        let list_target = [];
-
-        if (calculateDistance(this.targetX, this.targetY, this.x, this.y) > this.radius || !this.health) {
             return;
         }
 
-        this.health = false;
+        this.reached = true;
 
-        for (let i = 0; i < targets.length; i++) {
+        let targets = [];
+
+        for (let i = 0, n = enemies.length; i < n; i++) {
+            let enemy = enemies[i];
+            if (calculateDistance(enemy.x, enemy.y, this.x, this.y) <= this.range) {
+                targets.push(enemy);
+            }
+        }
+
+        let distributedDamage = this.damage;
+
+        if (this.level == 2) {
+            distributedDamage /= targets.length;
+        }
+
+        for (let i = 0, n = targets.length; i < n; i++) {
             let target = targets[i];
-            if (calculateDistance(target.x, target.y, this.x, this.y) <= this.radius) {
-                list_target.push(target)
-            }
-        }
-
-        let damage_delta = this.damage;
-
-        if (this.upgrade > 0) {
-            damage_delta /= list_target.length;
-        }
-
-        for (let i = 0; i < list_target.length; i++) {
-            let target = list_target[i];
-
-            if (target.health - damage_delta < 0) {
-                target.health = 0;
+            if (typeof(this.target.health) == 'object') {
+                if (this.target.health.data - this.damage < 0) {
+                    this.target.health.data = 0;
+                } else {
+                    this.target.health.data -= this.damage;
+                }
             } else {
-                target.health -= damage_delta;
+                if (target.health - distributedDamage < 0) {
+                    target.health = 0;
+                } else {
+                    target.health -= distributedDamage;
+                }
             }
+        }
+    }
+
+    draw(ctx) {
+        if (this.reached) {
+            this.explosionFrame++;
+
+            if (this.explosionFrame == 5) {
+                this.complete = true;
+            }
+        } else {
+            ctx.beginPath();
+            ctx.save();
+            ctx.translate(this.x, this.y);
+            ctx.rotate(this.direction);
+            ctx.scale(1, this.height/this.width);
+            ctx.arc(0, 0, this.width, 0, Math.PI*2);
+            ctx.fill();
+            ctx.restore();
+            ctx.strokeStyle = 'red';
+            ctx.stroke();
+            ctx.closePath();
         }
     }
 }

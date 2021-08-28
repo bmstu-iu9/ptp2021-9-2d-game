@@ -1,50 +1,49 @@
-import { calculateDistance } from './../../utils/utils.js';
+import BaseUnit from './BaseUnit.js';
 import Projectile1 from '../projectiles/Projectile1.js';
+import * as Constants from './../../constants.js';
 
-export default class Unit2 { //дальнего боя
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
-        this.width = 40; // какое-то число
-        this.height = 40; //какое-то число
-        this.speed = CONSTANTA; //какое-то число
-        this.movement = this.speed;
-        this.health = 100;
-        this.damage = 10; //какое-то число
-        this.radius = 50; //какое-то число
-        this.projectiles = []; //пули
-        this.target = null; //цель
-        this.targetIndex = -1;
-        this.timer = 1;
-        this.chosenUnit = chosenUnit;
+export default class Unit2 extends BaseUnit {
+    constructor(game, x, y) {
+        super(game, x, y);
+
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
+        
+        this.range = 5 * Constants.cellSize;
+        this.damage = 10;
+
+        this.shots = 0;
     }
-    update() {
-        if (this.target === null) this.x += this.movement;
-        else {
-            shoot();
-            //this.timer++;
+
+    shoot() {
+        if (new Date - this.lastShotTime >= this.shootInterval) {
+            for (let i = 0, n = this.targets.length; i < n; i++) {
+                this.projectiles.push(new Projectile1(
+                    this.targets[i],
+                    this.x + this.width/2,
+                    this.y + this.height/2,
+                    this.damage,
+                ));
+            }
+
+            this.shots += 1;
+
+            if (this.shots == 10) {
+                this.range += 0.1 * Constants.cellSize;
+                this.shots = 0;
+            }
+
+            this.lastShotTime = new Date();
         }
     }
+
     draw() {
-        ctx.fillStyle = 'blue';
+        let ctx = this.ctx;
+
+        ctx.fillStyle = 'red';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
-        ctx.font = '30px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 15, this.y + 25);
-        if (this.chosenUnit === 2) {
-            //рисуем юнита2
-        }
-    }
-    shoot() {
-        this.timer++;
-        this.projectiles.push(new Projectile({
-            target: this.target,
-            x: this.x,
-            y: this.y
-        }))
-        if (this.timer === 10) {
-            this.radius += 10; //увеличение радиуса атаки
-            this.timer = 1;
-        }
+        ctx.font = Constants.fontSize + 'px Orbitron';
+        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
     }
 }

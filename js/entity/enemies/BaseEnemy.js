@@ -123,4 +123,30 @@ export default class BaseEnemy {
             this.target = this.units[nearestUnitIndex];
         }
     }
+
+    /*drawHP() {
+        let ctx = this.ctx;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2,
+                 this.y - Constants.cellSize / 2,
+                 this.width,
+                 1);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
+
+        let width = this.width * this.health / this.maxHealth;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2,
+                 this.y - Constants.cellSize / 2,
+                 width,
+                 1);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
+    }*/
 }

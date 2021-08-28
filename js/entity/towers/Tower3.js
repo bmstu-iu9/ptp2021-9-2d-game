@@ -7,7 +7,8 @@ export default class Tower3 extends BaseTower {
     constructor(game, x, y) {
         super(game, x, y);
 
-        this.health = 100;
+        this.maxHealth = 100;
+        this.health = this.maxHealth;
         this.damage = 10;
         this.range = Constants.cellSize * 6 + Constants.cellSize / 2;
 
@@ -17,6 +18,11 @@ export default class Tower3 extends BaseTower {
         this.shootInterval = 3000;
 
         this.level = 1;
+
+        this.index = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     findTargets(targetsAmount) {
@@ -86,18 +92,20 @@ export default class Tower3 extends BaseTower {
     draw() {
         let ctx = this.ctx;
 
-        if (this.level == 1) {
-            ctx.fillStyle = 'blue';
-            ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
-            ctx.fillStyle = 'gold';
-            ctx.font = Constants.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
-        } else if (this.level == 2) {
-            ctx.fillStyle = 'indigo';
-            ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
-            ctx.fillStyle = 'gold';
-            ctx.font = Constants.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
+        var img = new Image();
+        img.src = "./../../../images/towers/tower3/" + this.index + ".png";
+
+        ctx.drawImage(img,
+                      this.x - Constants.cellSize / 2,
+                      this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
+                      Constants.cellSize,
+                      Constants.cellSize * 90/100);
+
+        this.drawHP();
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.index = (this.index + 1) % 4;
+            this.lastAnimationTime = new Date;
         }
     }
 

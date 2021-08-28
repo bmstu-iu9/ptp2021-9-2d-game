@@ -22,7 +22,7 @@ export default class Enemy3 extends BaseEnemy {
                 this.damage,
                 1,
             ));
-            
+
             this.lastShotTime = new Date();
         }
     }
@@ -35,5 +35,7 @@ export default class Enemy3 extends BaseEnemy {
         ctx.fillStyle = 'black';
         ctx.font = Constants.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+
+        //this.drawHP();
     }
 }

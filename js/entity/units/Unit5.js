@@ -20,6 +20,11 @@ export default class Unit5 extends BaseUnit {
         this.totalDamage = 0;
 
         this.shootInterval *= 2;
+
+        this.index = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     shoot() {
@@ -52,10 +57,28 @@ export default class Unit5 extends BaseUnit {
     draw() {
         let ctx = this.ctx;
 
-        ctx.fillStyle = 'orange';
+        var img = new Image();
+
+        if (this.targets.length != 0) {
+            img.src = "./../../../images/units/unit5/hit/" + this.index + ".png";
+        } else {
+            img.src = "./../../../images/units/unit5/run/" + this.index + ".png";
+        }
+
+        ctx.drawImage(img, this.x, this.y + Constants.cellSize * 10/100,
+                           Constants.cellSize, Constants.cellSize * 90/100);
+
+        this.drawHP();
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.index = (this.index + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
+
+        /*ctx.fillStyle = 'orange';
         ctx.fillRect(this.x, this.y, this.width, this.height);
         ctx.fillStyle = 'black';
         ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);*/
     }
 }

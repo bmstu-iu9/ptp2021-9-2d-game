@@ -15,6 +15,7 @@ import EnemyBase from './entity/bases/enemyBase.js';
 import Cell from './components/cell.js';
 import { handleTowers, handleInformation, handleGameGrid, handleEnemies } from  './components/informationHandling.js';
 
+var refresh = setTimeout(play, 100000/30);
 
 class Game {
     constructor() {
@@ -55,9 +56,17 @@ class Game {
     }
 
 
+
     checkClick(e){
       console.log('hello', e.clientX, e.clientY);
+      if (e.clientX > 770 && e.clientX < 875 && e.clientY > 114 && e.clientY < 164){
+        console.log("click");
+        showMenu();
+
+      }
     }
+
+
 
 
     init() {
@@ -123,6 +132,10 @@ function play() {
 
 
 
+function showMenu(){
+  refresh = clearTimeout(refresh);
+
+}
 
 
 

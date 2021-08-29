@@ -9,7 +9,6 @@ import { processUnits } from './components/unitsProcessing.js';
 import { processProjectiles } from './components/ProjectilesProcessing.js';
 import { processEnemies } from './components/enemiesProcessing.js';
 
-var refresh = setTimeout(enemiesProcessing.processEnemies, 100000/30);
 
 class Game {
     constructor() {
@@ -26,6 +25,7 @@ class Game {
 
         this.gameOver = false;
         this.gameRunning = false;
+        this.gamePause = false;
 
         this.resources = 300;
 
@@ -43,32 +43,44 @@ class Game {
 
         this.menuHeight = 50;
         this.menuWidth = 100;
-        this.menuBg = "green";
-        this.menuColor = "white";
+        this.menuBg = "rgb(8, 8, 30)";
+        this.menuColor = "rgb(42, 163, 223)";
+        this.colorInMenu = "rgb(64, 64, 143)";
         this.menuFontSize = "15px";
     }
 
 
     gameFunc(){
-      this.ctx.fillStyle = this.menuBg;
-      this.ctx.fillRect(1500, 40, this.menuWidth, this.menuHeight);
       this.ctx.font = "bold 25px Orbitron";
       this.ctx.fillStyle = this.menuColor;
-      this.ctx.fillText("Menu", 1514, 72);
+      this.ctx.fillText("Menu", 920, 90);
     }
 
 
 
     checkClick(e){
-      console.log('hello', e.clientX, e.clientY);
-      if (e.clientX > 770 && e.clientX < 875 && e.clientY > 114 && e.clientY < 164){
-        console.log("click");
-        showMenu();
-
+      console.log('hello', e.clientX, e.clientY);//убрать
+      if (e.clientX > 919 && e.clientX < 995 && e.clientY > 87 && e.clientY < 97){
+        console.log("click");//убрать
+        pauseGame();
       }
     }
 
+    showMenu(){
+      this.ctx.fillStyle = this.menuBg;
+      this.ctx.fillRect(810, 350, 300, 350);
 
+      this.ctx.fillStyle = this.colorInMenu;
+      this.ctx.fillRect(820, 400, 280, 50);
+
+      this.ctx.font = "bold 25px Orbitron";
+      this.ctx.fillStyle = this.menuColor;
+      this.ctx.fillText("Menu", 920, 380);
+
+      this.ctx.font = "bold 25px Orbitron";
+      this.ctx.fillStyle = this.menuColor;
+      this.ctx.fillText("Resume", 908, 433);
+    }
 
 
     init() {
@@ -105,14 +117,19 @@ document.onmousedown = game.checkClick;
 function play() {
     game.animate()
     game.gameFunc()
-    if (!game.gameOver) requestAnimationFrame(play);
+    if (game.gamePause == true){
+      game.showMenu();
+    }
+
+    if (!game.gamePause && !game.gameOver) requestAnimationFrame(play);
+
+
 }
 
 
 
-function showMenu(){
-  refresh = clearTimeout(refresh);
-
+function pauseGame(){
+  game.gamePause = true;
 }
 
 

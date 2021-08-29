@@ -35,5 +35,7 @@ export default class Enemy2 extends BaseEnemy {
         ctx.fillStyle = 'black';
         ctx.font = Constants.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+
+        //this.drawHP();
     }
 }

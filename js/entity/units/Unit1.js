@@ -155,19 +155,13 @@ export default class Unit1 extends BaseUnit {
 
     draw() {
         let ctx = this.ctx;
-        /*
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
-        */
+
         var img = new Image();
 
         if (this.targets.length != 0) {
-            img.src = "./../../../images/unit1/hit/" + this.index + ".png";
+            img.src = "./../../../images/units/unit1/hit/" + this.index + ".png";
         } else {
-            img.src = "./../../../images/unit1/run/" + this.index + ".png";
+            img.src = "./../../../images/units/unit1/run/" + this.index + ".png";
         }
 
         ctx.drawImage(img, this.x, this.y + Constants.cellSize * 10/100,

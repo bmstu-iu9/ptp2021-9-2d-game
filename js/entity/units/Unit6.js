@@ -112,9 +112,9 @@ export default class Unit6 extends BaseUnit {
 
         var img = new Image();
         if (this.targets.length != 0) {
-            img.src = "./../../../images/unit6/hit/" + this.index + ".png";
+            img.src = "./../../../images/units/unit6/hit/" + this.index + ".png";
         } else {
-            img.src = "./../../../images/unit6/run/" + this.index + ".png";
+            img.src = "./../../../images/units/unit6/run/" + this.index + ".png";
         }
 
         ctx.drawImage(img, this.x, this.y + Constants.cellSize * 15/100,

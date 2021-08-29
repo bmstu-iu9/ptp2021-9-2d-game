@@ -61,8 +61,23 @@ class Game {
     checkClick(e){
       console.log('hello', e.clientX, e.clientY);//убрать
       if (e.clientX > 919 && e.clientX < 995 && e.clientY > 87 && e.clientY < 97){
-        console.log("click");//убрать
         pauseGame();
+
+      }
+      if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097
+               && e.clientY > 401 && e.clientY < 452){
+
+          console.log("123");
+          resumeGame();//вопрос
+        }
+
+
+    }
+
+    checkAiming(e){
+      if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097
+               && e.clientY > 401 && e.clientY < 452){
+          console.log("hi");
       }
     }
 
@@ -111,6 +126,7 @@ let game = new Game();
 game.init();
 
 document.onmousedown = game.checkClick;
+document.onMouseOver = game.checkAiming;
 
 
 
@@ -130,6 +146,10 @@ function play() {
 
 function pauseGame(){
   game.gamePause = true;
+}
+function resumeGame(){
+  game.gamePause = false;
+  play();
 }
 
 

@@ -64,12 +64,16 @@ class Game {
         pauseGame();
 
       }
-      if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097
-               && e.clientY > 401 && e.clientY < 452){
-
-          console.log("123");
-          resumeGame();//вопрос
+      if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097 &&
+              e.clientY > 401 && e.clientY < 452){
+          resumeGame();
         }
+
+      if (game.gameOver == true && e.clientX > 800 && e.clientX < 1114 &&
+              e.clientY > 480 && e.clientY < 520){
+
+          restarGame();
+              }
 
 
     }
@@ -143,10 +147,16 @@ function play() {
 }
 
 
+function restarGame(){
+  location.reload();
+}
+
 
 function pauseGame(){
   game.gamePause = true;
 }
+
+
 function resumeGame(){
   game.gamePause = false;
   play();

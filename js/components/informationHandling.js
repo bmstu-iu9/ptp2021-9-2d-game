@@ -4,22 +4,48 @@ export function handleBases(game) {
     let ctx = game.ctx;
 
     if (game.playerBase.health.data == 0) {
+        ctx.fillStyle = game.menuBg;
+        ctx.fillRect(790, 415, 335, 150);
+
+        ctx.fillStyle = game.colorInMenu;
+        ctx.fillRect(800, 480, 315, 40);
+
+        ctx.font = "bold 30px Orbitron";
+        ctx.fillStyle = game.menuColor;
+        ctx.fillText("Restart", 890, 510);
+
         ctx.fillStyle = 'red';
         ctx.font = '60px Orbitron';
         ctx.fillText('YOU LOSE', Constants.canvasWidth / 2 - Constants.cellSize * 3, Constants.canvasHeight / 2);
+
+
         game.gameOver = true;
     }
 
     if (game.enemyBase.health.data == 0) {
+
+        ctx.fillStyle = game.menuBg;
+        ctx.fillRect(790, 415, 335, 150);
+
+        ctx.fillStyle = game.colorInMenu;
+        ctx.fillRect(800, 480, 315, 40);
+
+        ctx.font = "bold 30px Orbitron";
+        ctx.fillStyle = game.menuColor;
+        ctx.fillText("Restart", 890, 510);
+
         ctx.fillStyle = 'green';
         ctx.font = '60px Orbitron';
         ctx.fillText('YOU WIN', Constants.canvasWidth / 2 - Constants.cellSize * 3, Constants.canvasHeight / 2);
+
+
         game.gameOver = true;
     }
 
     game.playerBase.draw(ctx);
     game.enemyBase.draw(ctx);
 }
+
 
 
 export function handleGameGrid(game) {

@@ -10,10 +10,9 @@ export function handleBases(game) {
         ctx.fillStyle = game.colorInMenu;
         ctx.fillRect(800, 480, 315, 40);
 
-
         ctx.font = "bold 30px Orbitron";
-        сtx.fillStyle = game.menuColor;
-        сtx.fillText("Restart", 890, 510);
+        ctx.fillStyle = game.menuColor;
+        ctx.fillText("Restart", 890, 510);
 
         ctx.fillStyle = 'red';
         ctx.font = '60px Orbitron';

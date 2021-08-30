@@ -39,13 +39,13 @@ export default class Enemy4 extends BaseEnemy {
 
         var img = new Image();
 
-        img.src = "./../../../images/enemies/enemy4/" + this.index + ".png";
+        img.src = "./js/images/enemies/enemy4/" + this.index + ".png";
 
         ctx.drawImage(img, this.x - Constants.cellSize / 2,
                         this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
                         Constants.cellSize, Constants.cellSize * 90/100);
 
-        //this.drawHP();
+        this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
             this.index = (this.index + 1) % 4;

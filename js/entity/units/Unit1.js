@@ -18,8 +18,8 @@ export default class Unit1 extends BaseUnit {
 
         this.index = 0;
 
-        this.lastAnimationTime = new Date();
-        this.animationInterval = 200;
+        this.lastAnimationTime = new Date().getTime();
+        this.animationInterval = 1000/8;
     }
 
     findTargets(targetsAmount) {
@@ -159,9 +159,10 @@ export default class Unit1 extends BaseUnit {
         var img = new Image();
 
         if (this.targets.length != 0) {
-            img.src = "./../../../images/units/unit1/hit/" + this.index + ".png";
+            img.src = "./js/images/units/unit1/hit/" + this.index + ".png";
         } else {
-            img.src = "./../../../images/units/unit1/run/" + this.index + ".png";
+            img.src = "./js/images/units/unit1/run/" + this.index + ".png";
+            //console.log(img.src)
         }
 
         ctx.drawImage(img, this.x, this.y + Constants.cellSize * 10/100,
@@ -169,9 +170,9 @@ export default class Unit1 extends BaseUnit {
 
         this.drawHP();
 
-        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+        if (new Date().getTime() - this.lastAnimationTime >= this.animationInterval) {
             this.index = (this.index + 1) % 4;
-            this.lastAnimationTime = new Date;
+            this.lastAnimationTime = new Date().getTime();
         }
     }
 }

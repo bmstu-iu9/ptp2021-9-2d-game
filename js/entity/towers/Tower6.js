@@ -61,7 +61,7 @@ export default class Tower6 extends BaseTower {
         let ctx = this.ctx;
 
         var img = new Image();
-        img.src = "./../../../images/towers/tower6/" + this.index + ".png";
+        img.src = "./js/images/towers/tower6/" + this.index + ".png";
 
         ctx.drawImage(img,
                       this.x - Constants.cellSize / 2,

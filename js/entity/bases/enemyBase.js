@@ -6,11 +6,19 @@ export default class EnemyBase {
     }
 
     draw(ctx) {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(Constants.canvasWidth - Constants.cellSize,
+        var img = new Image();
+        img.src = "./js/images/bases/enemy.png";
+
+        ctx.drawImage(img, Constants.canvasWidth - Constants.cellSize,
                      Constants.controlBarHeight,
                      Constants.cellSize,
                      Constants.canvasHeight - Constants.controlBarHeight);
+
+        /*ctx.fillStyle = 'red';
+        ctx.fillRect(Constants.canvasWidth - Constants.cellSize,
+                     Constants.controlBarHeight,
+                     Constants.cellSize,
+                     Constants.canvasHeight - Constants.controlBarHeight);*/
 
         ctx.fillStyle = 'white';
         ctx.font = Constants.fontSize + 'px Orbitron';

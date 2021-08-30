@@ -124,7 +124,7 @@ export default class BaseEnemy {
         }
     }
 
-    /*drawHP() {
+    drawHP() {
         let ctx = this.ctx;
 
         ctx.beginPath();
@@ -148,5 +148,5 @@ export default class BaseEnemy {
         ctx.lineJoin = 'round';
         ctx.lineWidth = Constants.cellSize / 10;
         ctx.stroke();
-    }*/
+    }
 }

@@ -6,11 +6,19 @@ export default class PlayerBase {
     }
 
     draw(ctx) {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(0,
+        var img = new Image();
+        img.src = "./js/images/bases/unit.png";
+
+        ctx.drawImage(img, 0,
                      Constants.controlBarHeight,
                      Constants.cellSize,
                      Constants.canvasHeight - Constants.controlBarHeight);
+
+        /*ctx.fillStyle = 'green';
+        ctx.fillRect(0,
+                     Constants.controlBarHeight,
+                     Constants.cellSize,
+                     Constants.canvasHeight - Constants.controlBarHeight);*/
         ctx.fillStyle = 'white';
         ctx.font =  Constants.fontSize + 'px Orbitron';
         ctx.fillText(Math.floor(this.health.data), 2, Constants.cellSize);

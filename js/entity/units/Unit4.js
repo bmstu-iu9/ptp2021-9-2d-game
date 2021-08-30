@@ -129,7 +129,7 @@ export default class Unit4 extends BaseUnit {
 
         var img = new Image();
 
-        img.src = "./../../../images/units/unit4/" + this.index + ".png";
+        img.src = "./js/images/units/unit4/" + this.index + ".png";
 
         ctx.drawImage(img, this.x, this.y + Constants.cellSize * 10/100,
                            Constants.cellSize, Constants.cellSize * 90/100);
@@ -140,11 +140,5 @@ export default class Unit4 extends BaseUnit {
             this.index = (this.index + 1) % 4;
             this.lastAnimationTime = new Date;
         }
-
-        /*ctx.fillStyle = 'purple';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);*/
     }
 }

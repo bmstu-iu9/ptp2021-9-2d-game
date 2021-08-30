@@ -9,7 +9,7 @@ import { processUnits } from './components/unitsProcessing.js';
 import { processProjectiles } from './components/ProjectilesProcessing.js';
 import { processEnemies } from './components/enemiesProcessing.js';
 
-var refresh = setTimeout(enemiesProcessing.processEnemies, 100000/30);
+//var refresh = setTimeout(enemiesProcessing.processEnemies, 100000/30);
 
 class Game {
     constructor() {
@@ -46,6 +46,8 @@ class Game {
         this.menuBg = "green";
         this.menuColor = "white";
         this.menuFontSize = "15px";
+
+        this.ms = new Date().getTime();
     }
 
 
@@ -60,13 +62,13 @@ class Game {
 
 
     checkClick(e){
-      console.log('hello', e.clientX, e.clientY);
+      //console.log('hello', e.clientX, e.clientY);
       if (e.clientX > 770 && e.clientX < 875 && e.clientY > 114 && e.clientY < 164){
-        console.log("click");
+        //console.log("click");
         showMenu();
 
-      }
     }
+  }
 
 
 
@@ -89,9 +91,10 @@ class Game {
         processProjectiles(game);
         processEnemies(game);
 
-        let ms = 1000/60;
-        ms += new Date().getTime();
-        while (new Date().getTime() < ms) {}
+        this.ms += 1000/60;
+
+        //this.ms += new Date().getTime();
+        while (new Date().getTime() < this.ms) {}
     }
 }
 

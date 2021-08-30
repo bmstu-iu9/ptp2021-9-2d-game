@@ -94,9 +94,9 @@ export default class Unit3 extends BaseUnit {
         var img = new Image();
 
         if (this.targets.length != 0) {
-            img.src = "./../../../images/units/unit3/hit/" + this.index + ".png";
+            img.src = "./js/images/units/unit3/hit/" + this.index + ".png";
         } else {
-            img.src = "./../../../images/units/unit3/run/" + this.index + ".png";
+            img.src = "./js/images/units/unit3/run/" + this.index + ".png";
         }
 
         ctx.drawImage(img, this.x, this.y + Constants.cellSize * 10/100,
@@ -108,11 +108,5 @@ export default class Unit3 extends BaseUnit {
             this.index = (this.index + 1) % 4;
             this.lastAnimationTime = new Date;
         }
-
-        /*ctx.fillStyle = 'blue';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);*/
     }
 }

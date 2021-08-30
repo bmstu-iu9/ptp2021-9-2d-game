@@ -86,7 +86,6 @@ class Game {
                && e.clientY > 401 && e.clientY < 452){
           console.log("hi");
       }
-    }
   }
 
     showMenu(){

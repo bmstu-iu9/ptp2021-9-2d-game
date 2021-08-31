@@ -27,6 +27,7 @@ class Game {
         this.gameOver = false;
         this.gameRunning = false;
         this.gamePause = false;
+        this.gameStart = true;
 
         this.resources = 300;
 
@@ -53,7 +54,7 @@ class Game {
     }
 
 
-    gameFunc(){
+    gameFunc() {
       this.ctx.font = "bold 25px Orbitron";
       this.ctx.fillStyle = this.menuColor;
       this.ctx.fillText("Menu", 920, 90);
@@ -61,7 +62,7 @@ class Game {
 
 
 
-    checkClick(e){
+    checkClick(e) {
       console.log('hello', e.clientX, e.clientY);//убрать
       if (e.clientX > 919 && e.clientX < 995 && e.clientY > 87 && e.clientY < 97){
         pauseGame();
@@ -78,17 +79,24 @@ class Game {
           restarGame();
               }
 
+      if (game.gameStart == true && e.clientX > Constants.canvasWidth / 2.12 && e.clientX < Constants.canvasWidth / 1.75 &&
+              e.clientY > Constants.canvasHeight / 3 && e.clientY < Constants.canvasHeight / 2.52 ){
+                game.gameStart = false;
+                play();
+
+      }
+
 
     }
 
-    checkAiming(e){
+    checkAiming(e) {
       if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097
                && e.clientY > 401 && e.clientY < 452){
           console.log("hi");
       }
   }
 
-    showMenu(){
+    showMenu() {
       this.ctx.fillStyle = this.menuBg;
       this.ctx.fillRect(810, 350, 300, 350);
 
@@ -104,6 +112,10 @@ class Game {
       this.ctx.fillText("Resume", 908, 433);
     }
 
+    endGame() {
+
+    }
+
 
     init() {
         this.mouse = new Mouse(game);
@@ -115,8 +127,8 @@ class Game {
 
     animate() {
         handleControlBar(game);
-        handleBases(game);
         handleGameGrid(game);
+        handleBases(game);
 
         processTowers(game);
         processUnits(game);
@@ -145,27 +157,45 @@ function play() {
       game.showMenu();
     }
 
+    if (game.gameOver == true){
+      handleBases();
+    }
+
     if (!game.gamePause && !game.gameOver) requestAnimationFrame(play);
 
 
 }
 
 
-function restarGame(){
+function restarGame() {
   location.reload();
 }
 
+function startGame() {
+    game.ctx.fillStyle = game.menuBg;
+    game.ctx.fillRect(0, 0, Constants.canvasWidth, Constants.canvasHeight);
 
-function pauseGame(){
+
+    game.ctx.fillStyle = game.colorInMenu;
+    game.ctx.fillRect(Constants.canvasWidth / 2.12 , Constants.canvasHeight / 3,
+      Constants.canvasWidth/10, Constants.canvasHeight/16);
+
+
+    game.ctx.font = "bold 30px Orbitron"
+    game.ctx.fillStyle = game.menuColor;
+    game.ctx.fillText("Start",Constants.canvasWidth/2.01 , Constants.canvasHeight / 2.69)
+}
+
+
+function pauseGame() {
   game.gamePause = true;
 }
 
 
-function resumeGame(){
+function resumeGame() {
   game.gamePause = false;
   play();
 }
 
 
-
-play()
+startGame()

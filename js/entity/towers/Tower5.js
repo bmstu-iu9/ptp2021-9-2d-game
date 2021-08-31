@@ -26,13 +26,14 @@ export default class Tower5 extends BaseTower {
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 4) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
                     this.x,
-                    this.y,
+                    this.y - Constants.cellSize / 4,
                     this.damage,
+                    Constants.tower5Images[5],
                 ))
             }
 
@@ -53,7 +54,7 @@ export default class Tower5 extends BaseTower {
         this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.imageIndex = (this.imageIndex + 1) % 4;
+            this.imageIndex = (this.imageIndex + 1) % 5;
             this.lastAnimationTime = new Date;
         }
     }

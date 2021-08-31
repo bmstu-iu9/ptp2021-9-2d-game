@@ -2,15 +2,17 @@ import { calculateDistance } from './../../utils/utils.js';
 import * as Constants from './../../constants.js';
 
 export default class Projectile1 {
-    constructor(target, x, y, damage) {
+    constructor(target, x, y, damage, img) {
         this.target = target;
         this.targetX = target.x;
         this.targetY = target.y;
 
         this.x = x;
         this.y = y;
-        this.width = Constants.cellSize * 10/100;
-        this.height = Constants.cellSize * 5/100;
+        this.width = Constants.cellSize / 2;
+        this.height = Constants.cellSize / 2;
+
+        this.img = img;
 
         this.direction = 0;
         this.range = Constants.cellSize / 2;
@@ -21,6 +23,8 @@ export default class Projectile1 {
         this.explosionFrame = 0;
         this.reached = false;
         this.complete = false;
+
+
     }
 
     update() {
@@ -76,13 +80,25 @@ export default class Projectile1 {
             ctx.beginPath();
             ctx.save();
             ctx.translate(this.x, this.y);
+
             ctx.rotate(this.direction);
+
+            ctx.drawImage(this.img,
+                          0,
+                          0,
+                          this.width,
+                          this.height);
+            /*
             ctx.scale(1, this.height/this.width);
             ctx.arc(0, 0, this.width, 0, Math.PI*2);
             ctx.fill();
+            */
             ctx.restore();
+            /*
             ctx.strokeStyle = 'red';
+            */
             ctx.stroke();
+
             ctx.closePath();
         }
     }

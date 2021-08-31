@@ -22,19 +22,19 @@ export default class Enemy4 extends BaseEnemy {
 
         this.runImages = Constants.enemy4RunImages;
         this.imageIndex = 0;
-        
+
         this.lastAnimationTime = new Date();
         this.animationInterval = 200;
     }
 
     shoot() {
-        if (this.target && new Date - this.lastShotTime >= this.shootInterval) {
+        if (this.target && new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             this.projectiles.push(new Projectile1(
                 this.target,
-                this.x,
-                this.y,
+                this.x -  Constants.cellSize / 2,
+                this.y +  Constants.cellSize / 3,
                 this.damage,
-                1,
+                Constants.enemyProjectile,
             ));
 
             this.lastShotTime = new Date();

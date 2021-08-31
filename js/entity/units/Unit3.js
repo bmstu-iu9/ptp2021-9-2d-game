@@ -12,7 +12,7 @@ export default class Unit3 extends BaseUnit {
         this.maxHealth = 500;
         this.health = this.maxHealth;
 
-        this.range = Constants.cellSize;
+        this.range = Constants.cellSize * 2;
         this.damage = 10;
 
         this.hasAbility = hasAbility;
@@ -45,13 +45,14 @@ export default class Unit3 extends BaseUnit {
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
                     this.x + this.width/2,
                     this.y + this.height/2,
                     this.damage,
+                    Constants.unit3HitImages[4],
                 ));
             }
 

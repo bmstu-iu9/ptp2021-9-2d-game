@@ -53,7 +53,7 @@ class Game {
     }
 
 
-    gameFunc(){
+    gameFunc() {
       this.ctx.font = "bold 25px Orbitron";
       this.ctx.fillStyle = this.menuColor;
       this.ctx.fillText("Menu", 920, 90);
@@ -61,22 +61,23 @@ class Game {
 
 
 
-    checkClick(e){
-      console.log('hello', e.clientX, e.clientY);//убрать
+    checkClick(e) {
+
       if (e.clientX > 919 && e.clientX < 995 && e.clientY > 87 && e.clientY < 97){
         pauseGame();
 
       }
+
       if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097 &&
               e.clientY > 401 && e.clientY < 452){
           resumeGame();
-        }
+      }
 
       if (game.gameOver == true && e.clientX > 800 && e.clientX < 1114 &&
               e.clientY > 480 && e.clientY < 520){
 
           restarGame();
-              }
+      }
 
 
     }

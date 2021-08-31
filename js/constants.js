@@ -118,6 +118,7 @@ export const
         createImage("./images/towers/tower1/1.png"),
         createImage("./images/towers/tower1/2.png"),
         createImage("./images/towers/tower1/3.png"),
+        createImage("./images/towers/tower1/projectile1.png"),
     ],
 
     tower2Images = [
@@ -127,6 +128,7 @@ export const
         createImage("./images/towers/tower2/3.png"),
         createImage("./images/towers/tower2/4.png"),
         createImage("./images/towers/tower2/5.png"),
+        createImage("./images/towers/tower2/projectile2.png"),
     ],
 
     tower3Images = [
@@ -134,6 +136,7 @@ export const
         createImage("./images/towers/tower3/1.png"),
         createImage("./images/towers/tower3/2.png"),
         createImage("./images/towers/tower3/3.png"),
+        createImage("./images/towers/tower3/projectile3.png"),
     ],
 
     tower4Images = [
@@ -142,6 +145,7 @@ export const
         createImage("./images/towers/tower4/2.png"),
         createImage("./images/towers/tower4/3.png"),
         createImage("./images/towers/tower4/4.png"),
+        createImage("./images/towers/tower4/projectile4.png")
     ],
 
     tower5Images = [
@@ -150,6 +154,7 @@ export const
         createImage("./images/towers/tower5/2.png"),
         createImage("./images/towers/tower5/3.png"),
         createImage("./images/towers/tower5/4.png"),
+        createImage("./images/towers/tower5/projectile5.png")
     ],
 
     tower6Images = [
@@ -194,6 +199,7 @@ export const
         createImage("./images/units/unit2/hit/1.png"),
         createImage("./images/units/unit2/hit/2.png"),
         createImage("./images/units/unit2/hit/3.png"),
+        createImage("./images/units/unit2/projectile2.png"),
     ],
 
     unit3RunImages = [
@@ -208,6 +214,7 @@ export const
         createImage("./images/units/unit3/hit/1.png"),
         createImage("./images/units/unit3/hit/2.png"),
         createImage("./images/units/unit3/hit/3.png"),
+        createImage("./images/units/unit3/projectile3.png"),
     ],
 
     unit4RunImages = [
@@ -229,6 +236,7 @@ export const
         createImage("./images/units/unit5/hit/1.png"),
         createImage("./images/units/unit5/hit/2.png"),
         createImage("./images/units/unit5/hit/3.png"),
+        createImage("./images/units/unit5/projectile2.png"),
     ],
 
     unit6RunImages = [
@@ -257,6 +265,7 @@ export const
         createImage("./images/units/unit7/hit/1.png"),
         createImage("./images/units/unit7/hit/2.png"),
         createImage("./images/units/unit7/hit/3.png"),
+        createImage("./images/units/unit7/projectile2.png"),
     ];
 
 
@@ -301,4 +310,6 @@ export const
         createImage("./images/enemies/enemy4/1.png"),
         createImage("./images/enemies/enemy4/2.png"),
         createImage("./images/enemies/enemy4/3.png"),
-    ];
+    ],
+
+    enemyProjectile = createImage("./images/enemies/projectile6.png");

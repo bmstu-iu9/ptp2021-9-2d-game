@@ -14,7 +14,7 @@ export default class Tower1 extends BaseTower {
         this.upgradeCost = 200;
 
         this.lastShotTime = new Date();
-        this.shootInterval = 300;
+        this.shootInterval = 500;
 
         this.level = 1;
 
@@ -26,13 +26,14 @@ export default class Tower1 extends BaseTower {
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
                     this.x,
-                    this.y,
+                    this.y -  Constants.cellSize * 2 / 4,
                     this.damage,
+                    Constants.tower1Images[4]
                 ));
             }
 

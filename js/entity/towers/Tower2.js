@@ -27,14 +27,15 @@ export default class Tower2 extends BaseTower {
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 4) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile2(
                     this.targets[i],
                     this.x,
-                    this.y,
+                    this.y - Constants.cellSize / 2,
                     this.damage,
                     this.level,
+                    Constants.tower2Images[6],
                 ))
             }
 

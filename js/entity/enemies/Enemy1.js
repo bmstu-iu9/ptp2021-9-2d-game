@@ -17,17 +17,17 @@ export default class Enemy1 extends BaseEnemy {
         this.imageIndex = 0;
 
         this.lastAnimationTime = new Date();
-        this.animationInterval = 200;    
+        this.animationInterval = 200;
     }
 
     shoot() {
-        if (this.target && new Date - this.lastShotTime >= this.shootInterval) {
+        if (this.target && new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             this.projectiles.push(new Projectile1(
                 this.target,
-                this.x,
-                this.y,
+                this.x -  Constants.cellSize / 2,
+                this.y +  Constants.cellSize *  2 / 4,
                 this.damage,
-                1,
+                Constants.enemyProjectile,
             ));
 
             this.lastShotTime = new Date();

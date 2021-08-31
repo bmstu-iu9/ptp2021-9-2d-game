@@ -30,6 +30,7 @@ export default class Unit2 extends BaseUnit {
                     this.x + this.width/2,
                     this.y + this.height/2,
                     this.damage,
+                    Constants.unit2HitImages[4],
                 ));
             }
 

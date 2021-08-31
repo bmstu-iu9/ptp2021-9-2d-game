@@ -30,13 +30,15 @@ export default class Unit5 extends BaseUnit {
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
                     this.x + this.width/2,
-                    this.y + this.height/2,
-                    this.damage));
+                    this.y,
+                    this.damage,
+                    Constants.unit5HitImages[4]
+                ));
 
                 this.totalDamage += this.damage;
             }

@@ -31,14 +31,16 @@ export default class Unit7 extends BaseUnit {
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile2(
                     this.targets[i],
-                    this.x + this.width/2,
-                    this.y + this.height/2,
+                    this.x,
+                    this.y - this.height/2,
                     this.damage,
-                    1));
+                    1,
+                    Constants.unit7HitImages[4],
+                ));
 
                 this.shots += 1;
             }

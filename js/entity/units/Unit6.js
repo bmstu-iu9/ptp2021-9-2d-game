@@ -65,6 +65,7 @@ export default class Unit6 extends BaseUnit {
                     this.x + this.width/2,
                     this.y + this.height/2,
                     this.damage,
+                    Constants.unit1HitImages[4],
                 ));
             }
 

@@ -185,6 +185,7 @@ export const
         createImage("./images/units/unit1/hit/1.png"),
         createImage("./images/units/unit1/hit/2.png"),
         createImage("./images/units/unit1/hit/3.png"),
+        createImage("./images/units/unit1/projectile2_6.png"),
     ],
 
     unit2RunImages = [
@@ -251,6 +252,7 @@ export const
         createImage("./images/units/unit6/hit/1.png"),
         createImage("./images/units/unit6/hit/2.png"),
         createImage("./images/units/unit6/hit/3.png"),
+        createImage("./images/units/unit6/projectile2_6.png"),
     ],
 
     unit7RunImages = [

@@ -2,6 +2,12 @@ import BaseEnemy from './BaseEnemy.js';
 import Projectile1 from '../projectiles/Projectile1.js';
 import * as Constants from './../../constants.js';
 
+function createImage(path) {
+    let image = new Image();
+    image.src = path;
+    return image;
+}
+
 export default class Enemy4 extends BaseEnemy {
     constructor(game, x, y) {
         super(game, x, y);
@@ -14,8 +20,9 @@ export default class Enemy4 extends BaseEnemy {
 
         this.baseSpeed = Constants.cellSize / 100;
 
-        this.index = 0;
-
+        this.runImages = Constants.enemy4RunImages;
+        this.imageIndex = 0;
+        
         this.lastAnimationTime = new Date();
         this.animationInterval = 200;
     }
@@ -35,11 +42,8 @@ export default class Enemy4 extends BaseEnemy {
     }
 
     draw() {
-        let ctx = this.ctx;
-
-        var img = new Image();
-
-        img.src = "./js/images/enemies/enemy4/" + this.index + ".png";
+        let ctx = this.ctx,
+            img = this.runImages[this.imageIndex];
 
         ctx.drawImage(img, this.x - Constants.cellSize / 2,
                         this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
@@ -48,7 +52,7 @@ export default class Enemy4 extends BaseEnemy {
         this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.index = (this.index + 1) % 4;
+            this.imageIndex = (this.imageIndex + 1) % 4;
             this.lastAnimationTime = new Date;
         }
 

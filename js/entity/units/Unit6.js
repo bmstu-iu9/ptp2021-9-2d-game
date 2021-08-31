@@ -20,7 +20,9 @@ export default class Unit6 extends BaseUnit {
 
         this.hasAbility = true;
 
-        this.index = 0;
+        this.runImages = Constants.unit6RunImages;
+        this.hitImages = Constants.unit6HitImages;
+        this.imageIndex = 0;
 
         this.lastAnimationTime = new Date();
         this.animationInterval = 200;
@@ -108,13 +110,13 @@ export default class Unit6 extends BaseUnit {
     }
 
     draw() {
-        let ctx = this.ctx;
+        let ctx = this.ctx,
+            img;
 
-        var img = new Image();
         if (this.targets.length != 0) {
-            img.src = "./js/images/units/unit6/hit/" + this.index + ".png";
+            img = this.hitImages[this.imageIndex];
         } else {
-            img.src = "./js/images/units/unit6/run/" + this.index + ".png";
+            img = this.runImages[this.imageIndex];
         }
 
         ctx.drawImage(img, this.x, this.y + Constants.cellSize * 15/100,
@@ -123,7 +125,7 @@ export default class Unit6 extends BaseUnit {
         this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.index = (this.index + 1) % 4;
+            this.imageIndex = (this.imageIndex + 1) % 4;
             this.lastAnimationTime = new Date;
         }
     }

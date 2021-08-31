@@ -6,8 +6,7 @@ export default class EnemyBase {
     }
 
     draw(ctx) {
-        var img = new Image();
-        img.src = "./js/images/bases/enemy.png";
+        let img = Constants.enemyBaseImage;
 
         ctx.drawImage(img, Constants.canvasWidth - Constants.cellSize,
                      Constants.controlBarHeight,

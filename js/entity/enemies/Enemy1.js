@@ -12,10 +12,12 @@ export default class Enemy1 extends BaseEnemy {
 
         this.baseDamage = 20;
 
-        this.index = 0;
+        this.runImages = Constants.enemy1RunImages;
+        this.hitImages = Constants.enemy1HitImages;
+        this.imageIndex = 0;
 
         this.lastAnimationTime = new Date();
-        this.animationInterval = 200;
+        this.animationInterval = 200;    
     }
 
     shoot() {
@@ -33,14 +35,13 @@ export default class Enemy1 extends BaseEnemy {
     }
 
     draw() {
-        let ctx = this.ctx;
-
-        var img = new Image();
+        let ctx = this.ctx,
+            img;
 
         if (this.target) {
-            img.src = "./js/images/enemies/enemy1/hit/" + this.index + ".png";
+            img = this.hitImages[this.imageIndex];
         } else {
-            img.src = "./js/images/enemies/enemy1/run/" + this.index + ".png";
+            img = this.runImages[this.imageIndex];
         }
 
         ctx.drawImage(img, this.x - Constants.cellSize / 2,
@@ -50,7 +51,7 @@ export default class Enemy1 extends BaseEnemy {
         this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.index = (this.index + 1) % 4;
+            this.imageIndex = (this.imageIndex + 1) % 4;
             this.lastAnimationTime = new Date;
         }
 

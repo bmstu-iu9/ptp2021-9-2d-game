@@ -15,7 +15,8 @@ export default class Unit4 extends BaseUnit {
         this.healing = 10;
         this.totalHealing = 0;
 
-        this.index = 0;
+        this.runImages = Constants.unit4RunImages;
+        this.imageIndex = 0;
 
         this.lastAnimationTime = new Date();
         this.animationInterval = 200;
@@ -125,11 +126,8 @@ export default class Unit4 extends BaseUnit {
     }
 
     draw() {
-        let ctx = this.ctx;
-
-        var img = new Image();
-
-        img.src = "./js/images/units/unit4/" + this.index + ".png";
+        let ctx = this.ctx,
+            img = this.runImages[this.imageIndex];
 
         ctx.drawImage(img, this.x, this.y + Constants.cellSize * 10/100,
                            Constants.cellSize, Constants.cellSize * 90/100);
@@ -137,7 +135,7 @@ export default class Unit4 extends BaseUnit {
         this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.index = (this.index + 1) % 4;
+            this.imageIndex = (this.imageIndex + 1) % 4;
             this.lastAnimationTime = new Date;
         }
     }

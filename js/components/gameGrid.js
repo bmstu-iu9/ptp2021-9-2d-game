@@ -11,9 +11,8 @@ class Cell {
 
     draw(game) {
         let mouse = game.mouse;
-        let ctx = game.ctx;
-        var img = new Image();
-        img.src = "./js/images/background/2.png";
+        let ctx = game.ctx,
+            img = Constants.gameGridBG;
         ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
         if (mouse.x && mouse.y && detectCollision(this, mouse) &&
             mouse.y >= Constants.controlBarHeight) {

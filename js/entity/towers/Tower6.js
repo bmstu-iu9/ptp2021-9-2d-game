@@ -20,7 +20,8 @@ export default class Tower6 extends BaseTower {
 
         this.level = 1;
 
-        this.index = 0;
+        this.images = Constants.tower6Images;
+        this.imageIndex = 0;
 
         this.lastAnimationTime = new Date();
         this.animationInterval = 200;
@@ -58,10 +59,8 @@ export default class Tower6 extends BaseTower {
     shoot() {}
 
     draw() {
-        let ctx = this.ctx;
-
-        var img = new Image();
-        img.src = "./js/images/towers/tower6/" + this.index + ".png";
+        let ctx = this.ctx,
+            img = this.images[this.imageIndex];
 
         ctx.drawImage(img,
                       this.x - Constants.cellSize / 2,
@@ -72,7 +71,7 @@ export default class Tower6 extends BaseTower {
         this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.index = (this.index + 1) % 4;
+            this.imageIndex = (this.imageIndex + 1) % 4;
             this.lastAnimationTime = new Date;
         }
     }

@@ -6,8 +6,7 @@ export default class PlayerBase {
     }
 
     draw(ctx) {
-        var img = new Image();
-        img.src = "./js/images/bases/unit.png";
+        let img = Constants.playerBaseImage;
 
         ctx.drawImage(img, 0,
                      Constants.controlBarHeight,

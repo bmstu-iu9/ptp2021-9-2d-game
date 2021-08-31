@@ -63,11 +63,7 @@ class Game {
 
 
     checkClick(e) {
-<<<<<<< HEAD
 
-=======
-      console.log('hello', e.clientX, e.clientY);//убрать
->>>>>>> 8777659b2f262441adfd209717871d6a6574e36a
       if (e.clientX > 919 && e.clientX < 995 && e.clientY > 87 && e.clientY < 97){
         pauseGame();
 

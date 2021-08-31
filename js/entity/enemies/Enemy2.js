@@ -24,7 +24,7 @@ export default class Enemy2 extends BaseEnemy {
         if (this.target && new Date - this.lastShotTime >= this.shootInterval) {
             this.projectiles.push(new Projectile1(
                 this.target,
-                this.x - Constants.cellSize,
+                this.x - Constants.cell,
                 this.y,
                 this.damage,
                 Constants.enemyProjectile,

@@ -27,7 +27,7 @@ export function processEnemies(game) {
     if (new Date - game.last_enemy_summoning_time > game.enemy_summoning_interval) {
         let verticalPosition = Math.floor(Math.random() * 13 + 2) * Constants.cellSize;
 
-        switch(/*Math.floor(Math.random() * 4 + 1)*/ 4) {
+        switch(Math.floor(Math.random() * 4 + 1)) {
             case 1:
                 enemies.push(new Enemy1(game, verticalPosition));
                 break;

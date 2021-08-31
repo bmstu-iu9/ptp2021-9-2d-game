@@ -26,13 +26,13 @@ export default class Enemy3 extends BaseEnemy {
     }
 
     shoot() {
-        if (this.target && new Date - this.lastShotTime >= this.shootInterval) {
+        if (this.target && new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             this.projectiles.push(new Projectile1(
                 this.target,
                 this.x,
                 this.y,
                 this.damage,
-                Constants.enemyProjectile,
+                Constants.enemy3RunImages[4],
             ));
 
             this.lastShotTime = new Date();

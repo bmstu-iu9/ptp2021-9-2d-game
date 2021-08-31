@@ -303,6 +303,7 @@ export const
         createImage("./images/enemies/enemy3/1.png"),
         createImage("./images/enemies/enemy3/2.png"),
         createImage("./images/enemies/enemy3/3.png"),
+        createImage("./images/enemies/enemy3/projectile3.png"),
     ],
 
     enemy4RunImages = [

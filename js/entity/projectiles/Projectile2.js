@@ -24,8 +24,6 @@ export default class Projectile2 {
         this.explosionFrame = 0;
         this.reached = false;
         this.complete = false;
-
-        this.check = 0; /////
     }
 
     update() {
@@ -33,25 +31,13 @@ export default class Projectile2 {
             this.targetX = this.target.x;
             this.targetY = this.target.y;
         }
-        if (this.check < 0) {
-            this.y -= this.speed;
-            this.check += 1;
-        } else {
 
-            let delta = -1.57 + Math.atan2(this.targetY - this.y,
-                                   this.targetX - this.x);
-            if (delta > 45 * 3.14 / 180) {
-                delta = 45 * 3.14 / 180;
-            } else if (delta < -45 * 3.14 / 180) {
-                delta = -45 * 3.14 / 180;
-            }
+        let newDirection = Math.atan2(this.targetY - this.y,
+                                      this.targetX - this.x);
+        this.direction = newDirection;
 
-            this.direction = delta; //Math.atan2(this.targetY - this.y,
-                                //   this.targetX - this.x);
-            this.x += this.speed * Math.cos(this.direction);
-            this.y += this.speed * Math.sin(this.direction);
-        }
-
+        this.x += this.speed * Math.cos(this.direction);
+        this.y += this.speed * Math.sin(this.direction);
     }
 
     hit(enemies) {

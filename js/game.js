@@ -74,9 +74,8 @@ class Game {
           resumeGame();
       }
 
-      if (game.gameOver == true && e.clientX > 800 && e.clientX < 1114 &&
-              e.clientY > 480 && e.clientY < 520){
-
+      if (game.gameOver == true && e.clientX > Constants.canvasWidth / 2.43 && e.clientX < Constants.canvasWidth / 1,705  &&
+              e.clientY > Constants.canvasHeight / 1.95 && e.clientY < Constants.canvasHeight / 1.8){
           restarGame();
       }
 
@@ -93,7 +92,7 @@ class Game {
     checkAiming(e) {
       if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097
                && e.clientY > 401 && e.clientY < 452){
-          console.log("hi");
+
       }
   }
 
@@ -111,10 +110,6 @@ class Game {
       this.ctx.font = "bold 25px Orbitron";
       this.ctx.fillStyle = this.menuColor;
       this.ctx.fillText("Resume", 908, 433);
-    }
-
-    endGame() {
-
     }
 
 
@@ -159,7 +154,7 @@ function play() {
     }
 
     if (game.gameOver == true){
-      handleBases();
+      handleBases(game);
     }
 
     if (!game.gamePause && !game.gameOver) requestAnimationFrame(play);

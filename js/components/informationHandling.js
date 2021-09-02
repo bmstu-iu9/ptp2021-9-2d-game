@@ -6,14 +6,16 @@ export function handleBases(game) {
 
     if (game.playerBase.health.data == 0) {
         ctx.fillStyle = game.menuBg;
-        ctx.fillRect(775, 415, 370, 150);
+        ctx.fillRect(Constants.canvasWidth / 2.43, Constants.canvasHeight / 2.3,
+          Constants.canvasWidth / 5.36, Constants.canvasHeight / 8);
 
         ctx.fillStyle = game.colorInMenu;
-        ctx.fillRect(800, 480, 315, 40);
+        ctx.fillRect(Constants.canvasWidth / 2.38, Constants.canvasHeight / 1.95,
+           Constants.canvasWidth / 6, Constants.canvasHeight / 22.9);
 
         ctx.font = "bold 30px Orbitron";
         ctx.fillStyle = game.menuColor;
-        ctx.fillText("Restart", 890, 510);
+        ctx.fillText("Restart", Constants.canvasWidth / 2.12, Constants.canvasHeight / 1.84);
 
         ctx.fillStyle = 'red';
         ctx.font = '60px Orbitron';
@@ -26,14 +28,17 @@ export function handleBases(game) {
     if (game.enemyBase.health.data == 0) {
 
         ctx.fillStyle = game.menuBg;
-        ctx.fillRect(790, 415, 335, 150);
+        ctx.fillRect(Constants.canvasWidth / 2.41, Constants.canvasHeight / 2.3,
+          Constants.canvasWidth / 5.64, Constants.canvasHeight / 8);
 
         ctx.fillStyle = game.colorInMenu;
-        ctx.fillRect(800, 480, 315, 40);
+        ctx.fillRect(Constants.canvasWidth / 2.38, Constants.canvasHeight / 1.95,
+           Constants.canvasWidth / 6, Constants.canvasHeight / 22.9);
+
 
         ctx.font = "bold 30px Orbitron";
         ctx.fillStyle = game.menuColor;
-        ctx.fillText("Restart", 890, 510);
+        ctx.fillText("Restart", Constants.canvasWidth / 2.12, Constants.canvasHeight / 1.84);
 
         ctx.fillStyle = 'green';
         ctx.font = '60px Orbitron';

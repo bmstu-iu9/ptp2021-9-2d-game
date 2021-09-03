@@ -21,7 +21,7 @@ export default class Enemy2 extends BaseEnemy {
     }
 
     shoot() {
-        if (this.target && new Date - this.lastShotTime >= this.shootInterval) {
+        if (this.target && new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 2) {
             this.projectiles.push(new Projectile1(
                 this.target,
                 this.x - Constants.cell,
@@ -52,7 +52,7 @@ export default class Enemy2 extends BaseEnemy {
         this.drawHP();
 
         if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.imageIndex = (this.imageIndex + 1) % 4;
+            this.imageIndex = (this.imageIndex + 1) % 3;
             this.lastAnimationTime = new Date;
         }
 

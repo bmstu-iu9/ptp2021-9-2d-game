@@ -297,7 +297,7 @@ export const
         createImage("./images/enemies/enemy2/hit/0.png"),
         createImage("./images/enemies/enemy2/hit/1.png"),
         createImage("./images/enemies/enemy2/hit/2.png"),
-        createImage("./images/enemies/enemy2/hit/3.png"),
+        //createImage("./images/enemies/enemy2/hit/3.png"),
     ],
 
     enemy3RunImages = [

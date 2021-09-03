@@ -42,6 +42,7 @@ export default class Tower4 extends BaseTower {
                     this.slowingInterval,
                     this.slowingCoeff,
                     Constants.tower4Images[5],
+                    Constants.projectileUnitBang,
                 ))
             }
 

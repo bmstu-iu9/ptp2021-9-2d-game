@@ -316,3 +316,18 @@ export const
     ],
 
     enemyProjectile = createImage("./images/enemies/projectile6.png");
+
+export const
+    projectileUnitBang = [
+        createImage("./images/bang/projectile1/0.png"),
+        createImage("./images/bang/projectile1/0.png"),
+        createImage("./images/bang/projectile1/1.png"),
+        createImage("./images/bang/projectile1/1.png"),
+    ],
+
+    projectileEnemyBang = [
+        createImage("./images/bang/projectile2/0.png"),
+        createImage("./images/bang/projectile2/0.png"),
+        createImage("./images/bang/projectile2/1.png"),
+        createImage("./images/bang/projectile2/1.png"),
+    ];

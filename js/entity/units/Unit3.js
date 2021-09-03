@@ -53,6 +53,7 @@ export default class Unit3 extends BaseUnit {
                     this.y + this.height/2,
                     this.damage,
                     Constants.unit3HitImages[4],
+                    Constants.projectileUnitBang,
                 ));
             }
 

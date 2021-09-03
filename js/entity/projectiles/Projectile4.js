@@ -23,6 +23,8 @@ export default class Projectile4 {
         this.slowingInterval = slowingInterval;
         this.slowingCoeff = slowingCoeff;
 
+
+        this.bangImages = bangImages;
         this.explosionFrame = 0;
         this.reached = false;
         this.complete = false;
@@ -71,11 +73,14 @@ export default class Projectile4 {
 
     draw(ctx) {
         if (this.reached) {
+            ctx.drawImage(this.bangImages[this.explosionFrame],
+                          this.targetX - Constants.cellSize / 2,
+                          this.targetY - Constants.cellSize / 2,
+                          this.width * 2,
+                          this.height * 2);
             this.explosionFrame++;
 
-            // Здесь будет обработка анимации взрыва
-
-            if (this.explosionFrame == 5) {
+            if (this.explosionFrame == 4) {
                 this.complete = true;
             }
         } else {

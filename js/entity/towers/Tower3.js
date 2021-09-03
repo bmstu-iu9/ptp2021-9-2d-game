@@ -84,6 +84,7 @@ export default class Tower3 extends BaseTower {
                     this.y,
                     this.damage,
                     Constants.tower3Images[4],
+                    Constants.projectileUnitBang,
                 ))
             }
 

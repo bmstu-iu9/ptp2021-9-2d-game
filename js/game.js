@@ -133,8 +133,9 @@ class Game {
 
         processTowers(game);
         processUnits(game);
-        processProjectiles(game);
         processEnemies(game);
+        processProjectiles(game);
+
 
         this.ms += 1000/60;
 

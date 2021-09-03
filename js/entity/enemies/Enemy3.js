@@ -33,6 +33,7 @@ export default class Enemy3 extends BaseEnemy {
                 this.y,
                 this.damage,
                 Constants.enemy3RunImages[4],
+                Constants.projectileEnemyBang,
             ));
 
             this.lastShotTime = new Date();

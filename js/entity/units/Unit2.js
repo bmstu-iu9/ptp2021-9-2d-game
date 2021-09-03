@@ -31,6 +31,7 @@ export default class Unit2 extends BaseUnit {
                     this.y + this.height/2,
                     this.damage,
                     Constants.unit2HitImages[4],
+                    Constants.projectileUnitBang,
                 ));
             }
 

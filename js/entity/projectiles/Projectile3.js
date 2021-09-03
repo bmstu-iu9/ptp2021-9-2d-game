@@ -2,7 +2,7 @@ import { calculateDistance } from './../../utils/utils.js';
 import * as Constants from './../../constants.js';
 
 export default class Projectile3 {
-    constructor(target, x, y, damage, img) {
+    constructor(target, x, y, damage, img, bangImages) {
         this.towerX = x;
 
         this.target = target;
@@ -21,6 +21,9 @@ export default class Projectile3 {
         this.speed = Constants.cellSize / 20;
         this.damage = damage;
 
+        this.bangImages = bangImages;
+        this.explosionFrame = 0;
+        this.reached = false;
         this.complete = false;
     }
 
@@ -49,20 +52,33 @@ export default class Projectile3 {
     }
 
     draw(ctx) {
-        ctx.beginPath();
-        ctx.save();
-        ctx.translate(this.x, this.y - Constants.cellSize / 2);
+        if (this.reached) {
+            ctx.drawImage(this.bangImages[this.explosionFrame],
+                          this.targetX - Constants.cellSize / 2,
+                          this.targetY - Constants.cellSize / 2,
+                          this.width * 2,
+                          this.height * 2);
+            this.explosionFrame++;
 
-        ctx.rotate(this.direction);
+            if (this.explosionFrame == 4) {
+                this.complete = true;
+            }
+        } else {
+            ctx.beginPath();
+            ctx.save();
+            ctx.translate(this.x, this.y);
 
-        ctx.drawImage(this.img,
-                      0,
-                      0,
-                      this.width,
-                      this.height);
+            ctx.rotate(this.direction);
 
-        ctx.restore();
-        ctx.stroke();
-        ctx.closePath();
+            ctx.drawImage(this.img,
+                          0,
+                          0,
+                          this.width,
+                          this.height);
+
+            ctx.restore();
+            ctx.stroke();
+            ctx.closePath();
+        }
     }
 }

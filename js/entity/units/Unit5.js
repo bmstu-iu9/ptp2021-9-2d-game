@@ -37,7 +37,8 @@ export default class Unit5 extends BaseUnit {
                     this.x + this.width/2,
                     this.y,
                     this.damage,
-                    Constants.unit5HitImages[4]
+                    Constants.unit5HitImages[4],
+                    Constants.projectileUnitBang,
                 ));
 
                 this.totalDamage += this.damage;

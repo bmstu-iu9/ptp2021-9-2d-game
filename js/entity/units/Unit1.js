@@ -150,6 +150,7 @@ export default class Unit1 extends BaseUnit {
                     this.y + this.height/2,
                     this.damage,
                     Constants.unit1HitImages[4],
+                    Constants.projectileUnitBang,
                 ));
             }
             this.lastShotTime = new Date();

@@ -40,6 +40,7 @@ export default class Unit7 extends BaseUnit {
                     this.damage,
                     1,
                     Constants.unit7HitImages[4],
+                    Constants.projectileUnitBang,
                 ));
 
                 this.shots += 1;

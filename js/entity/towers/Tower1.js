@@ -33,7 +33,8 @@ export default class Tower1 extends BaseTower {
                     this.x,
                     this.y -  Constants.cellSize * 2 / 4,
                     this.damage,
-                    Constants.tower1Images[4]
+                    Constants.tower1Images[4],
+                    Constants.projectileUnitBang,
                 ));
             }
 

@@ -28,6 +28,7 @@ export default class Enemy1 extends BaseEnemy {
                 this.y +  Constants.cellSize *  2 / 4,
                 this.damage,
                 Constants.enemyProjectile,
+                Constants.projectileEnemyBang,
             ));
 
             this.lastShotTime = new Date();

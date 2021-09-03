@@ -60,12 +60,21 @@ class Game {
       this.ctx.fillText("Menu", 920, 90);
     }
 
+    checkButton(e) {
 
+        if (e.code == 'Escape'){
+            pauseGame();
+        }
+
+        if (game.gamePause == true && e.code == 'Enter'){
+            resumeGame();
+        }
+    }
 
     checkClick(e) {
 
       if (e.clientX > 919 && e.clientX < 995 && e.clientY > 87 && e.clientY < 97){
-        pauseGame();
+          pauseGame();
 
       }
 
@@ -141,6 +150,7 @@ class Game {
 let game = new Game();
 game.init();
 
+document.onkeydown = game.checkButton;
 document.onmousedown = game.checkClick;
 document.onMouseOver = game.checkAiming;
 

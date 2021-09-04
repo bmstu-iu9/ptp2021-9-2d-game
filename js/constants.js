@@ -1,9 +1,11 @@
 export const
     canvasWidth = document.documentElement.scrollWidth,
     canvasHeight = document.documentElement.scrollHeight,
-    controlBarWidth = canvasWidth,
     cellSize = canvasHeight / 15,
+    controlBarWidth = canvasWidth,
     controlBarHeight = cellSize * 2,
+    gameGridWidth = canvasWidth,
+    gameGridHeight = canvasHeight - controlBarHeight,
     fontSize = cellSize * 2 / 5 ;
 
 

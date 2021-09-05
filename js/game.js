@@ -122,6 +122,7 @@ class Game {
     }
 
 
+
     init() {
         this.mouse = new Mouse(game);
 

@@ -13,13 +13,13 @@ export function handleBases(game) {
         ctx.fillRect(Constants.canvasWidth / 2.38, Constants.canvasHeight / 1.95,
            Constants.canvasWidth / 6, Constants.canvasHeight / 22.9);
 
-        ctx.font = "bold 30px Orbitron";
+        ctx.font = Constants.cellSize * 3 / 7 + "px Orbitron";
         ctx.fillStyle = game.menuColor;
         ctx.fillText("Restart", Constants.canvasWidth / 2.12, Constants.canvasHeight / 1.84);
 
         ctx.fillStyle = 'red';
-        ctx.font = '60px Orbitron';
-        ctx.fillText('YOU LOSE', Constants.canvasWidth / 2 - Constants.cellSize * 2.7, Constants.canvasHeight / 2);
+        ctx.font = Constants.cellSize * 2 / 2.7 + 'px Orbitron';
+        ctx.fillText('YOU LOSE', Constants.canvasWidth / 2 - Constants.cellSize * 2.2, Constants.canvasHeight / 2);
 
 
         game.gameOver = true;
@@ -36,13 +36,13 @@ export function handleBases(game) {
            Constants.canvasWidth / 6, Constants.canvasHeight / 22.9);
 
 
-        ctx.font = "bold 30px Orbitron";
+        ctx.font = Constants.cellSize * 3 / 7 + "px Orbitron";
         ctx.fillStyle = game.menuColor;
         ctx.fillText("Restart", Constants.canvasWidth / 2.12, Constants.canvasHeight / 1.84);
 
         ctx.fillStyle = 'green';
-        ctx.font = '60px Orbitron';
-        ctx.fillText('YOU WIN', Constants.canvasWidth / 2 - Constants.cellSize * 2.4, Constants.canvasHeight / 2);
+        ctx.font = Constants.cellSize * 2 / 2.7 +'px Orbitron';
+        ctx.fillText('YOU WIN', Constants.canvasWidth / 2 - Constants.cellSize * 1.8, Constants.canvasHeight / 2.05);
 
 
         game.gameOver = true;

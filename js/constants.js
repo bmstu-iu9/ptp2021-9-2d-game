@@ -92,7 +92,8 @@ export const
     controlBarBG = createImage("./images/background/controlBar.png"),
     gameGridBG = createImage("./images/background/gameGrid.png"),
     playerBaseImage = createImage("./images/bases/playerBase.png"),
-    enemyBaseImage = createImage("./images/bases/enemyBase.png");
+    enemyBaseImage = createImage("./images/bases/enemyBase.png"),
+    upgradeArrow = createImage("./images/towers/upgradeArrow.png");
 
 
 export const

@@ -56,9 +56,9 @@ export default class Tower4 extends BaseTower {
 
         ctx.drawImage(img,
                       this.x - Constants.cellSize / 2,
-                      this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
+                      this.y - Constants.cellSize / 2 + Constants.cellSize * 15/100,
                       Constants.cellSize,
-                      Constants.cellSize * 90/100);
+                      Constants.cellSize * 85/100);
 
         this.drawHP();
 

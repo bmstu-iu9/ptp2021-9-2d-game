@@ -113,22 +113,23 @@ export function processTowers(game) {
             continue;
         }
 
+        tower.shoot();
+        tower.draw();
+
         if (tower.level == 1 && game.resources >= tower.upgradeCost) {
             drawUpgradeOpportunity(tower, game.ctx)
         }
-
-        tower.shoot();
-        tower.draw();
     }
 }
 
 
 export function drawUpgradeOpportunity(tower, ctx) {
-    ctx.beginPath();
-    ctx.lineWidth = Constants.cellSize / 10;
-    ctx.strokeStyle = 'Darkred';
-    ctx.strokeRect(tower.x - Constants.cellSize / 2,
-                   tower.y - Constants.cellSize / 2,
-                   tower.width,
-                   tower.height);
+    let upgradeArrowWidth = tower.width / 5,
+        upgradeArrowHeight = tower.height / 5,
+        upgradeArrowTopLeftPosX = tower.x - tower.width / 2,
+        upgradeArrowTopLeftPosY = tower.y - tower.height * 3/8;
+
+    ctx.drawImage(Constants.upgradeArrow,
+                  upgradeArrowTopLeftPosX, upgradeArrowTopLeftPosY,
+                  upgradeArrowWidth, upgradeArrowHeight)
 }

@@ -125,8 +125,7 @@ class Game {
       this.ctx.fillText("Resume", Constants.canvasWidth / 2.135, Constants.canvasHeight / 2.15);
 
 
-      this.ctx.fillStyle = "black";
-      this.ctx.fillRect(Constants.canvasWidth / 1.745, Constants.canvasHeight / 2.07, Constants.canvasWidth / 6.45, Constants.canvasHeight / 18);
+
       }
 
 

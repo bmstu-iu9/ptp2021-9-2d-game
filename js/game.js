@@ -55,9 +55,9 @@ class Game {
 
 
     gameFunc() {
-      this.ctx.font = "bold 25px Orbitron";
+      this.ctx.font = Constants.canvasHeight / 35 + "px Orbitron";
       this.ctx.fillStyle = this.menuColor;
-      this.ctx.fillText("Menu", 920, 90);
+      this.ctx.fillText("Menu", Constants.canvasWidth / 2.05, Constants.canvasHeight / 10);
     }
 
     checkButton(e) {
@@ -73,13 +73,14 @@ class Game {
 
     checkClick(e) {
 
-      if (e.clientX > 919 && e.clientX < 995 && e.clientY > 87 && e.clientY < 97){
+      if (e.clientX > Constants.canvasWidth / 2.05 && e.clientX < Constants.canvasWidth / 1.89 &&
+              e.clientY > Constants.canvasHeight / 13 && e.clientY < Constants.canvasHeight / 9){
           pauseGame();
 
       }
 
-      if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097 &&
-              e.clientY > 401 && e.clientY < 452){
+      if (game.gamePause == true && e.clientX > Constants.canvasWidth / 2.345 && e.clientX < Constants.canvasWidth / 1.745 &&
+              e.clientY > Constants.canvasHeight / 2.35 && e.clientY < Constants.canvasHeight / 2.07){
           resumeGame();
       }
 
@@ -106,20 +107,27 @@ class Game {
   }
 
     showMenu() {
+
+
+
       this.ctx.fillStyle = this.menuBg;
-      this.ctx.fillRect(810, 350, 300, 350);
+      this.ctx.fillRect(Constants.canvasWidth / 2.37, Constants.canvasHeight / 2.7, Constants.canvasWidth / 6.45, Constants.canvasHeight / 3);
 
       this.ctx.fillStyle = this.colorInMenu;
-      this.ctx.fillRect(820, 400, 280, 50);
+      this.ctx.fillRect(Constants.canvasWidth / 2.345, Constants.canvasHeight / 2.35 , Constants.canvasWidth / 6.8, Constants.canvasHeight / 18);
 
-      this.ctx.font = "bold 25px Orbitron";
+      this.ctx.font = Constants.canvasHeight / 34 + "px Orbitron";
       this.ctx.fillStyle = this.menuColor;
-      this.ctx.fillText("Menu", 920, 380);
+      this.ctx.fillText("Menu", Constants.canvasWidth / 2.09, Constants.canvasHeight / 2.48);
 
-      this.ctx.font = "bold 25px Orbitron";
+      this.ctx.font = Constants.canvasHeight / 34 + "px Orbitron";
       this.ctx.fillStyle = this.menuColor;
-      this.ctx.fillText("Resume", 908, 433);
-    }
+      this.ctx.fillText("Resume", Constants.canvasWidth / 2.135, Constants.canvasHeight / 2.15);
+
+
+      this.ctx.fillStyle = "black";
+      this.ctx.fillRect(Constants.canvasWidth / 1.745, Constants.canvasHeight / 2.07, Constants.canvasWidth / 6.45, Constants.canvasHeight / 18);
+      }
 
 
 
@@ -189,7 +197,7 @@ function startGame() {
       Constants.canvasWidth/10, Constants.canvasHeight/16);
 
 
-    game.ctx.font = "bold 30px Orbitron"
+    game.ctx.font = Constants.cellSize * 3 / 7 + "px Orbitron";
     game.ctx.fillStyle = game.menuColor;
     game.ctx.fillText("Start",Constants.canvasWidth/2.01 , Constants.canvasHeight / 2.69)
 }

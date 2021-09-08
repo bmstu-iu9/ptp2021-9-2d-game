@@ -2,7 +2,7 @@ import { calculateDistance } from './../../utils/utils.js';
 import * as Constants from './../../constants.js';
 
 export default class Projectile4 {
-    constructor(target, x, y, damage, slowingInterval, slowingCoeff, img) {
+    constructor(target, x, y, damage, slowingInterval, slowingCoeff, img, bangImages) {
         this.target = target;
         this.targetX = target.x;
         this.targetY = target.y;

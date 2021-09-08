@@ -11,7 +11,7 @@ export const
 
 function createCoords() {
     let cards = [];
-    let x = cellSize + (canvasWidth / 2 - 10 * cellSize - 6 * cellSize / 2) / 2;
+    let x = canvasWidth / 4 - (7 / 2) * (cellSize + cellSize/2)
     let y = cellSize - cellSize / 5;
 
     for (var i = 0; i < 7; i++) {
@@ -25,7 +25,7 @@ function createCoords() {
         x += cellSize + cellSize / 2;
     }
 
-    x += (canvasWidth / 2 + cellSize / 2 - x) * 2 - cellSize / 2;
+    x = canvasWidth * 3 / 4 - (7 / 2) * (cellSize + cellSize/2)
 
     for (var i = 0; i < 7; i++) {
         const card = {

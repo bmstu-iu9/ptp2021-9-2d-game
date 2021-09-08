@@ -65,6 +65,7 @@ export function handleGameGrid(game) {
 
 export function handleControlBar(game) {
     let ctx = game.ctx;
+    let delta = (Constants.cellSize * 3 / 5) / 2;
 
     ctx.drawImage(Constants.controlBarBG,
                   0, 0,
@@ -77,10 +78,10 @@ export function handleControlBar(game) {
 
     ctx.fillStyle = 'rgb(42, 163, 223)';
     ctx.font = Constants.cellSize * 3 / 5 + 'px Orbitron';
-    let delta = Constants.cellSize + (Constants.canvasWidth / 2 - 10 * Constants.cellSize - 6 * Constants.cellSize / 2) / 2;
-    ctx.fillText('Resources: ' + game.resources, Constants.canvasWidth / 2 - delta * 7 / 6, Constants.cellSize * 2 / 3);
-    ctx.fillText('Towers', (Constants.canvasWidth / 2 - delta - Constants.cellSize) / 2, Constants.cellSize * 3 / 5);
-    ctx.fillText('Units', Constants.canvasWidth / 2 + (Constants.canvasWidth / 2 - Constants.cellSize) / 2, Constants.cellSize * 3 / 5);
+
+    ctx.fillText('Resources: ' + game.resources, Constants.controlBarWidth / 2 - ((7 /*+ ("11" + game.resources).length*/) * delta), Constants.cellSize * 2 / 3);
+    ctx.fillText('Towers', Constants.controlBarWidth / 4 - (6 * delta), Constants.cellSize * 3 / 5);
+    ctx.fillText('Units', Constants.controlBarWidth * 3 / 4 - (5 * delta), Constants.cellSize * 3 / 5);
 
 
     ctx.lineWidth = Constants.cellSize / 20;

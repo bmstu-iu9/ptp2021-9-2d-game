@@ -29,7 +29,7 @@ export function handleControlBar(game) {
     }
 
     ctx.fillStyle = 'rgb(42, 163, 223)';
-    ctx.font = Constants.cellSize * 3 / 5 + 'px Orbitron';
+    ctx.font = Constants.canvasWidth / 30 + 'px Orbitron';
 
     ctx.fillText('Resources: ' + game.resources, Constants.controlBarWidth / 2 - (ctx.measureText('Resources: ' + game.resources).width / 2), Constants.cellSize * 2 / 3);
     ctx.fillText('Towers', Constants.towerCard4.x + (Constants.cellSize / 2) - (ctx.measureText('Towers').width / 2), Constants.cellSize * 3 / 5);

@@ -11,31 +11,32 @@ export const
 
 function createCoords() {
     let cards = [];
-    let x = canvasWidth / 4 - (7 / 2) * (cellSize + cellSize/2)
-    let y = cellSize - cellSize / 5;
+    let cellSize1 = canvasWidth / 30;
+    let x = canvasWidth / 4 - (7 / 2) * (cellSize1 + cellSize1/2)
+    let y = cellSize - cellSize / 5 + (cellSize - cellSize1);
 
     for (var i = 0; i < 7; i++) {
         const card = {
             x: x,
             y: y,
-            width: cellSize,
-            height: cellSize
+            width: cellSize1,
+            height: cellSize1
         };
         cards.push(card);
-        x += cellSize + cellSize / 2;
+        x += cellSize1 + cellSize1 / 2;
     }
 
-    x = canvasWidth * 3 / 4 - (7 / 2) * (cellSize + cellSize/2)
+    x = canvasWidth * 3 / 4 - (7 / 2) * (cellSize1 + cellSize1/2)
 
     for (var i = 0; i < 7; i++) {
         const card = {
             x: x,
             y: y,
-            width: cellSize,
-            height: cellSize
+            width: cellSize1,
+            height: cellSize1
         };
         cards.push(card);
-        x += cellSize + cellSize / 2 ;
+        x += cellSize1 + cellSize1 / 2 ;
     }
 
     return cards;

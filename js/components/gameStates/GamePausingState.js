@@ -28,8 +28,8 @@ export default class GamePausingState {
         ctx.fillText("Resume", Constants.canvasWidth / 2.135, Constants.canvasHeight / 2.15);
 
         ctx.fillStyle = "black";
-        ctx.fillRect(Constants.canvasWidth / 1.745, Constants.canvasHeight / 2.07,
-                     Constants.canvasWidth / 6.45, Constants.canvasHeight / 18);
+        ctx.fillRect(Constants.canvasWidth / 2.345, Constants.canvasHeight / 2.07,
+                     Constants.canvasWidth / 6.8, Constants.canvasHeight / 18);
     }
 
     handleEvent(event) {

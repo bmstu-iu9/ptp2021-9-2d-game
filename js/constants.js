@@ -12,6 +12,9 @@ export const
 function createCoords() {
     let cards = [];
     let cellSize1 = canvasWidth / 30;
+
+    if (cellSize < cellSize1) cellSize1 = cellSize;
+
     let x = canvasWidth / 4 - (7 / 2) * (cellSize1 + cellSize1/2)
     let y = cellSize - cellSize / 5 + (cellSize - cellSize1);
 

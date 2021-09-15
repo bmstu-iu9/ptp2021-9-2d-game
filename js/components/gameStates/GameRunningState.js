@@ -22,20 +22,36 @@ export default class GameRunningState {
 
         let ctx = this.game.ctx;
 
-        ctx.font = Constants.canvasHeight / 35 + "px Orbitron";
+        if (Constants.canvasWidth / 30 < Constants.cellSize) {
+          ctx.font = Constants.canvasWidth / 30 + 'px Orbitron';
+        } else {
+          ctx.font = Constants.cellSize  * 3 / 5 + 'px Orbitron';
+        }
+
         ctx.fillStyle = this.menuColor;
-        ctx.fillText("Menu", Constants.canvasWidth / 2.05, Constants.canvasHeight / 10);
+        ctx.fillText("Menu", Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2), Constants.canvasHeight / 10);
     }
 
     handleEvent(event) {
         let game = this.game;
+        let ctx = this.game.ctx;
+        
+        if (Constants.canvasWidth / 30 < Constants.cellSize) {
+          ctx.font = Constants.canvasWidth / 30 + 'px Orbitron';
+        } else {
+          ctx.font = Constants.cellSize  * 3 / 5 + 'px Orbitron';
+        }
 
+        let menuLeftCorner = Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2);
+        let menuRightCorner = menuLeftCorner + (ctx.measureText('Menu').width);
+        let menuBottom = Constants.canvasHeight / 10;
+        let menuTop = Constants.canvasHeight / 10 - parseInt(ctx.font) * 1.2;
         switch(event.type) {
             case 'click':
-                if (event.clientX > Constants.canvasWidth / 2.05 &&
-                    event.clientX < Constants.canvasWidth / 1.89 &&
-                    event.clientY > Constants.canvasHeight / 13 &&
-                    event.clientY < Constants.canvasHeight / 9) {
+                if (event.clientX > menuLeftCorner &&
+                    event.clientX < menuRightCorner  &&
+                    event.clientY > menuTop &&
+                    event.clientY < menuBottom) {
 
                     this.removeEventListeners();
                     game.state = new game.states.gamePausing(this.game);

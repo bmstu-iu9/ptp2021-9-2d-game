@@ -17,7 +17,7 @@ export default class GameStartState {
         ctx.fillRect(Constants.canvasWidth / 2.12 , Constants.canvasHeight / 3,
                      Constants.canvasWidth / 10, Constants.canvasHeight / 16);
 
-        ctx.font = Constants.cellSize * 3 / 7 + "px Orbitron";
+        ctx.font = Constants.startfontSize + "px Orbitron";
         ctx.fillStyle = this.game.menuColor;
         ctx.fillText("Start", Constants.canvasWidth/2.01, Constants.canvasHeight / 2.69)
     }

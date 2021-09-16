@@ -6,7 +6,12 @@ export const
     controlBarHeight = cellSize * 2,
     gameGridWidth = canvasWidth,
     gameGridHeight = canvasHeight - controlBarHeight,
-    fontSize = cellSize * 2 / 5 ;
+    fontSize = cellSize * 2 / 5,
+    startfontSize = cellSize * 3 / 7,
+    smallMenufontSize = canvasWidth / 30,
+    largeMenufontSize = cellSize  * 3 / 5,
+    infoFontSize = cellSize * 2 / 2.7,
+    pauseWindowFontSize = canvasHeight / 34;
 
 
 function createCoords() {

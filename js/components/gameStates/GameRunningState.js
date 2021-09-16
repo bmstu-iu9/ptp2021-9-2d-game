@@ -23,9 +23,9 @@ export default class GameRunningState {
         let ctx = this.game.ctx;
 
         if (Constants.canvasWidth / 30 < Constants.cellSize) {
-          ctx.font = Constants.canvasWidth / 30 + 'px Orbitron';
+          ctx.font = Constants.smallMenufontSize + 'px Orbitron';
         } else {
-          ctx.font = Constants.cellSize  * 3 / 5 + 'px Orbitron';
+          ctx.font = Constants.largeMenufontSize + 'px Orbitron';
         }
 
         ctx.fillStyle = this.menuColor;
@@ -35,11 +35,11 @@ export default class GameRunningState {
     handleEvent(event) {
         let game = this.game;
         let ctx = this.game.ctx;
-        
+
         if (Constants.canvasWidth / 30 < Constants.cellSize) {
-          ctx.font = Constants.canvasWidth / 30 + 'px Orbitron';
+          ctx.font = Constants.smallMenufontSize + 'px Orbitron';
         } else {
-          ctx.font = Constants.cellSize  * 3 / 5 + 'px Orbitron';
+          ctx.font = Constants.largeMenufontSize + 'px Orbitron';
         }
 
         let menuLeftCorner = Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2);

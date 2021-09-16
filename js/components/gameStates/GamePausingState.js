@@ -19,11 +19,11 @@ export default class GamePausingState {
         ctx.fillRect(Constants.canvasWidth / 2.345, Constants.canvasHeight / 2.35 ,
                      Constants.canvasWidth / 6.8, Constants.canvasHeight / 18);
 
-        ctx.font = Constants.canvasHeight / 34 + "px Orbitron";
+        ctx.font = Constants.pauseWindowFontSize + "px Orbitron";
         ctx.fillStyle = this.game.menuColor;
         ctx.fillText("Menu", Constants.canvasWidth / 2.09, Constants.canvasHeight / 2.48);
 
-        ctx.font = Constants.canvasHeight / 34 + "px Orbitron";
+        ctx.font = Constants.pauseWindowFontSize + "px Orbitron";
         ctx.fillStyle = this.game.menuColor;
         ctx.fillText("Resume", Constants.canvasWidth / 2.135, Constants.canvasHeight / 2.15);
 

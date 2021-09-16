@@ -1,52 +1,10 @@
 import * as Constants from './../constants.js';
 
+
 export function handleBases(game) {
-    let ctx = game.ctx;
-
-    if (game.playerBase.health.data == 0) {
-        ctx.fillStyle = game.menuBg;
-        ctx.fillRect(Constants.canvasWidth / 2.43, Constants.canvasHeight / 2.3,
-          Constants.canvasWidth / 5.36, Constants.canvasHeight / 8);
-
-        ctx.fillStyle = game.colorInMenu;
-        ctx.fillRect(Constants.canvasWidth / 2.38, Constants.canvasHeight / 1.95,
-           Constants.canvasWidth / 6, Constants.canvasHeight / 22.9);
-
-        ctx.font = Constants.cellSize * 3 / 7 + "px Orbitron";
-        ctx.fillStyle = game.menuColor;
-        ctx.fillText("Restart", Constants.canvasWidth / 2.12, Constants.canvasHeight / 1.84);
-
-        ctx.fillStyle = 'red';
-        ctx.font = Constants.cellSize * 2 / 2.7 + 'px Orbitron';
-        ctx.fillText('YOU LOSE', Constants.canvasWidth / 2 - Constants.cellSize * 2.2, Constants.canvasHeight / 2);
-
-        game.gameOver = true;
-    }
-
-    if (game.enemyBase.health.data == 0) {
-        ctx.fillStyle = game.menuBg;
-        ctx.fillRect(Constants.canvasWidth / 2.41, Constants.canvasHeight / 2.3,
-          Constants.canvasWidth / 5.64, Constants.canvasHeight / 8);
-
-        ctx.fillStyle = game.colorInMenu;
-        ctx.fillRect(Constants.canvasWidth / 2.38, Constants.canvasHeight / 1.95,
-           Constants.canvasWidth / 6, Constants.canvasHeight / 22.9);
-
-
-        ctx.font = Constants.cellSize * 3 / 7 + "px Orbitron";
-        ctx.fillStyle = game.menuColor;
-        ctx.fillText("Restart", Constants.canvasWidth / 2.12, Constants.canvasHeight / 1.84);
-
-        ctx.fillStyle = 'green';
-        ctx.font = Constants.cellSize * 2 / 2.7 +'px Orbitron';
-        ctx.fillText('YOU WIN', Constants.canvasWidth / 2 - Constants.cellSize * 1.8, Constants.canvasHeight / 2.05);
-
-        game.gameOver = true;
-    }
-    game.playerBase.draw(ctx);
-    game.enemyBase.draw(ctx);
+    game.playerBase.draw(game.ctx);
+    game.enemyBase.draw(game.ctx);
 }
-
 
 
 export function handleGameGrid(game) {
@@ -60,7 +18,6 @@ export function handleGameGrid(game) {
 
 export function handleControlBar(game) {
     let ctx = game.ctx;
-    let delta = (Constants.cellSize * 3 / 5) / 2;
 
     ctx.drawImage(Constants.controlBarBG,
                   0, 0,
@@ -72,11 +29,15 @@ export function handleControlBar(game) {
     }
 
     ctx.fillStyle = 'rgb(42, 163, 223)';
-    ctx.font = Constants.cellSize * 3 / 5 + 'px Orbitron';
+    if (Constants.canvasWidth / 30 < Constants.cellSize) {
+      ctx.font = Constants.canvasWidth / 30 + 'px Orbitron';
+    } else {
+      ctx.font = Constants.cellSize  * 3 / 5 + 'px Orbitron';
+    }
 
-    ctx.fillText('Resources: ' + game.resources, Constants.controlBarWidth / 2 - ((7 /*+ ("11" + game.resources).length*/) * delta), Constants.cellSize * 2 / 3);
-    ctx.fillText('Towers', Constants.controlBarWidth / 4 - (6 * delta), Constants.cellSize * 3 / 5);
-    ctx.fillText('Units', Constants.controlBarWidth * 3 / 4 - (5 * delta), Constants.cellSize * 3 / 5);
+    ctx.fillText('Resources: ' + game.resources, Constants.controlBarWidth / 2 - (ctx.measureText('Resources: ' + game.resources).width / 2), Constants.cellSize * 2 / 3);
+    ctx.fillText('Towers', Constants.towerCard4.x + (Constants.cellSize / 2) - (ctx.measureText('Towers').width / 2), Constants.cellSize * 3 / 5);
+    ctx.fillText('Units', Constants.unitCard4.x + (Constants.cellSize / 2) - (ctx.measureText('Units').width / 2), Constants.cellSize * 3 / 5);
 
 
     ctx.lineWidth = Constants.cellSize / 20;

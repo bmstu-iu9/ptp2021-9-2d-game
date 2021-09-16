@@ -1,4 +1,8 @@
 import * as Constants from './constants.js';
+import GameStartState from './components/gameStates/GameStartState.js';
+import GameRunningState from './components/gameStates/GameRunningState.js';
+import GamePausingState from './components/gameStates/GamePausingState.js';
+import GameOverState from './components/gameStates/GameOverState.js';
 import Mouse from './components/mouse.js';
 import PlayerBase from './entity/bases/playerBase.js';
 import EnemyBase from './entity/bases/enemyBase.js';
@@ -9,25 +13,29 @@ import { processUnits } from './components/unitsProcessing.js';
 import { processProjectiles } from './components/ProjectilesProcessing.js';
 import { processEnemies } from './components/enemiesProcessing.js';
 
-//var refresh = setTimeout(enemiesProcessing.processEnemies, 100000/30);
 
-class Game {
+export default class Game {
     constructor() {
         this.canvas = document.getElementById('canvas1');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = Constants.canvasWidth;
         this.canvas.height = Constants.canvasHeight;
 
+        this.states = {
+            gameStart: GameStartState,
+            gameRunning: GameRunningState,
+            gamePausing: GamePausingState,
+            gameOver: GameOverState,
+        }
+
+        this.state = new this.states.gameStart(this);
+        this.gameOver = false;
+
         this.gameGrid = [];
         this.towers = [];
         this.units = [];
         this.enemies = [];
         this.projectiles = [];
-
-        this.gameOver = false;
-        this.gameRunning = false;
-        this.gamePause = false;
-        this.gameStart = true;
 
         this.resources = 300;
 
@@ -51,71 +59,11 @@ class Game {
         this.menuFontSize = "15px";
 
         this.ms = new Date().getTime();
-    }
 
+        this.mouse = new Mouse(this);
+        this.mouse.init(this);
 
-    gameFunc() {
-      this.ctx.font = Constants.canvasHeight / 35 + "px Orbitron";
-      this.ctx.fillStyle = this.menuColor;
-      this.ctx.fillText("Menu", Constants.canvasWidth / 2.05, Constants.canvasHeight / 10);
-    }
-
-    checkButton(e) {
-
-        if (e.code == 'Escape'){
-            pauseGame();
-        }
-
-        if (game.gamePause == true && e.code == 'Enter'){
-            resumeGame();
-        }
-    }
-
-    checkClick(e) {
-
-      if (e.clientX > Constants.canvasWidth / 2.05 && e.clientX < Constants.canvasWidth / 1.89 &&
-              e.clientY > Constants.canvasHeight / 13 && e.clientY < Constants.canvasHeight / 9){
-          pauseGame();
-
-      }
-
-      if (game.gamePause == true && e.clientX > Constants.canvasWidth / 2.345 && e.clientX < Constants.canvasWidth / 1.745 &&
-              e.clientY > Constants.canvasHeight / 2.35 && e.clientY < Constants.canvasHeight / 2.07){
-          resumeGame();
-      }
-
-      if (game.gameOver == true && e.clientX > Constants.canvasWidth / 2.43 && e.clientX < Constants.canvasWidth / 1,705  &&
-              e.clientY > Constants.canvasHeight / 1.95 && e.clientY < Constants.canvasHeight / 1.8){
-          restarGame();
-      }
-
-      if (game.gameStart == true && e.clientX > Constants.canvasWidth / 2.12 && e.clientX < Constants.canvasWidth / 1.75 &&
-              e.clientY > Constants.canvasHeight / 3 && e.clientY < Constants.canvasHeight / 2.52 ){
-                game.gameStart = false;
-                play();
-
-      }
-
-
-    }
-
-    checkAiming(e) {
-      if (game.gamePause == true && e.clientX > 820 && e.clientX < 1097
-               && e.clientY > 401 && e.clientY < 452){
-
-      }
-  }
-
-    showMenu() {
-
-
-
-      this.ctx.fillStyle = this.menuBg;
-      this.ctx.fillRect(Constants.canvasWidth / 2.37, Constants.canvasHeight / 2.7, Constants.canvasWidth / 6.45, Constants.canvasHeight / 3);
-
-      this.ctx.fillStyle = this.colorInMenu;
-      this.ctx.fillRect(Constants.canvasWidth / 2.345, Constants.canvasHeight / 2.35 , Constants.canvasWidth / 6.8, Constants.canvasHeight / 18);
-
+<<<<<<< HEAD
       this.ctx.font = Constants.canvasHeight / 34 + "px Orbitron";
       this.ctx.fillStyle = this.menuColor;
       this.ctx.fillText("Menu", Constants.canvasWidth / 2.09, Constants.canvasHeight / 2.48);
@@ -136,6 +84,9 @@ class Game {
         this.mouse.init(game);
 
         createGameGrid(game);
+=======
+        createGameGrid(this);
+>>>>>>> f77d9564ef1e727fe7afd5b8aadbf259dc7dcbbb
     }
 
     animate() {
@@ -148,69 +99,24 @@ class Game {
         processEnemies(game);
         processProjectiles(game);
 
-
         this.ms += 1000/60;
-
         //this.ms += new Date().getTime();
         while (new Date().getTime() < this.ms) {}
     }
 }
 
 let game = new Game();
-game.init();
-
-document.onkeydown = game.checkButton;
-document.onmousedown = game.checkClick;
-document.onMouseOver = game.checkAiming;
-
-
+play();
 
 function play() {
-    game.animate()
-    game.gameFunc()
-    if (game.gamePause == true){
-      game.showMenu();
-    }
+    game.state.processState();
 
-    if (game.gameOver == true){
-      handleBases(game);
-    }
-
-    if (!game.gamePause && !game.gameOver) requestAnimationFrame(play);
-
-
+    if (!game.gameOver) requestAnimationFrame(play);
 }
 
+export function restartGame() {
+    game = new Game();
+    game.state = new game.states.gameRunning(game);
 
-function restarGame() {
-  location.reload();
+    play();
 }
-
-function startGame() {
-    game.ctx.fillStyle = game.menuBg;
-    game.ctx.fillRect(0, 0, Constants.canvasWidth, Constants.canvasHeight);
-
-
-    game.ctx.fillStyle = game.colorInMenu;
-    game.ctx.fillRect(Constants.canvasWidth / 2.12 , Constants.canvasHeight / 3,
-      Constants.canvasWidth/10, Constants.canvasHeight/16);
-
-
-    game.ctx.font = Constants.cellSize * 3 / 7 + "px Orbitron";
-    game.ctx.fillStyle = game.menuColor;
-    game.ctx.fillText("Start",Constants.canvasWidth/2.01 , Constants.canvasHeight / 2.69)
-}
-
-
-function pauseGame() {
-  game.gamePause = true;
-}
-
-
-function resumeGame() {
-  game.gamePause = false;
-  play();
-}
-
-
-startGame()

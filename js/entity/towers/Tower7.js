@@ -71,7 +71,7 @@ export default class Tower7 extends BaseTower {
             this.units.push(new Unit2(
                 this.game,
                 this.x + Constants.cellSize,
-                this.y,
+                this.y - 0.5 * Constants.cellSize,
             ));
 
             this.unitNumber = 0;

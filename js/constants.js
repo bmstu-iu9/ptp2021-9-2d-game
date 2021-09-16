@@ -6,36 +6,45 @@ export const
     controlBarHeight = cellSize * 2,
     gameGridWidth = canvasWidth,
     gameGridHeight = canvasHeight - controlBarHeight,
-    fontSize = cellSize * 2 / 5 ;
+    fontSize = cellSize * 2 / 5,
+    startfontSize = cellSize * 3 / 7,
+    smallMenufontSize = canvasWidth / 30,
+    largeMenufontSize = cellSize  * 3 / 5,
+    infoFontSize = cellSize * 2 / 2.7,
+    pauseWindowFontSize = canvasHeight / 34;
 
 
 function createCoords() {
     let cards = [];
-    let x = canvasWidth / 4 - (7 / 2) * (cellSize + cellSize/2)
-    let y = cellSize - cellSize / 5;
+    let cellSize1 = canvasWidth / 30;
+
+    if (cellSize < cellSize1) cellSize1 = cellSize;
+
+    let x = canvasWidth / 4 - (7 / 2) * (cellSize1 + cellSize1/2)
+    let y = cellSize - cellSize / 5 + (cellSize - cellSize1);
 
     for (var i = 0; i < 7; i++) {
         const card = {
             x: x,
             y: y,
-            width: cellSize,
-            height: cellSize
+            width: cellSize1,
+            height: cellSize1
         };
         cards.push(card);
-        x += cellSize + cellSize / 2;
+        x += cellSize1 + cellSize1 / 2;
     }
 
-    x = canvasWidth * 3 / 4 - (7 / 2) * (cellSize + cellSize/2)
+    x = canvasWidth * 3 / 4 - (7 / 2) * (cellSize1 + cellSize1/2)
 
     for (var i = 0; i < 7; i++) {
         const card = {
             x: x,
             y: y,
-            width: cellSize,
-            height: cellSize
+            width: cellSize1,
+            height: cellSize1
         };
         cards.push(card);
-        x += cellSize + cellSize / 2 ;
+        x += cellSize1 + cellSize1 / 2 ;
     }
 
     return cards;

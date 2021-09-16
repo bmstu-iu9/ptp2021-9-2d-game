@@ -63,7 +63,6 @@ export default class Game {
         this.mouse = new Mouse(this);
         this.mouse.init(this);
 
-<<<<<<< HEAD
       this.ctx.font = Constants.canvasHeight / 34 + "px Orbitron";
       this.ctx.fillStyle = this.menuColor;
       this.ctx.fillText("Menu", Constants.canvasWidth / 2.09, Constants.canvasHeight / 2.48);
@@ -84,9 +83,6 @@ export default class Game {
         this.mouse.init(game);
 
         createGameGrid(game);
-=======
-        createGameGrid(this);
->>>>>>> f77d9564ef1e727fe7afd5b8aadbf259dc7dcbbb
     }
 
     animate() {

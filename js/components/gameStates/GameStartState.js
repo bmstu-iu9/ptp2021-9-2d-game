@@ -14,16 +14,16 @@ export default class GameStartState {
         ctx.fillRect(0, 0, Constants.canvasWidth, Constants.canvasHeight);
 
         ctx.fillStyle = this.game.colorInMenu;
-        ctx.fillRect(Constants.canvasWidth / 2.12 , Constants.canvasHeight / 3,
+        ctx.fillRect(Constants.canvasWidth / 2.21 , Constants.canvasHeight / 3,
                      Constants.canvasWidth / 10, Constants.canvasHeight / 16);
 
         ctx.font = Constants.startfontSize + "px Orbitron";
         ctx.fillStyle = this.game.menuColor;
-        ctx.fillText("Start", Constants.canvasWidth/2.01, Constants.canvasHeight / 2.69)
+        ctx.fillText("Start", Constants.canvasWidth / 2 - (ctx.measureText('Start').width / 2), Constants.canvasHeight / 2.69)
     }
 
     handleEvent(event) {
-        if (event.clientX > Constants.canvasWidth / 2.12 &&
+        if (event.clientX > Constants.canvasWidth / 2.21 &&
             event.clientX < Constants.canvasWidth / 1.75 &&
             event.clientY > Constants.canvasHeight / 3 &&
             event.clientY < Constants.canvasHeight / 2.52 ) {

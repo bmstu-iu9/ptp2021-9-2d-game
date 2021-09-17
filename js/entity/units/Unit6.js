@@ -7,7 +7,7 @@ export default class Unit6 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
 
-        this.maxHealth = 500;
+        this.maxHealth = 250;
         this.health = this.maxHealth;
         this.range = Constants.cellSize;
 

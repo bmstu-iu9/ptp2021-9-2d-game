@@ -16,7 +16,7 @@ export default class Projectile4 {
 
         this.range = Constants.cellSize / 2;
 
-        this.speed = Constants.cellSize * 15/100;
+        this.speed = Constants.cellSize / 15;
         this.damage = damage;
         this.direction = 0;
 

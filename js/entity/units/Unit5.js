@@ -9,7 +9,7 @@ export default class Unit5 extends BaseUnit {
 
         this.units = game.units;
 
-        this.maxHealth = 25;
+        this.maxHealth = 250;
         this.health = this.maxHealth;
 
         this.speed = Constants.cellSize * 5 / 100;

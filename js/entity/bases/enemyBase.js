@@ -2,7 +2,7 @@ import * as Constants from './../../constants.js';
 
 export default class EnemyBase {
     constructor() {
-        this.maxHealth = 10000;
+        this.maxHealth = 100000;
         this.health = { data: this.maxHealth };
     }
 

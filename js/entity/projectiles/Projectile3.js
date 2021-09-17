@@ -18,7 +18,7 @@ export default class Projectile3 {
 
         this.range = 6 * Constants.cellSize + Constants.cellSize / 2;
 
-        this.speed = Constants.cellSize / 20;
+        this.speed = Constants.cellSize / 15;
         this.damage = damage;
 
         this.bangImages = bangImages;

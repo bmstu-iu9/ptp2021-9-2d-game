@@ -13,7 +13,7 @@ export default class Tower7 extends BaseTower {
         this.game = game;
         this.units = game.units;
 
-        this.maxHealth = 100;
+        this.maxHealth = 1000;
         this.health = this.maxHealth;
         this.damage = 20;
         this.range = 6 * Constants.cellSize;

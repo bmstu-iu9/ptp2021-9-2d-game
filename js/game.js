@@ -51,13 +51,6 @@ export default class Game {
         this.enemy_summoning_interval = 5000;
         this.last_enemy_summoning_time = new Date();
 
-        this.menuHeight = 50;
-        this.menuWidth = 100;
-        this.menuBg = "rgb(8, 8, 30)";
-        this.menuColor = "rgb(42, 163, 223)";
-        this.colorInMenu = "rgb(64, 64, 143)";
-        this.menuFontSize = "15px";
-
         this.ms = new Date().getTime();
 
         this.mouse = new Mouse(this);
@@ -76,7 +69,6 @@ export default class Game {
         processProjectiles(game);
 
         this.ms = new Date().getTime() + 1000/60;
-        //this.ms += new Date().getTime();
         while (new Date().getTime() < this.ms) {}
     }
 }

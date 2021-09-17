@@ -13,6 +13,13 @@ export const
     infoFontSize = cellSize * 2 / 2.7,
     pauseWindowFontSize = canvasHeight / 34;
 
+export const
+    menuHeight = 50,
+    menuWidth = 100,
+    menuBg = "rgb(8, 8, 30)",
+    menuColor = "rgb(42, 163, 223)",
+    colorInMenu = "rgb(64, 64, 143)",
+    menuFontSize = "15px";
 
 function createCoords() {
     let cards = [];

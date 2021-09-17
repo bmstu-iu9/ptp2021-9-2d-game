@@ -24,8 +24,6 @@ export default class Projectile1 {
         this.explosionFrame = 0;
         this.reached = false;
         this.complete = false;
-
-
     }
 
     update() {

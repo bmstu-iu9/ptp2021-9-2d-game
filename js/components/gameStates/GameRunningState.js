@@ -28,13 +28,17 @@ export default class GameRunningState {
           ctx.font = Constants.largeMenufontSize + 'px Orbitron';
         }
 
-        ctx.fillStyle = this.menuColor;
+        ctx.fillStyle = Constants.menuColor;
         ctx.fillText("Menu", Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2), Constants.canvasHeight / 10);
     }
 
     handleEvent(event) {
-        let game = this.game;
-        let ctx = this.game.ctx;
+        let game = this.game,
+            ctx = this.game.ctx,
+            menuLeftCorner = Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2),
+            menuRightCorner = menuLeftCorner + (ctx.measureText('Menu').width),
+            menuBottom = Constants.canvasHeight / 10 + parseInt(ctx.font) * 1.2 / 2,
+            menuTop = Constants.canvasHeight / 10 - parseInt(ctx.font) * 1.2;
 
         if (Constants.canvasWidth / 30 < Constants.cellSize) {
           ctx.font = Constants.smallMenufontSize + 'px Orbitron';
@@ -42,10 +46,6 @@ export default class GameRunningState {
           ctx.font = Constants.largeMenufontSize + 'px Orbitron';
         }
 
-        let menuLeftCorner = Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2);
-        let menuRightCorner = menuLeftCorner + (ctx.measureText('Menu').width);
-        let menuBottom = Constants.canvasHeight / 10 + parseInt(ctx.font) * 1.2 / 2;
-        let menuTop = Constants.canvasHeight / 10 - parseInt(ctx.font) * 1.2;
         switch(event.type) {
             case 'click':
                 if (event.clientX > menuLeftCorner &&

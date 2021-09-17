@@ -10,46 +10,42 @@ export default class GamePausingState {
     }
 
     processState() {
-        let ctx = this.game.ctx;
-        let menuLeftCorner = Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.8 * 2));
-        let menuRightCorner = menuLeftCorner + Constants.canvasWidth / 6.8;
-        let menuBottom = [Constants.canvasHeight / 2.35, Constants.canvasHeight / 2.07];
-        let menuTop = [menuBottom[0] + Constants.canvasHeight / 18, menuBottom[1] + Constants.canvasHeight / 18];
+        let ctx = this.game.ctx,
+            menuLeftCorner = Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.8 * 2)),
+            menuRightCorner = menuLeftCorner + Constants.canvasWidth / 6.8,
+            menuBottom = [Constants.canvasHeight / 2.35, Constants.canvasHeight / 2.07],
+            menuTop = [menuBottom[0] + Constants.canvasHeight / 18, menuBottom[1] + Constants.canvasHeight / 18];
 
-        ctx.fillStyle = this.game.menuBg;
+        ctx.fillStyle = Constants.menuBg;
         ctx.fillRect(Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.45 * 2)), Constants.canvasHeight / 2.7,
                      Constants.canvasWidth / 6.45, Constants.canvasHeight / 3);
 
-        ctx.fillStyle = this.game.colorInMenu;
+        ctx.fillStyle = Constants.colorInMenu;
         ctx.fillRect(menuLeftCorner, menuBottom[0],
                      menuRightCorner - menuLeftCorner, menuTop[0] - menuBottom[0]);
 
         ctx.font = Constants.pauseWindowFontSize + "px Orbitron";
-        ctx.fillStyle = this.game.menuColor;
+        ctx.fillStyle = Constants.menuColor;
         ctx.fillText("Menu", Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2), Constants.canvasHeight / 2.48);
 
         ctx.font = Constants.pauseWindowFontSize + "px Orbitron";
-        ctx.fillStyle = this.game.menuColor;
+        ctx.fillStyle = Constants.menuColor;
         ctx.fillText("Resume", Constants.canvasWidth / 2 - (ctx.measureText('Resume').width / 2), Constants.canvasHeight / 2.15);
 
-        ctx.fillStyle = this.game.colorInMenu;
+        ctx.fillStyle = Constants.colorInMenu;
         ctx.fillRect(menuLeftCorner, menuBottom[1],
                      menuRightCorner - menuLeftCorner, menuTop[1] - menuBottom[1]);
 
         ctx.font = Constants.pauseWindowFontSize + "px Orbitron";
-        ctx.fillStyle = this.game.menuColor;
+        ctx.fillStyle = Constants.menuColor;
         ctx.fillText("Restart",  Constants.canvasWidth / 2 - (ctx.measureText('Restart').width / 2), Constants.canvasHeight / 1.92);
-
-
-
-
     }
 
     handleEvent(event) {
-        let menuLeftCorner = Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.8 * 2));
-        let menuRightCorner = menuLeftCorner + Constants.canvasWidth / 6.8;
-        let menuBottom = [Constants.canvasHeight / 2.35, Constants.canvasHeight / 2.07];
-        let menuTop = [menuBottom[0] + Constants.canvasHeight / 18, menuBottom[1] + Constants.canvasHeight / 18];
+        let menuLeftCorner = Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.8 * 2)),
+            menuRightCorner = menuLeftCorner + Constants.canvasWidth / 6.8,
+            menuBottom = [Constants.canvasHeight / 2.35, Constants.canvasHeight / 2.07],
+            menuTop = [menuBottom[0] + Constants.canvasHeight / 18, menuBottom[1] + Constants.canvasHeight / 18];
 
         switch(event.type) {
             case 'click':

@@ -55,11 +55,5 @@ export default class Enemy2 extends BaseEnemy {
             this.imageIndex = (this.imageIndex + 1) % 3;
             this.lastAnimationTime = new Date;
         }
-
-        /*ctx.fillStyle = 'crimson';
-        ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);*/
     }
 }

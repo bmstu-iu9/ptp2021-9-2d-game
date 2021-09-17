@@ -112,7 +112,7 @@ export default class Tower3 extends BaseTower {
 
     upgrade() {
         this.level = 2;
-        //this.damage += 20;
-        //this.shootInterval -= 50;
+        this.damage += 20;
+        this.shootInterval -= 50;
     }
 }

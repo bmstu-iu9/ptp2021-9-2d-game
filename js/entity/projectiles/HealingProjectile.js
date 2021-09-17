@@ -47,9 +47,7 @@ export default class HealingProjectile {
     }
 
     draw(ctx) {
-        if (this.complete) {
-            // Здесь будет обработка анимации лечения
-        } else {
+        if (!this.complete) {
             ctx.beginPath();
             ctx.save();
             ctx.translate(this.x, this.y);

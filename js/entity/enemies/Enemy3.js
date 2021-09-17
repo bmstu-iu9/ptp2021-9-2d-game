@@ -2,11 +2,6 @@ import BaseEnemy from './BaseEnemy.js';
 import Projectile1 from '../projectiles/Projectile1.js';
 import * as Constants from './../../constants.js';
 
-function createImage(path) {
-    let image = new Image();
-    image.src = path;
-    return image;
-}
 
 export default class Enemy3 extends BaseEnemy {
     constructor(game, x, y) {
@@ -54,11 +49,5 @@ export default class Enemy3 extends BaseEnemy {
             this.imageIndex = (this.imageIndex + 1) % 4;
             this.lastAnimationTime = new Date;
         }
-
-        /*ctx.fillStyle = 'magenta';
-        ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);*/
     }
 }

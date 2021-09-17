@@ -15,11 +15,11 @@ export default class GameOverState {
 
         let ctx = this.game.ctx;
 
-        ctx.fillStyle = this.game.menuBg;
+        ctx.fillStyle = Constants.menuBg;
         ctx.fillRect(Constants.canvasWidth / 2.43, Constants.canvasHeight / 2.3,
                      Constants.canvasWidth / 5.36, Constants.canvasHeight / 8);
 
-        ctx.fillStyle = this.game.colorInMenu;
+        ctx.fillStyle = Constants.colorInMenu;
         ctx.fillRect(Constants.canvasWidth / 2.38, Constants.canvasHeight / 1.95,
                      Constants.canvasWidth / 6, Constants.canvasHeight / 22.9);
 
@@ -34,7 +34,7 @@ export default class GameOverState {
         }
 
         ctx.font = Constants.startfontSize + "px Orbitron";
-        ctx.fillStyle = this.game.menuColor;
+        ctx.fillStyle = Constants.menuColor;
         ctx.fillText("Restart", Constants.canvasWidth / 2.12, Constants.canvasHeight / 1.84);
     }
 

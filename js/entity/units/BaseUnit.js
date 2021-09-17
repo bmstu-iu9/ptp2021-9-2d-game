@@ -133,19 +133,20 @@ export default class BaseUnit {
     }
 
     drawHP() {
-        let ctx = this.ctx;
+        let ctx = this.ctx,
+            width = Constants.cellSize * 3 / 4;
 
         ctx.beginPath();
         ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
                  this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
-                 this.width,
+                 width,
                  1);
         ctx.strokeStyle = 'black';
         ctx.lineJoin = 'round';
         ctx.lineWidth = Constants.cellSize / 10;
         ctx.stroke();
 
-        let width = this.width * this.health / this.maxHealth;
+        width = width * this.health / this.maxHealth;
 
         ctx.beginPath();
         ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,

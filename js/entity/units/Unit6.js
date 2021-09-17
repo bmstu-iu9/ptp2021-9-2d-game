@@ -131,4 +131,31 @@ export default class Unit6 extends BaseUnit {
             this.lastAnimationTime = new Date;
         }
     }
+
+    drawHP() {
+        let ctx = this.ctx,
+            width = Constants.cellSize * 3 / 5;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
+
+        width = width * this.health / this.maxHealth;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
+    }
 }

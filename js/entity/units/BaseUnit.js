@@ -7,8 +7,8 @@ export default class BaseUnit {
         this.game = game;
         this.ctx = game.ctx;
 
-        this.x = x;
-        this.y = y;
+        this.x = x + Constants.cellSize / 2;
+        this.y = y + Constants.cellSize / 2;
         this.width = Constants.cellSize / 2;
         this.height = Constants.cellSize / 2;
         this.direction = 0;
@@ -136,8 +136,8 @@ export default class BaseUnit {
         let ctx = this.ctx;
 
         ctx.beginPath();
-        ctx.rect(this.x + Constants.cellSize / 8,
-                 this.y + Constants.cellSize / 15,
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
                  this.width,
                  1);
         ctx.strokeStyle = 'black';
@@ -148,8 +148,8 @@ export default class BaseUnit {
         let width = this.width * this.health / this.maxHealth;
 
         ctx.beginPath();
-        ctx.rect(this.x + Constants.cellSize / 8,
-                 this.y + Constants.cellSize / 15,
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
                  width,
                  1);
         ctx.strokeStyle = 'green';

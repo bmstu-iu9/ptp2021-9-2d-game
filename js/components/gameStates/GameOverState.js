@@ -40,7 +40,7 @@ export default class GameOverState {
 
     handleEvent(event) {
         if (event.clientX > Constants.canvasWidth / 2.43 &&
-            event.clientX < Constants.canvasWidth / 1,705  &&
+            event.clientX < Constants.canvasWidth / 1.705  &&
             event.clientY > Constants.canvasHeight / 1.95 &&
             event.clientY < Constants.canvasHeight / 1.8) {
 

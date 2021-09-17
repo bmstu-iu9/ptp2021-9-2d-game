@@ -89,20 +89,8 @@ export default class Projectile1 {
 
             ctx.rotate(this.direction);
 
-            ctx.drawImage(this.img,
-                          0,
-                          0,
-                          this.width,
-                          this.height);
-            /*
-            ctx.scale(1, this.height/this.width);
-            ctx.arc(0, 0, this.width, 0, Math.PI*2);
-            ctx.fill();
-            */
+            ctx.drawImage(this.img, 0, 0, this.width, this.height);
             ctx.restore();
-            /*
-            ctx.strokeStyle = 'red';
-            */
             ctx.stroke();
 
             ctx.closePath();

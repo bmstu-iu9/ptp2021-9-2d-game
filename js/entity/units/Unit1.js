@@ -52,7 +52,7 @@ export default class Unit1 extends BaseUnit {
             let enemy = this.enemies[i],
                 distance = Math.abs(enemy.x - this.x);
 
-            if (distance < minDistance && (enemy.y > this.y && this.y + Constants.cellSize > enemy.y )) {
+            if (distance < minDistance && (enemy.y > this.y - Constants.cellSize / 2 && this.y + Constants.cellSize / 2 > enemy.y )) {
                 let isTargetAlready = false;
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (enemy == this.targets[j]) {
@@ -146,8 +146,8 @@ export default class Unit1 extends BaseUnit {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
-                    this.x + this.width/2,
-                    this.y + this.height/2,
+                    this.x,
+                    this.y,
                     this.damage,
                     Constants.unit1HitImages[4],
                     Constants.projectileUnitBang,
@@ -167,7 +167,7 @@ export default class Unit1 extends BaseUnit {
             img = this.runImages[this.imageIndex];
         }
 
-        ctx.drawImage(img, this.x, this.y + Constants.cellSize * 10/100,
+        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - this.height + Constants.cellSize * 10/100,
                            Constants.cellSize, Constants.cellSize * 90/100);
 
         this.drawHP();

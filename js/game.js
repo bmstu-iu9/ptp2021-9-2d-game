@@ -62,27 +62,7 @@ export default class Game {
 
         this.mouse = new Mouse(this);
         this.mouse.init(this);
-
-      this.ctx.font = Constants.canvasHeight / 34 + "px Orbitron";
-      this.ctx.fillStyle = this.menuColor;
-      this.ctx.fillText("Menu", Constants.canvasWidth / 2.09, Constants.canvasHeight / 2.48);
-
-      this.ctx.font = Constants.canvasHeight / 34 + "px Orbitron";
-      this.ctx.fillStyle = this.menuColor;
-      this.ctx.fillText("Resume", Constants.canvasWidth / 2.135, Constants.canvasHeight / 2.15);
-
-
-
-      }
-
-
-
-    init() {
-        this.mouse = new Mouse(game);
-
-        this.mouse.init(game);
-
-        createGameGrid(game);
+        createGameGrid(this);
     }
 
     animate() {
@@ -95,7 +75,7 @@ export default class Game {
         processEnemies(game);
         processProjectiles(game);
 
-        this.ms += 1000/60;
+        this.ms = new Date().getTime() + 1000/60;
         //this.ms += new Date().getTime();
         while (new Date().getTime() < this.ms) {}
     }

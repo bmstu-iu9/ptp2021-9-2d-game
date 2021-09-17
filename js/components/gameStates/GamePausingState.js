@@ -1,4 +1,5 @@
 import * as Constants from './../../constants.js';
+import { restartGame } from './../../game.js';
 
 
 export default class GamePausingState {
@@ -10,38 +11,64 @@ export default class GamePausingState {
 
     processState() {
         let ctx = this.game.ctx;
+        let menuLeftCorner = Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.8 * 2));
+        let menuRightCorner = menuLeftCorner + Constants.canvasWidth / 6.8;
+        let menuBottom = [Constants.canvasHeight / 2.35, Constants.canvasHeight / 2.07];
+        let menuTop = [menuBottom[0] + Constants.canvasHeight / 18, menuBottom[1] + Constants.canvasHeight / 18];
 
         ctx.fillStyle = this.game.menuBg;
-        ctx.fillRect(Constants.canvasWidth / 2.37, Constants.canvasHeight / 2.7,
+        ctx.fillRect(Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.45 * 2)), Constants.canvasHeight / 2.7,
                      Constants.canvasWidth / 6.45, Constants.canvasHeight / 3);
 
         ctx.fillStyle = this.game.colorInMenu;
-        ctx.fillRect(Constants.canvasWidth / 2.345, Constants.canvasHeight / 2.35 ,
-                     Constants.canvasWidth / 6.8, Constants.canvasHeight / 18);
+        ctx.fillRect(menuLeftCorner, menuBottom[0],
+                     menuRightCorner - menuLeftCorner, menuTop[0] - menuBottom[0]);
 
         ctx.font = Constants.pauseWindowFontSize + "px Orbitron";
         ctx.fillStyle = this.game.menuColor;
-        ctx.fillText("Menu", Constants.canvasWidth / 2.09, Constants.canvasHeight / 2.48);
+        ctx.fillText("Menu", Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2), Constants.canvasHeight / 2.48);
 
         ctx.font = Constants.pauseWindowFontSize + "px Orbitron";
         ctx.fillStyle = this.game.menuColor;
-        ctx.fillText("Resume", Constants.canvasWidth / 2.135, Constants.canvasHeight / 2.15);
+        ctx.fillText("Resume", Constants.canvasWidth / 2 - (ctx.measureText('Resume').width / 2), Constants.canvasHeight / 2.15);
 
-        ctx.fillStyle = "black";
-        ctx.fillRect(Constants.canvasWidth / 2.345, Constants.canvasHeight / 2.07,
-                     Constants.canvasWidth / 6.8, Constants.canvasHeight / 18);
+        ctx.fillStyle = this.game.colorInMenu;
+        ctx.fillRect(menuLeftCorner, menuBottom[1],
+                     menuRightCorner - menuLeftCorner, menuTop[1] - menuBottom[1]);
+
+        ctx.font = Constants.pauseWindowFontSize + "px Orbitron";
+        ctx.fillStyle = this.game.menuColor;
+        ctx.fillText("Restart",  Constants.canvasWidth / 2 - (ctx.measureText('Restart').width / 2), Constants.canvasHeight / 1.92);
+
+
+
+
     }
 
     handleEvent(event) {
+        let menuLeftCorner = Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.8 * 2));
+        let menuRightCorner = menuLeftCorner + Constants.canvasWidth / 6.8;
+        let menuBottom = [Constants.canvasHeight / 2.35, Constants.canvasHeight / 2.07];
+        let menuTop = [menuBottom[0] + Constants.canvasHeight / 18, menuBottom[1] + Constants.canvasHeight / 18];
+
         switch(event.type) {
             case 'click':
-                if (event.clientX > Constants.canvasWidth / 2.345 &&
-                    event.clientX < Constants.canvasWidth / 1.745 &&
-                    event.clientY > Constants.canvasHeight / 2.35 &&
-                    event.clientY < Constants.canvasHeight / 2.07) {
+                if (event.clientX > menuLeftCorner &&
+                    event.clientX < menuRightCorner &&
+                    event.clientY > menuBottom[0] &&
+                    event.clientY < menuTop[0]) {
 
                     this.removeEventListeners();
                     this.game.state = new this.game.states.gameRunning(this.game);
+                }
+
+                if (event.clientX > menuLeftCorner &&
+                    event.clientX < menuRightCorner &&
+                    event.clientY > menuBottom[1] &&
+                    event.clientY < menuTop[1]) {
+
+                    this.removeEventListeners();
+                    restartGame();
                 }
                 break;
 

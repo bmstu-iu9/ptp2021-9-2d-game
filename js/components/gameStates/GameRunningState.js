@@ -44,7 +44,7 @@ export default class GameRunningState {
 
         let menuLeftCorner = Constants.canvasWidth / 2 - (ctx.measureText('Menu').width / 2);
         let menuRightCorner = menuLeftCorner + (ctx.measureText('Menu').width);
-        let menuBottom = Constants.canvasHeight / 10;
+        let menuBottom = Constants.canvasHeight / 10 + parseInt(ctx.font) * 1.2 / 2;
         let menuTop = Constants.canvasHeight / 10 - parseInt(ctx.font) * 1.2;
         switch(event.type) {
             case 'click':

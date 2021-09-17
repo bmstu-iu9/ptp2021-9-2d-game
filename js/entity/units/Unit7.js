@@ -35,8 +35,8 @@ export default class Unit7 extends BaseUnit {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile2(
                     this.targets[i],
-                    this.x,
-                    this.y - this.height/2,
+                    this.x - Constants.cellSize / 2,
+                    this.y - Constants.cellSize / 2 -  this.height/2,
                     this.damage,
                     1,
                     Constants.unit7HitImages[4],
@@ -71,7 +71,7 @@ export default class Unit7 extends BaseUnit {
             img = this.runImages[this.imageIndex];
         }
 
-        ctx.drawImage(img, this.x, this.y + Constants.cellSize * 10/100,
+        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
                            Constants.cellSize, Constants.cellSize * 90/100);
 
         this.drawHP();

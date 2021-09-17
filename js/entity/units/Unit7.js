@@ -9,7 +9,7 @@ export default class Unit7 extends BaseUnit {
 
         this.units = game.units;
 
-        this.maxHealth = 100;
+        this.maxHealth = 200;
         this.health = this.maxHealth;
 
         this.speed = Constants.cellSize * 5 / 100;
@@ -21,17 +21,27 @@ export default class Unit7 extends BaseUnit {
         this.shootInterval *= 10;
 
         this.shots = 0;
+
+        this.runImages = Constants.unit7RunImages;
+        this.hitImages = Constants.unit7HitImages;
+        this.imageIndex = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 150;
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile2(
                     this.targets[i],
-                    this.x + this.width/2,
-                    this.y + this.height/2,
+                    this.x - Constants.cellSize / 2,
+                    this.y - Constants.cellSize / 2 -  this.height/2,
                     this.damage,
-                    1));
+                    1,
+                    Constants.unit7HitImages[4],
+                    Constants.projectileUnitBang,
+                ));
 
                 this.shots += 1;
             }
@@ -52,12 +62,23 @@ export default class Unit7 extends BaseUnit {
     }
 
     draw() {
-        let ctx = this.ctx;
+        let ctx = this.ctx,
+            img;
 
-        ctx.fillStyle = 'orange';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+        if (this.targets.length != 0) {
+            img = this.hitImages[this.imageIndex];
+        } else {
+            img = this.runImages[this.imageIndex];
+        }
+
+        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
+                           Constants.cellSize, Constants.cellSize * 90/100);
+
+        this.drawHP();
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.imageIndex = (this.imageIndex + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
     }
 }

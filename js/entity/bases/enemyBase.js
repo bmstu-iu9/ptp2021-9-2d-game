@@ -2,18 +2,45 @@ import * as Constants from './../../constants.js';
 
 export default class EnemyBase {
     constructor() {
-        this.health = { data: 1000};
+        this.maxHealth = 100000;
+        this.health = { data: this.maxHealth };
     }
 
     draw(ctx) {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(Constants.canvasWidth - Constants.cellSize,
-                     Constants.controlBarHeight,
-                     Constants.cellSize,
-                     Constants.canvasHeight - Constants.controlBarHeight);
+        let img = Constants.enemyBaseImage;
 
-        ctx.fillStyle = 'white';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health.data), Constants.canvasWidth - 5 * Constants.cellSize / 3, Constants.cellSize );
+        ctx.drawImage(img,
+                      Constants.canvasWidth - Constants.cellSize,
+                      Constants.controlBarHeight,
+                      Constants.cellSize,
+                      Constants.gameGridHeight);
+
+        this.drawHP(ctx);
+    }
+
+    drawHP(ctx) {
+        let hpBarWidth = Constants.cellSize/10,
+            hpBarHeight = Constants.gameGridHeight,
+            hpBarTopLeftPosX = Constants.canvasWidth - hpBarWidth,
+            hpBarTopLeftPosY = Constants.controlBarHeight + Constants.cellSize / 20,
+            hpBarLineWidth = Constants.cellSize / 10;
+
+        ctx.beginPath();
+        ctx.rect(hpBarTopLeftPosX, hpBarTopLeftPosY,
+                 hpBarWidth, hpBarHeight);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = hpBarLineWidth;
+        ctx.stroke();
+
+        let lostHPHeight = hpBarHeight * (1 - this.health.data / this.maxHealth);
+
+        ctx.beginPath();
+        ctx.rect(hpBarTopLeftPosX, hpBarTopLeftPosY + lostHPHeight,
+                 hpBarWidth, hpBarHeight - lostHPHeight);
+        ctx.strokeStyle = 'red';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = hpBarLineWidth;
+        ctx.stroke();
     }
 }

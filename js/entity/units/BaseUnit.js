@@ -7,8 +7,8 @@ export default class BaseUnit {
         this.game = game;
         this.ctx = game.ctx;
 
-        this.x = x;
-        this.y = y;
+        this.x = x + Constants.cellSize / 2;
+        this.y = y + Constants.cellSize / 2;
         this.width = Constants.cellSize / 2;
         this.height = Constants.cellSize / 2;
         this.direction = 0;
@@ -60,7 +60,7 @@ export default class BaseUnit {
             this.shootInterval = this.baseShootInterval;
         }
 
-        this.step();
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) {
             this.move();
@@ -77,19 +77,6 @@ export default class BaseUnit {
         } else {
             this.x += this.speed;
         }
-    }
-
-    step() {
-        this.findTargets(this.targetsAmount);
-
-        if (this.targets.length == 0) return;
-
-        let directionTarget = this.targets[0],
-            newDirection = Math.atan2(directionTarget.y - this.y,
-                                      directionTarget.x - this.x);
-        newDirection = newDirection * (180 / Math.PI);
-        //drawRotated(this.ctx, image, newDirection - this.direction);
-        this.direction = newDirection;
     }
 
     findTargets(targetsAmount) {
@@ -145,15 +132,30 @@ export default class BaseUnit {
         }
     }
 
-    drawRotated(image, angle) {
-        let context = this.ctx;
+    drawHP() {
+        let ctx = this.ctx,
+            width = Constants.cellSize * 3 / 4;
 
-        if (!image) return;
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
 
-        context.save();
-        context.translate(this.x + image.width/2, this.y + image.height/2);
-        context.rotate(angle * (Math.PI / 180));
-        context.drawImage(image, -image.width/2, -image.height/2);
-        context.restore();
+        width = width * this.health / this.maxHealth;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
     }
 }

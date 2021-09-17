@@ -13,6 +13,9 @@ export default class BaseTower {
         this.width = Constants.cellSize;
         this.height = Constants.cellSize;
 
+        this.maxHealth = null;
+        this.health = this.maxHealth;
+
         this.direction = 0;
         this.range = 3 * Constants.cellSize;
 
@@ -28,21 +31,7 @@ export default class BaseTower {
             return;
         }
 
-        this.step();
-    }
-
-    step() {
         this.findTargets(this.targetsAmount);
-
-        if (this.targets.length == 0) return;
-
-        let directionTarget = this.targets[0],
-            newDirection = Math.atan2(directionTarget.y - this.y,
-                                      directionTarget.x - this.x);
-
-        newDirection = newDirection * (180 / Math.PI);
-        //drawRotated(this.ctx, image, newDirection - this.direction);
-        this.direction = newDirection;
     }
 
     findTargets(targetsAmount) {
@@ -96,15 +85,29 @@ export default class BaseTower {
         }
     }
 
-    drawRotated(image, angle) {
-        let context = this.ctx;
+    drawHP() {
+        let ctx = this.ctx;
 
-        if (!image) return;
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 this.width * 3/4,
+                 1);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
 
-        context.save();
-        context.translate(this.x + image.width/2, this.y + image.height/2);
-        context.rotate(angle * (Math.PI / 180));
-        context.drawImage(image, -image.width/2, -image.height/2);
-        context.restore();
+        let width = this.width * this.health / this.maxHealth;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width * 3/4,
+                 1);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
     }
 }

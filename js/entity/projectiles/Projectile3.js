@@ -2,23 +2,28 @@ import { calculateDistance } from './../../utils/utils.js';
 import * as Constants from './../../constants.js';
 
 export default class Projectile3 {
-    constructor(target, x, y, damage) {
+    constructor(target, x, y, damage, img, bangImages) {
         this.towerX = x;
 
         this.target = target;
         this.targetX = target.x;
         this.targetY = target.y;
 
+        this.img = img;
+
         this.x = x;
         this.y = y;
-        this.width = 30;
-        this.height = 20;
+        this.width = Constants.cellSize / 2;
+        this.height = Constants.cellSize ;
 
         this.range = 6 * Constants.cellSize + Constants.cellSize / 2;
 
-        this.speed = Constants.cellSize / 20;
+        this.speed = Constants.cellSize / 15;
         this.damage = damage;
 
+        this.bangImages = bangImages;
+        this.explosionFrame = 0;
+        this.reached = false;
         this.complete = false;
     }
 
@@ -47,16 +52,33 @@ export default class Projectile3 {
     }
 
     draw(ctx) {
-        ctx.beginPath();
-        ctx.save();
-        ctx.translate(this.x, this.y);
-        ctx.scale(1, this.height/this.width);
-        ctx.arc(0, 0, this.width, 0, Math.PI*2);
-        ctx.strokeStyle = 'black';
-        ctx.fill();
-        ctx.restore();
-        ctx.strokeStyle = 'red';
-        ctx.stroke();
-        ctx.closePath();
+        if (this.reached) {
+            ctx.drawImage(this.bangImages[this.explosionFrame],
+                          this.targetX - Constants.cellSize / 2,
+                          this.targetY - Constants.cellSize / 2,
+                          this.width * 2,
+                          this.height * 2);
+            this.explosionFrame++;
+
+            if (this.explosionFrame == 4) {
+                this.complete = true;
+            }
+        } else {
+            ctx.beginPath();
+            ctx.save();
+            ctx.translate(this.x, this.y);
+
+            ctx.rotate(this.direction);
+
+            ctx.drawImage(this.img,
+                          0,
+                          0,
+                          this.width,
+                          this.height);
+
+            ctx.restore();
+            ctx.stroke();
+            ctx.closePath();
+        }
     }
 }

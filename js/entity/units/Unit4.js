@@ -7,13 +7,19 @@ export default class Unit4 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
 
-        this.maxHealth = 100;
+        this.maxHealth = 200;
         this.health = this.maxHealth;
 
         this.range = 5 * Constants.cellSize;
 
         this.healing = 10;
         this.totalHealing = 0;
+
+        this.runImages = Constants.unit4RunImages;
+        this.imageIndex = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     findTargets(targetsAmount) {
@@ -21,7 +27,7 @@ export default class Unit4 extends BaseUnit {
             let ally = this.targets[i];
 
             if (calculateDistance(this.x, this.y, ally.x, ally.y) > this.range ||
-               (ally.health == ally.maxHealth)) {
+               ally.health == ally.maxHealth || ally.died) {
                    this.targets.splice(i, 1);
             }
         }
@@ -48,7 +54,7 @@ export default class Unit4 extends BaseUnit {
 
             if (distance < this.range && ally.health < lowestHealth &&
                 ally.health < ally.maxHealth) {
-                    
+
                 let isTargetAlready = false;
 
                 for (let j = 0, k = this.targets.length; j < k; j++) {
@@ -74,8 +80,8 @@ export default class Unit4 extends BaseUnit {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new HealingProjectile(
                     this.targets[i],
-                    this.x + this.width/2,
-                    this.y + this.height/2,
+                    this.x ,
+                    this.y ,
                     this.healing));
 
                 this.totalHealing += this.healing;
@@ -120,12 +126,17 @@ export default class Unit4 extends BaseUnit {
     }
 
     draw() {
-        let ctx = this.ctx;
+        let ctx = this.ctx,
+            img = this.runImages[this.imageIndex];
 
-        ctx.fillStyle = 'purple';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
+                           Constants.cellSize, Constants.cellSize * 90/100);
+
+        this.drawHP();
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.imageIndex = (this.imageIndex + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
     }
 }

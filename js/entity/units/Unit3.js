@@ -11,11 +11,18 @@ export default class Unit3 extends BaseUnit {
 
         this.maxHealth = 500;
         this.health = this.maxHealth;
-        
-        this.range = Constants.cellSize;
+
+        this.range = Constants.cellSize * 2;
         this.damage = 10;
 
         this.hasAbility = hasAbility;
+
+        this.runImages = Constants.unit3RunImages;
+        this.hitImages = Constants.unit3HitImages;
+        this.imageIndex = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     update() {
@@ -30,7 +37,7 @@ export default class Unit3 extends BaseUnit {
             return;
         }
 
-        this.step();
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) {
             this.move();
@@ -38,13 +45,15 @@ export default class Unit3 extends BaseUnit {
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
-                    this.x + this.width/2,
-                    this.y + this.height/2,
+                    this.x - this.width/2,
+                    this.y - this.height/2,
                     this.damage,
+                    Constants.unit3HitImages[4],
+                    Constants.projectileUnitBang,
                 ));
             }
 
@@ -84,12 +93,23 @@ export default class Unit3 extends BaseUnit {
     }
 
     draw() {
-        let ctx = this.ctx;
+        let ctx = this.ctx,
+            img;
 
-        ctx.fillStyle = 'blue';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
+        if (this.targets.length != 0) {
+            img = this.hitImages[this.imageIndex];
+        } else {
+            img = this.runImages[this.imageIndex];
+        }
+
+        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
+                           Constants.cellSize, Constants.cellSize * 90/100);
+
+        this.drawHP();
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.imageIndex = (this.imageIndex + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
     }
 }

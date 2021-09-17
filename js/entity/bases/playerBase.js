@@ -2,17 +2,43 @@ import * as Constants from './../../constants.js';
 
 export default class PlayerBase {
     constructor() {
-        this.health = { data: 100000};
+        this.maxHealth = 100000;
+        this.health = { data: this.maxHealth };
     }
 
     draw(ctx) {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(0,
-                     Constants.controlBarHeight,
-                     Constants.cellSize,
-                     Constants.canvasHeight - Constants.controlBarHeight);
-        ctx.fillStyle = 'white';
-        ctx.font =  Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health.data), 2, Constants.cellSize);
+        let img = Constants.playerBaseImage;
+
+        ctx.drawImage(img,
+                      0, Constants.controlBarHeight,
+                      Constants.cellSize, Constants.gameGridHeight);
+
+        this.drawHP(ctx);
+    }
+
+    drawHP(ctx) {
+        let hpBarWidth = Constants.cellSize/10,
+            hpBarHeight = Constants.gameGridHeight,
+            hpBarTopLeftPosX = 0,
+            hpBarTopLeftPosY = Constants.controlBarHeight + Constants.cellSize / 20,
+            hpBarLineWidth = Constants.cellSize / 10;
+
+        ctx.beginPath();
+        ctx.rect(hpBarTopLeftPosX, hpBarTopLeftPosY,
+                 hpBarWidth, hpBarHeight);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = hpBarLineWidth;
+        ctx.stroke();
+
+        let lostHPHeight = hpBarHeight * (1 - this.health.data / this.maxHealth);
+
+        ctx.beginPath();
+        ctx.rect(hpBarTopLeftPosX, hpBarTopLeftPosY + lostHPHeight,
+                 hpBarWidth, hpBarHeight - lostHPHeight);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = hpBarLineWidth;
+        ctx.stroke();
     }
 }

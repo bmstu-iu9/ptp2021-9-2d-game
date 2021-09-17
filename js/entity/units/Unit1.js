@@ -16,10 +16,12 @@ export default class Unit1 extends BaseUnit {
 
         this.hasAbility = true;
 
-        this.index = 0;
+        this.runImages = Constants.unit1RunImages;
+        this.hitImages = Constants.unit1HitImages;
+        this.imageIndex = 0;
 
-        this.lastAnimationTime = new Date();
-        this.animationInterval = 200;
+        this.lastAnimationTime = new Date().getTime();
+        this.animationInterval = 1000/8;
     }
 
     findTargets(targetsAmount) {
@@ -50,7 +52,7 @@ export default class Unit1 extends BaseUnit {
             let enemy = this.enemies[i],
                 distance = Math.abs(enemy.x - this.x);
 
-            if (distance < minDistance && (enemy.y > this.y && this.y + Constants.cellSize > enemy.y )) {
+            if (distance < minDistance && (enemy.y > this.y - Constants.cellSize / 2 && this.y + Constants.cellSize / 2 > enemy.y )) {
                 let isTargetAlready = false;
                 for (let j = 0, k = this.targets.length; j < k; j++) {
                     if (enemy == this.targets[j]) {
@@ -85,7 +87,7 @@ export default class Unit1 extends BaseUnit {
             this.hasAbility = true;
         }
 
-        this.step();
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) {
             this.move();
@@ -144,9 +146,11 @@ export default class Unit1 extends BaseUnit {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
-                    this.x + this.width/2,
-                    this.y + this.height/2,
+                    this.x,
+                    this.y,
                     this.damage,
+                    Constants.unit1HitImages[4],
+                    Constants.projectileUnitBang,
                 ));
             }
             this.lastShotTime = new Date();
@@ -154,29 +158,50 @@ export default class Unit1 extends BaseUnit {
     }
 
     draw() {
-        let ctx = this.ctx;
-        /*
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);
-        */
-        var img = new Image();
+        let ctx = this.ctx,
+            img;
 
-
-        img.src = "./../../../images/unit1/" + this.index + ".png";
-
-
-        ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
-
-        if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.index = (this.index + 1) % 4;
-            this.lastAnimationTime = new Date;
+        if (this.targets.length != 0) {
+            img = this.hitImages[this.imageIndex];
+        } else {
+            img = this.runImages[this.imageIndex];
         }
 
+        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - this.height + Constants.cellSize * 10/100,
+                           Constants.cellSize, Constants.cellSize * 90/100);
 
-        // Загружаем файл изображения
+        this.drawHP();
 
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.imageIndex = (this.imageIndex + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
+    }
+
+    drawHP() {
+        let ctx = this.ctx,
+            width = Constants.cellSize * 3 / 5;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
+
+        width = width * this.health / this.maxHealth;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
     }
 }

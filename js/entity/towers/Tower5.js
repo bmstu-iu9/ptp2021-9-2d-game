@@ -6,7 +6,8 @@ export default class Tower5 extends BaseTower {
     constructor(game, x, y) {
         super(game, x, y);
 
-        this.health = 100;
+        this.maxHealth = 1000;
+        this.health = this.maxHealth;
         this.damage = 40;
         this.range = Constants.cellSize * 3 + Constants.cellSize / 2;
 
@@ -16,16 +17,24 @@ export default class Tower5 extends BaseTower {
         this.shootInterval = 1200;
 
         this.level = 1;
+
+        this.images = Constants.tower5Images;
+        this.imageIndex = 0;
+
+        this.lastAnimationTime = new Date();
+        this.animationInterval = 200;
     }
 
     shoot() {
-        if (new Date - this.lastShotTime >= this.shootInterval) {
+        if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 4) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
                     this.x,
-                    this.y,
+                    this.y - Constants.cellSize / 4,
                     this.damage,
+                    Constants.tower5Images[5],
+                    Constants.projectileUnitBang,
                 ))
             }
 
@@ -34,20 +43,20 @@ export default class Tower5 extends BaseTower {
     }
 
     draw() {
-        let ctx = this.ctx;
+        let ctx = this.ctx,
+            img = this.images[this.imageIndex];
 
-        if (this.level == 1) {
-            ctx.fillStyle = 'Purple';
-            ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
-            ctx.fillStyle = 'gold';
-            ctx.font = Constants.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
-        } else if (this.level == 2) {
-            ctx.fillStyle = 'teal';
-            ctx.fillRect(this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2, this.width, this.height);
-            ctx.fillStyle = 'gold';
-            ctx.font = Constants.fontSize + 'px Orbitron';
-            ctx.fillText(Math.floor(this.health), this.x + Constants.cellSize / 20, this.y + Constants.cellSize / 3);
+        ctx.drawImage(img,
+                      this.x - Constants.cellSize / 2,
+                      this.y - Constants.cellSize / 2 + Constants.cellSize * 10/100,
+                      Constants.cellSize,
+                      Constants.cellSize * 90/100);
+
+        this.drawHP();
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.imageIndex = (this.imageIndex + 1) % 5;
+            this.lastAnimationTime = new Date;
         }
     }
 

@@ -2,24 +2,29 @@ import { calculateDistance } from './../../utils/utils.js';
 import * as Constants from './../../constants.js';
 
 export default class Projectile4 {
-    constructor(target, x, y, damage, slowingInterval, slowingCoeff) {
+    constructor(target, x, y, damage, slowingInterval, slowingCoeff, img, bangImages) {
         this.target = target;
         this.targetX = target.x;
         this.targetY = target.y;
 
         this.x = x;
         this.y = y;
-        this.width = Constants.cellSize / 15;
-        this.height = Constants.cellSize / 15;
+        this.width = Constants.cellSize / 2;
+        this.height = Constants.cellSize / 2;
+
+        this.img = img;
 
         this.range = Constants.cellSize / 2;
 
-        this.speed = Constants.cellSize * 15/100;
+        this.speed = Constants.cellSize / 15;
         this.damage = damage;
+        this.direction = 0;
 
         this.slowingInterval = slowingInterval;
         this.slowingCoeff = slowingCoeff;
 
+
+        this.bangImages = bangImages;
         this.explosionFrame = 0;
         this.reached = false;
         this.complete = false;
@@ -34,8 +39,8 @@ export default class Projectile4 {
         }
 
         let angle = Math.atan2(this.targetY - this.y,
-                               this.targetX - this.x);
-
+                               this.targetX - this.x)
+        this.direction = angle;
         this.x += this.speed * Math.cos(angle);
         this.y += this.speed * Math.sin(angle);
     }
@@ -68,22 +73,30 @@ export default class Projectile4 {
 
     draw(ctx) {
         if (this.reached) {
+            ctx.drawImage(this.bangImages[this.explosionFrame],
+                          this.targetX - Constants.cellSize / 2,
+                          this.targetY - Constants.cellSize / 2,
+                          this.width * 2,
+                          this.height * 2);
             this.explosionFrame++;
 
-            // Здесь будет обработка анимации взрыва
-
-            if (this.explosionFrame == 5) {
+            if (this.explosionFrame == 4) {
                 this.complete = true;
             }
         } else {
             ctx.beginPath();
             ctx.save();
             ctx.translate(this.x, this.y);
-            ctx.scale(1, this.height/this.width);
-            ctx.arc(0, 0, this.width, 0, Math.PI*2);
-            ctx.fill();
+
+            ctx.rotate(this.direction);
+
+            ctx.drawImage(this.img,
+                          0,
+                          0,
+                          this.width,
+                          this.height);
+
             ctx.restore();
-            ctx.strokeStyle = 'red';
             ctx.stroke();
             ctx.closePath();
         }

@@ -1,4 +1,8 @@
 import * as Constants from './constants.js';
+import GameStartState from './components/gameStates/GameStartState.js';
+import GameRunningState from './components/gameStates/GameRunningState.js';
+import GamePausingState from './components/gameStates/GamePausingState.js';
+import GameOverState from './components/gameStates/GameOverState.js';
 import Mouse from './components/mouse.js';
 import PlayerBase from './entity/bases/playerBase.js';
 import EnemyBase from './entity/bases/enemyBase.js';
@@ -9,12 +13,23 @@ import { processUnits } from './components/unitsProcessing.js';
 import { processProjectiles } from './components/ProjectilesProcessing.js';
 import { processEnemies } from './components/enemiesProcessing.js';
 
-class Game {
+
+export default class Game {
     constructor() {
         this.canvas = document.getElementById('canvas1');
         this.ctx = this.canvas.getContext('2d');
         this.canvas.width = Constants.canvasWidth;
         this.canvas.height = Constants.canvasHeight;
+
+        this.states = {
+            gameStart: GameStartState,
+            gameRunning: GameRunningState,
+            gamePausing: GamePausingState,
+            gameOver: GameOverState,
+        }
+
+        this.state = new this.states.gameStart(this);
+        this.gameOver = false;
 
         this.gameGrid = [];
         this.towers = [];
@@ -22,9 +37,7 @@ class Game {
         this.enemies = [];
         this.projectiles = [];
 
-        this.gameOver = false;
-
-        this.resources = 3000;
+        this.resources = 300;
 
         this.playerBase = new PlayerBase();
         this.enemyBase = new EnemyBase();
@@ -37,37 +50,41 @@ class Game {
 
         this.enemy_summoning_interval = 5000;
         this.last_enemy_summoning_time = new Date();
-    }
 
-    init() {
-        this.mouse = new Mouse(game);
+        this.ms = new Date().getTime();
 
-        this.mouse.init(game);
-
-        createGameGrid(game);
+        this.mouse = new Mouse(this);
+        this.mouse.init(this);
+        createGameGrid(this);
     }
 
     animate() {
         handleControlBar(game);
-        handleBases(game);
         handleGameGrid(game);
+        handleBases(game);
 
         processTowers(game);
         processUnits(game);
-        processProjectiles(game);
         processEnemies(game);
+        processProjectiles(game);
 
-        let ms = 1000/60;
-        ms += new Date().getTime();
-        while (new Date().getTime() < ms) {}
+        this.ms = new Date().getTime() + 1000/60;
+        while (new Date().getTime() < this.ms) {}
     }
 }
 
 let game = new Game();
-game.init();
+play();
 
 function play() {
-    game.animate()
+    game.state.processState();
+
     if (!game.gameOver) requestAnimationFrame(play);
 }
-play()
+
+export function restartGame() {
+    game = new Game();
+    game.state = new game.states.gameRunning(game);
+
+    play();
+}

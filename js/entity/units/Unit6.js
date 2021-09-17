@@ -7,7 +7,7 @@ export default class Unit6 extends BaseUnit {
     constructor(game, x, y) {
         super(game, x, y);
 
-        this.maxHealth = 500;
+        this.maxHealth = 250;
         this.health = this.maxHealth;
         this.range = Constants.cellSize;
 
@@ -20,7 +20,9 @@ export default class Unit6 extends BaseUnit {
 
         this.hasAbility = true;
 
-        this.index = 0;
+        this.runImages = Constants.unit6RunImages;
+        this.hitImages = Constants.unit6HitImages;
+        this.imageIndex = 0;
 
         this.lastAnimationTime = new Date();
         this.animationInterval = 200;
@@ -32,7 +34,7 @@ export default class Unit6 extends BaseUnit {
             return;
         }
 
-        this.step();
+        this.findTargets(this.targetsAmount);
 
         if (this.targets.length == 0) {
             this.move();
@@ -60,9 +62,11 @@ export default class Unit6 extends BaseUnit {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile1(
                     this.targets[i],
-                    this.x + this.width/2,
-                    this.y + this.height/2,
+                    this.x - this.width/2,
+                    this.y - this.height/2,
                     this.damage,
+                    Constants.unit1HitImages[4],
+                    Constants.projectileUnitBang,
                 ));
             }
 
@@ -108,22 +112,50 @@ export default class Unit6 extends BaseUnit {
     }
 
     draw() {
-        let ctx = this.ctx;
+        let ctx = this.ctx,
+            img;
 
-        var img = new Image();
-        img.src = "./../../../images/unit6/" + this.index + ".png";
-
-        ctx.drawImage(img, this.x, this.y, Constants.cellSize, Constants.cellSize);
-
-        if (new Date - this.lastAnimationTime >= this.animationInterval) {
-            this.index = (this.index + 1) % 4;
-            this.lastAnimationTime = new Date;
+        if (this.targets.length != 0) {
+            img = this.hitImages[this.imageIndex];
+        } else {
+            img = this.runImages[this.imageIndex];
         }
 
-        /*ctx.fillStyle = 'grey';
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-        ctx.fillStyle = 'black';
-        ctx.font = Constants.fontSize + 'px Orbitron';
-        ctx.fillText(Math.floor(this.health), this.x + 5, this.y + 15);*/
+        ctx.drawImage(img, this.x - Constants.cellSize / 2, this.y - Constants.cellSize / 2 + Constants.cellSize * 15/100,
+                           Constants.cellSize, Constants.cellSize * 85/100);
+
+        this.drawHP();
+
+        if (new Date - this.lastAnimationTime >= this.animationInterval) {
+            this.imageIndex = (this.imageIndex + 1) % 4;
+            this.lastAnimationTime = new Date;
+        }
+    }
+
+    drawHP() {
+        let ctx = this.ctx,
+            width = Constants.cellSize * 3 / 5;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'black';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
+
+        width = width * this.health / this.maxHealth;
+
+        ctx.beginPath();
+        ctx.rect(this.x - Constants.cellSize / 2 + Constants.cellSize / 8,
+                 this.y - Constants.cellSize / 2 + Constants.cellSize / 15,
+                 width,
+                 1);
+        ctx.strokeStyle = 'green';
+        ctx.lineJoin = 'round';
+        ctx.lineWidth = Constants.cellSize / 10;
+        ctx.stroke();
     }
 }

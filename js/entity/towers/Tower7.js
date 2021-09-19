@@ -67,7 +67,7 @@ export default class Tower7 extends BaseTower {
             this.lastShotTime = new Date();
         }
 
-        if (this.unitNumber == 3 && this.level == 2) {
+        if (this.unitNumber == 3 && this.level == 2 && new Date - this.lastShotTime >= this.shootInterval / 2) {
             this.units.push(new Unit2(
                 this.game,
                 this.x + Constants.cellSize,

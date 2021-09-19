@@ -80,8 +80,8 @@ export default class Tower3 extends BaseTower {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile3(
                     this.targets[i],
-                    this.x,
-                    this.y,
+                    this.x + Constants.cellSize / 2,
+                    this.y - Constants.cellSize / 2,
                     this.damage,
                     Constants.tower3Images[4],
                     Constants.projectileUnitBang,

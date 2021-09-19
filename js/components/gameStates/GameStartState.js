@@ -14,6 +14,10 @@ export default class GameStartState {
         ctx.fillRect(0, 0, Constants.canvasWidth, Constants.canvasHeight);
 
         ctx.fillStyle = Constants.colorInMenu;
+        ctx.font = Constants.namefontSize + "px Orbitron";
+        ctx.fillText("Tower Defense Game", Constants.canvasWidth / 2 - (ctx.measureText('Tower Defense Game').width / 2),Constants.canvasHeight / 4.5 )
+
+        ctx.fillStyle = Constants.colorInMenu;
         ctx.fillRect(Constants.canvasWidth / 2.21 , Constants.canvasHeight / 3,
                      Constants.canvasWidth / 10, Constants.canvasHeight / 16);
 

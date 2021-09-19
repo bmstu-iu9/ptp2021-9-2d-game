@@ -17,7 +17,7 @@ export default class GameOverState {
 
         ctx.fillStyle = Constants.menuBg;
         ctx.fillRect(Constants.canvasWidth / 2.43, Constants.canvasHeight / 2.3,
-                     Constants.canvasWidth / 5.36, Constants.canvasHeight / 8);
+                     Constants.canvasWidth / 5.36, Constants.canvasHeight /6.5);
 
         ctx.fillStyle = Constants.colorInMenu;
         ctx.fillRect(Constants.canvasWidth / 2.38, Constants.canvasHeight / 1.95,

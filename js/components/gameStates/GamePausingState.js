@@ -18,7 +18,7 @@ export default class GamePausingState {
 
         ctx.fillStyle = Constants.menuBg;
         ctx.fillRect(Constants.canvasWidth / 2 - (Constants.canvasWidth / (6.45 * 2)), Constants.canvasHeight / 2.7,
-                     Constants.canvasWidth / 6.45, Constants.canvasHeight / 3);
+                     Constants.canvasWidth / 6.45, Constants.canvasHeight / 5.5);
 
         ctx.fillStyle = Constants.colorInMenu;
         ctx.fillRect(menuLeftCorner, menuBottom[0],

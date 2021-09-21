@@ -72,5 +72,6 @@ export default class Tower4 extends BaseTower {
         this.level = 2;
         this.damage += 20;
         this.targetsAmount = 3;
+        this.health = this.maxHealth;
     }
 }

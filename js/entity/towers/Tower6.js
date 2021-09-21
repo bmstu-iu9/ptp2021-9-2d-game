@@ -9,9 +9,9 @@ export default class Tower6 extends BaseTower {
 
         this.units = game.units;
 
-        this.maxHealth = 1000;
+        this.maxHealth = 500;
         this.health = this.maxHealth;
-        this.range = Constants.cellSize * 5;
+        this.range = Constants.cellSize * 12;
 
         this.upgradeCost = 200;
 
@@ -78,5 +78,6 @@ export default class Tower6 extends BaseTower {
 
     upgrade() {
         this.level = 2;
+        this.health = this.maxHealth;
     }
 }

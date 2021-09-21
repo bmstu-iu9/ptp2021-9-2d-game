@@ -1,5 +1,5 @@
 import BaseUnit from './BaseUnit.js';
-import Projectile1 from '../projectiles/Projectile1.js';
+import Projectile2 from '../projectiles/Projectile1.js';
 import * as Constants from './../../constants.js';
 import { calculateDistance } from './../../utils/utils.js';
 

@@ -13,7 +13,7 @@ export default class Tower7 extends BaseTower {
         this.game = game;
         this.units = game.units;
 
-        this.maxHealth = 1000;
+        this.maxHealth = 5000;
         this.health = this.maxHealth;
         this.damage = 20;
         this.range = 6 * Constants.cellSize;
@@ -21,7 +21,7 @@ export default class Tower7 extends BaseTower {
         this.upgradeCost = 200;
 
         this.lastShotTime = new Date();
-        this.shootInterval = 3000;
+        this.shootInterval = 15000;
 
         this.unitNumber = 0;
 
@@ -49,6 +49,8 @@ export default class Tower7 extends BaseTower {
             }
 
             this.died = true;
+        } else {
+            this.health -= 1;
         }
     }
 
@@ -67,7 +69,7 @@ export default class Tower7 extends BaseTower {
             this.lastShotTime = new Date();
         }
 
-        if (this.unitNumber == 3 && this.level == 2) {
+        if (this.unitNumber == 3 && this.level == 2 && new Date - this.lastShotTime >= this.shootInterval / 20) {
             this.units.push(new Unit2(
                 this.game,
                 this.x + Constants.cellSize,
@@ -98,5 +100,6 @@ export default class Tower7 extends BaseTower {
 
     upgrade() {
         this.level = 2;
+        this.health = this.maxHealth;
     }
 }

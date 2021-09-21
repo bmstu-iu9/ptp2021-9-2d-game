@@ -9,11 +9,11 @@ export default class Unit3 extends BaseUnit {
 
         this.game = game;
 
-        this.maxHealth = 500;
+        this.maxHealth = 1000;
         this.health = this.maxHealth;
 
         this.range = Constants.cellSize * 2;
-        this.damage = 10;
+        this.damage = 5;
 
         this.hasAbility = hasAbility;
 

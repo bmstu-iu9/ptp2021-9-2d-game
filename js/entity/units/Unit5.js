@@ -1,5 +1,5 @@
 import BaseUnit from './BaseUnit.js';
-import Projectile1 from '../projectiles/Projectile1.js';
+import Projectile2 from '../projectiles/Projectile1.js';
 import * as Constants from './../../constants.js';
 import { calculateDistance } from './../../utils/utils.js';
 
@@ -32,7 +32,7 @@ export default class Unit5 extends BaseUnit {
     shoot() {
         if (new Date - this.lastShotTime >= this.shootInterval && this.imageIndex == 3) {
             for (let i = 0, n = this.targets.length; i < n; i++) {
-                this.projectiles.push(new Projectile1(
+                this.projectiles.push(new Projectile2(
                     this.targets[i],
                     this.x - this.width/2,
                     this.y - Constants.cellSize / 2,

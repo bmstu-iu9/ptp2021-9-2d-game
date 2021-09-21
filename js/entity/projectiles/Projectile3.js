@@ -16,7 +16,7 @@ export default class Projectile3 {
         this.width = Constants.cellSize / 2;
         this.height = Constants.cellSize ;
 
-        this.range = 6 * Constants.cellSize + Constants.cellSize / 2;
+        this.range = 10 * Constants.cellSize;
 
         this.speed = Constants.cellSize / 15;
         this.damage = damage;
@@ -40,7 +40,7 @@ export default class Projectile3 {
             let enemy = enemies[i];
 
             if (Math.abs(enemy.x - this.x) < Constants.cellSize / 20 &&
-                this.y == enemy.y) {
+                this.y <= enemy.y && this.y + Constants.cellSize >= enemy.y) {
 
                 if (enemy.health - this.damage < 0) {
                     enemy.health = 0;

@@ -9,8 +9,8 @@ export default class Tower3 extends BaseTower {
 
         this.maxHealth = 1000;
         this.health = this.maxHealth;
-        this.damage = 10;
-        this.range = Constants.cellSize * 6 + Constants.cellSize / 2;
+        this.damage = 20;
+        this.range = Constants.cellSize * 10;
 
         this.upgradeCost = 200;
 
@@ -80,8 +80,8 @@ export default class Tower3 extends BaseTower {
             for (let i = 0, n = this.targets.length; i < n; i++) {
                 this.projectiles.push(new Projectile3(
                     this.targets[i],
-                    this.x,
-                    this.y,
+                    this.x + Constants.cellSize / 2,
+                    this.y - Constants.cellSize / 2,
                     this.damage,
                     Constants.tower3Images[4],
                     Constants.projectileUnitBang,
@@ -112,7 +112,8 @@ export default class Tower3 extends BaseTower {
 
     upgrade() {
         this.level = 2;
-        this.damage += 20;
-        this.shootInterval -= 50;
+        this.damage += 30;
+        this.shootInterval -= 500;
+        this.health = this.maxHealth;
     }
 }

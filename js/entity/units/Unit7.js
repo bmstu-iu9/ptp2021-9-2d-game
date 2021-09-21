@@ -9,14 +9,14 @@ export default class Unit7 extends BaseUnit {
 
         this.units = game.units;
 
-        this.maxHealth = 200;
+        this.maxHealth = 150;
         this.health = this.maxHealth;
 
         this.speed = Constants.cellSize * 5 / 100;
 
         this.range = 10 * Constants.cellSize;
 
-        this.baseDamage = 25;
+        this.baseDamage = 30;
         this.damage = this.baseDamage;
         this.shootInterval *= 10;
 

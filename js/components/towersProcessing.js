@@ -36,6 +36,10 @@ export function putTower(game) {
     const positionX = game.mouse.x - (game.mouse.x % Constants.cellSize),
           positionY = game.mouse.y - (game.mouse.y % Constants.cellSize);
 
+    if (positionX < Constants.cellSize || positionX > Constants.canvasWidth - Constants.cellSize) {
+        return;
+    }
+
     for (let i = 0, n = game.towers.length; i < n; i++) {
         if (Math.floor(game.towers[i].x / Constants.cellSize) == Math.floor(game.mouse.x / Constants.cellSize) &&
             Math.floor(game.towers[i].y / Constants.cellSize) == Math.floor(game.mouse.y / Constants.cellSize)) {

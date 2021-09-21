@@ -33,7 +33,7 @@ export default class BaseEnemy {
         this.shootInterval = this.baseShootInterval;
 
         this.damageBuff = 10;
-        this.speedBuff = Constants.cellSize / 2;
+        this.speedBuff = Constants.cellSize / 30;
         this.shootIntervalBuff = 100;
 
         this.buffed = false;

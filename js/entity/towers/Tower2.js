@@ -9,8 +9,8 @@ export default class Tower2 extends BaseTower {
 
         this.maxHealth = 1000;
         this.health = this.maxHealth;
-        this.damage = 10;
-        this.range = Constants.cellSize * 5;
+        this.damage = 25;
+        this.range = Constants.cellSize * 7;
 
         this.upgradeCost = 200;
 
@@ -64,7 +64,8 @@ export default class Tower2 extends BaseTower {
 
     upgrade() {
         this.level = 2;
-        this.damage += 20;
+        this.damage += 25;
         this.shootInterval -= 50;
+        this.health = this.maxHealth;
     }
 }

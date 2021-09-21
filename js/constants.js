@@ -11,7 +11,8 @@ export const
     smallMenufontSize = canvasWidth / 30,
     largeMenufontSize = cellSize  * 3 / 5,
     infoFontSize = cellSize * 2 / 2.7,
-    pauseWindowFontSize = canvasHeight / 34;
+    pauseWindowFontSize = canvasHeight / 34,
+    namefontSize = cellSize;
 
 export const
     menuHeight = 50,
